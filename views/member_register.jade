@@ -1,0 +1,38 @@
+extends main
+
+block title
+  注册
+
+block content
+  #register-form
+    h1 注册
+    p.login 已经是会员？
+      a(href='/member/login') 登录
+      .
+    form(action='/member/register', method='post')
+      div
+        label(for="") 邮箱
+          abbr(title='必填')*
+        input#email(type="text", name='email')
+
+      div
+        label(for="") 密码
+          abbr(title='必填')*
+        input#password(type="password", name='password')
+
+      div
+        label(for="") 再输一遍密码
+          abbr(title='必填')*
+
+      div
+        input#repassword(type="password", name='repassword')
+
+      .tos
+        ul
+          li
+            label.agree_label(for='agree_tos')
+              input#agree_tos(type='checkbox')
+              我同意
+              a(href='#') 注册条款
+
+      input(type="submit", value="注册") 

@@ -1,0 +1,22 @@
+extends admin
+
+block content
+  form.form-horizontal(action='/admin/add_product', method='post')
+    legend 添加首页产品
+      .control-group
+        label.control-label(for='product_name') 产品名
+        .controls
+          input(type='text', id='product_name', name='product_name', placeholder='产品名')
+      .control-group
+        label.control-label(for='product_description') 产品图片
+        .controls
+          input(type='file')
+      .control-group
+        label.control-label(for='product_price') 产品类型
+        .controls
+          select
+            option 全图片
+            option 文字+图片
+      .control-group
+        .controls
+          button.btn(type='submit') 保存

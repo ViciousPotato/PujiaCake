@@ -1,0 +1,48 @@
+!!! 5
+html
+  head
+    title 后台管理
+    link(rel='stylesheet', href='/css/css/bootstrap.css')
+
+  body
+    .navbar.navbar-inverse.navbar-static-top
+      .navbar-inner
+        a.brand(href='#') 后台管理
+        ul.nav
+          li.active
+            a(href='#') 首页
+          li
+            a(href='#')
+
+    .container-fluid
+      .row-fluid
+        .span2
+          ul.nav.nav-list#left-nav
+            li
+              a(href='/admin/')
+                i.icon-home.icon-white 
+                首页
+            li
+              a(href='/admin/list_members')
+                i.icon-pencil 
+                会员管理
+
+            li
+              a(href='/admin/add_product')
+                i.icon-plus
+                添加产品
+
+            li
+              a(href='/admin/add_index_product')
+                i.icon-plus
+                添加首页产品
+
+
+        .span10
+          block content
+            显示动态
+
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script
+      $($('#left-nav li')[#{active_index}]).addClass('active')

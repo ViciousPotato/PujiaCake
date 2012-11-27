@@ -1,0 +1,137 @@
+!!! 5
+//if IE 7 
+  html.no-js.ie7(lang='en')  
+//if IE 8 
+  html.no-js.ie8(lang='en')  
+//if IE 9 
+  html.no-js.ie9(lang='en')  
+// [if (gt IE 9)|!(IE)] <!
+html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
+  // <![endif]
+  head
+    meta(charset='utf-8')
+    title
+      | 产品列表
+    meta(name='description', content='Keith Homemade Cakes - an iconic bakery based in Brighton, specialise in making Birthday Cakes, Celebration Cakes, Dessert Cakes and other classic sweet and savoury baked treats')
+    meta(name='keywords', content='Keith Homemade Cakes, Keith Home Made Cakes, Home-made, Shop of Quality, Birthday Cakes, Children"s Cakes, Celebration, Cakes, Desserts, Savouries, Pies, Pasties, Sausage Rolls, Party Pies, Party Sausage Rolls, Corporate Catering, Catering Services, Sandwiches, Salad Rolls, Health Cakes, Cupcakes, Mini Cupcakes, Muffins, Gluten Free, Treats, Sweets, Biscuits, Cookies, Chocolate Cakes, Mud Cakes, Cheesecakes, Black Forest, Gateau, Sponge Cakes, Mousse Cakes, Coffee, Brighton, Melbourne')
+    link(rel='shortcut icon', href='../../favicon.ico')
+    link(rel='stylesheet', href='../../css/css/style.css')
+    script(src='../../js/modernizr-1.6.min.js')
+  body#products
+    header
+      .wrapper
+        h1
+          a.img(href='../../index.html', title='Go back to the homepage') Keith Homemade Cakes
+        nav
+          ul
+            li#m-home
+              a.img(href='../../index.html') Home
+            li#m-about
+              a.img(href='../../about/index.html') About Us
+            li#m-range
+              a.img.active(href='../index.html') Our Range
+            li#m-catering
+              a.img(href='../../member/index.html') Catering
+            li#m-contact
+              a.img(href='../../contact/index.html') Contact
+            li#m-facebook
+              a#facebook-icon(href='https://www.facebook.com/pages/Keith-Homemade-Cakes/160929470650809', target='_blank') facebook
+    .wrapper.content
+      section#sidebar
+        nav
+          ul#sidenav.coral
+            li
+              a(href='../chocalates/index.html') 巧克力
+            li
+              a(href='../candies/index.html') 糖果
+            li
+              a.active(href='../cakes/index.html') 糕点
+          a.b(href='../../files/keith-cakes-brochure.pdf')
+            h4.coral Need catering?
+            p.imgcat
+              img(src='../../images/catering-mini.png', width='101', height='82', alt='')
+            p 下载产品目录
+       section#main
+        h3 Catering
+        p.breadcrumbs
+          a(href='../index.html') 产品列表
+          | > 糕点
+        ul#product-list
+          li
+            a.m(href='../../images/products/catering-selection-sandwiches-salad-176.jpg')
+              img(src='../../images/products/thumb-agecake.png', alt='Catering selection salad sandwiches')
+              h4 福桃
+              p
+                | 福桃简介
+              p.view
+                span.img 查看
+          li
+            a.m(href='../../images/products/freshly-made-ham-sandwich-182.jpg')
+              img(src='../../images/products/thumb-peachcake.png', alt='Freshly-made Ham Sandwich')
+              h4 桃酥
+              p 桃酥的简单介绍
+              p.view
+                span.img 查看
+          li
+            a.m(href='../../images/products/freshly-made-sandwiches-chicken-181.jpg')
+              img(src='../../images/products/thumb-rabbitcake.png', alt='Freshly-made Chicken Sandwich')
+              h4 兔子饼
+              p 兔子饼简介
+              p.view
+                span.img 查看
+          li
+            a.m(href='../../images/products/freshly-made-roll-ham-178.jpg')
+              img(src='../../images/products/thumb-redbeancake.png', alt='Freshly-made Ham Roll')
+              h4 红豆酥
+              p 红豆酥简介 
+              p.view
+                span.img 查看
+          li
+            a.m(href='../../images/products/freshly-made-roll-veg-177.jpg')
+              img(src='../../images/products/thumb-tuanyuancake.png', alt='Freshly-made Salad Roll')
+              h4 团圆娑
+              p 白芸豆、小麦粉、起酥油、白砂糖、黄油、奶粉、鸡蛋、高麦芽糖浆、炼乳、海藻糖、食用盐、食品添加剂（山梨糖醇）
+              p.view
+                span.img 查看
+          li
+            a.m(href='../../images/products/freshly-made-roll-chicken-179.jpg')
+              img(src='../../images/products/thumb-chickencake.png', alt='Freshly-made Chicken Roll')
+              h4 鸡仔饼
+              p
+                | 鸡仔饼简介
+              p.view
+                span.img 查看
+
+          each product in products
+            li
+              a.m(href='../../images/products/freshly-made-roll-chicken-179.jpg')
+                img(src='../../images/products/thumb-chickencake.png', alt='Freshly-made Chicken Roll')
+                h4 #{product.name}
+                if user
+                  p #{product.price}
+                else
+                  p
+                    a(href='/member/login') 登录查看价格
+                p #{product.description}
+                p.view
+                  span.img 查看
+
+///
+    footer
+      .wrapper.separator
+        .vcard
+          section#copyright
+            .wrapper
+              p © Copyright 2012 Keith Homemade Cakes
+              p#koodoz
+                a(href='http://www.koodoz.com.au', title='Web design Melbourne')
+                  strong
+                    | Web Design
+                    span Melbourne
+                | &
+                a(href='http://www.koodoz.com.au/services/internet-marketing/', title='SEO Melbourne')
+                  strong
+                    | SEO
+                    span Melbourne
+                | by Koodoz Design
+///
