@@ -24,13 +24,8 @@ app.set 'views', 'views/'
 app.set 'view engine', 'jade'
 app.set 'view options', {layout : true}
 
-# Map static files
-
 generate_random_code = () ->
-	return '' + parseInt(Math.random() * 10) + parseInt(Math.random() * 10) + parseInt(Math.random() * 10) + parseInt(Math.random() * 10)
-
-app.get '/', (req, res) ->
-	res.send 'hello world'
+	return (parseInt(Math.random() * 10) for i in [1..4]).join("")
 
 # Resource files, images, css, js.
 app.get '/index.html', (req, res) ->
@@ -99,7 +94,11 @@ app.get '/admin/add_index_product', (req, res) ->
 	res.render 'admin_add_index_product.jade', {active_index : 3}
 
 app.post '/admin/add_product', (req, res) ->
-	product = Product {name : req.param('product_name'), description : req.param('product_description'), price : req.param('product_price')}
+	product = Product {
+		name : req.param('product_name'), 
+		description : req.param('product_description'), 
+		price : req.param('product_price')
+	}
 	product.save (err) ->
 		res.redirect('/admin/')
 
