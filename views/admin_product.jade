@@ -1,0 +1,74 @@
+extends admin
+
+block content
+  table#product-grid.table.table-bordered.datagrid
+      thead
+        tr
+          th
+            span.datagrid-header-title 产品列表
+            .datagrid-header-left
+            .datagrid-header-right
+              .input-append.search
+                input.input-medium(type='text', placeholder='Search')
+                button.btn
+                  i.icon-search
+      tfoot
+        tr
+          th
+            .datagrid-footer-left(style='display: none;')
+              .grid-controls
+                span
+                  span.grid-start
+                  | -
+                  span.grid-end
+                  | of
+                  span.grid-count
+                select.grid-pagesize
+                  option 10
+                  option 20
+                  option 50
+                  option 100
+                span Per Page
+            .datagrid-footer-right(style='display: none;')
+              .grid-pager
+                button.btn.grid-prevpage
+                  i.icon-chevron-left
+                span Page
+                .input-append.dropdown.combobox
+                  input.span1(type='text')
+                  button.btn(data-toggle='dropdown')
+                    i.caret
+                  ul.dropdown-menu
+                span
+                  | of
+                  span.grid-pages
+                button.btn.grid-nextpage
+                  i.icon-chevron-right
+
+  script
+    $.get('/admin/list_product', function(data) {
+        var dataSource = new StaticDataSource({
+          columns : [
+            {
+              property : 'name',
+              label : '商品名称',
+              sortable : true
+            }, 
+            {
+              property : 'description',
+              label : '描述',
+              sortable : true
+            }, 
+            {
+              property : 'price',
+              label : '价格',
+              sortable : true
+            }
+          ],
+          data : data,
+          delay : 200
+          });
+        $('#product-grid').datagrid({
+          dataSource : dataSource
+          });
+      })

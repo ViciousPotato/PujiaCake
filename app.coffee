@@ -32,6 +32,7 @@ generate_random_code = () ->
 app.get '/', (req, res) ->
 	res.send 'hello world'
 
+# Resource files, images, css, js.
 app.get '/index.html', (req, res) ->
 	res.sendfile 'index.html'
 
@@ -50,9 +51,11 @@ app.get '/images/:file', (req, res) ->
 app.get '/images/products/:file', (req, res) ->
 	res.sendfile 'images/products/' + req.params.file
 
+# About
 app.get '/about/:file', (req, res) ->
 	res.sendfile 'about/' + req.params.file
 
+# Member functions
 app.get '/member/index.html', (req, res) ->
 	random_code = generate_random_code()
 	res.render 'member_index.jade', {user : req.session['user'], random_code : random_code}
@@ -80,12 +83,13 @@ app.post '/member/login', (req, res) ->
 			req.session['user'] = users[0]
 			res.render 'member_login_success.jade'
 
+
+# Admin
 app.get '/admin/', (req, res) ->
 	res.render 'admin_index.jade', {active_index : 0}
 
 app.get '/admin/list_members', (req, res) ->
 	User.find (err, users) ->
-		console.log users
 		res.render 'admin_list_members.jade', {users : users, active_index : 1}
 
 app.get '/admin/add_product', (req, res) ->
@@ -98,6 +102,13 @@ app.post '/admin/add_product', (req, res) ->
 	product = Product {name : req.param('product_name'), description : req.param('product_description'), price : req.param('product_price')}
 	product.save (err) ->
 		res.redirect('/admin/')
+
+app.get '/admin/product', (req, res) ->
+	res.render 'admin_product.jade', {active_index : 2}
+
+app.get '/admin/list_product', (req, res) ->
+	Product.find (err, products) ->
+		res.json(products)
 
 app.get '/contact/:file', (req, res) ->
 	res.sendfile 'contact/' + req.params.file
@@ -112,7 +123,6 @@ app.get '/products/index.html', (req, res) ->
 	res.sendfile 'products/index.html'
 
 app.get '/products/:kind/index.html', (req, res) ->
-	console.log req.params.kind
 	if req.params.kind == 'cakes'
 		Product.find {}, (err, products) ->
 			res.render 'products_cakes.jade', {products : products, user : req.session['user']}

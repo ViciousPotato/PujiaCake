@@ -145,7 +145,6 @@
 
   app.get('/admin/list_members', function(req, res) {
     return User.find(function(err, users) {
-      console.log(users);
       return res.render('admin_list_members.jade', {
         users: users,
         active_index: 1
@@ -177,6 +176,18 @@
     });
   });
 
+  app.get('/admin/product', function(req, res) {
+    return res.render('admin_product.jade', {
+      active_index: 2
+    });
+  });
+
+  app.get('/admin/list_product', function(req, res) {
+    return Product.find(function(err, products) {
+      return res.json(products);
+    });
+  });
+
   app.get('/contact/:file', function(req, res) {
     return res.sendfile('contact/' + req.params.file);
   });
@@ -194,7 +205,6 @@
   });
 
   app.get('/products/:kind/index.html', function(req, res) {
-    console.log(req.params.kind);
     if (req.params.kind === 'cakes') {
       return Product.find({}, function(err, products) {
         return res.render('products_cakes.jade', {
