@@ -1,6 +1,10 @@
 extends admin
 
 block content
+  style
+    #product-grid {
+        margin-top: 20px;
+    }
   table#product-grid.table.table-bordered.datagrid
       thead
         tr
@@ -12,6 +16,8 @@ block content
                 input.input-medium(type='text', placeholder='Search')
                 button.btn
                   i.icon-search
+                button.btn#add-new-product
+                  i.icon-plus-sign
       tfoot
         tr
           th
@@ -67,8 +73,39 @@ block content
           ],
           data : data,
           delay : 200
-          });
+        });
+
         $('#product-grid').datagrid({
-          dataSource : dataSource
+          dataSource : dataSource,
+          cellrenderfunc : function(row, prop) {
+              return '<a href="#" class="product-' + prop + '" data-pk="' + row._id + 
+                     '" data-url="/admin/update_product" data-name="' + prop + '">' + 
+                     row[prop] + '</a>';
+          }
+        });
+
+       
+      });
+    
+    $("#product-grid").on('loaded', function(){
+      $(".product-name").each(function(index, element) {
+        $(element).editable({
+            type : "text",
+            title : "输入产品名称"
           });
-      })
+        });
+
+        $(".product-description").each(function(index, element) {
+          $(element).editable({
+            type : "textarea",
+            title : "输入产品描述"
+          });
+        });
+
+        $(".product-price").each(function(index, element) {
+          $(element).editable({
+            type : "text",
+            title : "输入产品价格"
+          });
+        });
+    });

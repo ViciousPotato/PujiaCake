@@ -5,11 +5,16 @@ html.fuelux
     link(rel='stylesheet', href='/css/css/bootstrap.css')
     link(rel='stylesheet', href='/css/css/fuelux.min.css')
     link(rel='stylesheet', href='/css/css/fuelux-responsive.min.css')
+    link(rel='stylesheet', href='/css/css/bootstrap-editable.css')
+    script(src='/js/require.js')
+    script(src='/js/underscore.js')
     script(src='/js/jquery.js')
     script(src='/js/bootstrap.min.js')
     script(src='/js/loader.min.js')
     script(src='/js/all.js')
+    script(src='/js/datagrid.js')
     script(src='/js/datasource.js')
+    script(src='/js/bootstrap-editable.js')
 
   body
     .navbar.navbar-inverse.navbar-static-top
@@ -30,14 +35,14 @@ html.fuelux
                 i.icon-home.icon-white 
                 首页
             li
-              a(href='/admin/list_members')
+              a(href='/admin/member')
                 i.icon-pencil 
                 会员管理
 
             li
-              a(href='/admin/add_product')
+              a(href='/admin/product')
                 i.icon-plus
-                添加产品
+                产品管理
 
             li
               a(href='/admin/add_index_product')
@@ -48,8 +53,5 @@ html.fuelux
         .span10
           block content
             显示动态
-
-    script(src='/js/jquery.js')
-    script(src='/js/bootstrap.js')
     script
       $($('#left-nav li')[#{active_index}]).addClass('active')

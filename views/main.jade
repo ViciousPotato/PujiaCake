@@ -19,7 +19,7 @@ html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
     header
       .wrapper
         h1
-          a.img(href='../index.html', title='Go back to the homepage') Keith Homemade Cakes
+          a.img(href='../index.html', title='Go back to the homepage')  Homemade Cakes
         nav
           ul
             li#m-home
@@ -33,17 +33,20 @@ html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
             li#m-contact
               a.img(href='../contact/index.html') Contact
             li#m-facebook
-              a#facebook-icon(href='https://www.facebook.com/pages/Keith-Homemade-Cakes/160929470650809', target='_blank') facebook
+              a#facebook-icon(href='http;//weibo.com', target='_blank') weibo
+            li#m-shoppingcart
+              a#shoppingcart-icon(href='/cart') Shopping Cart
     .wrapper.content
       section#sidebar.parented
-        nav
-          ul#sidenav.coral
-            li
-              a(href='chocalates/index.html') 巧克力
-            li
-              a(href='candies/index.html') 糖果
-            li
-              a(href='cakes/index.html') 糕点 
+        block sidebar
+          nav
+            ul#sidenav.coral
+              li
+                a(href='chocalates/index.html') 巧克力
+              li
+                a(href='candies/index.html') 糖果
+              li
+                a(href='cakes/index.html') 糕点 
 
       section#main
         block content

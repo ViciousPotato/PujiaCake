@@ -51,14 +51,18 @@
   });
 
   generate_random_code = function() {
-    return '' + parseInt(Math.random() * 10) + parseInt(Math.random() * 10) + parseInt(Math.random() * 10) + parseInt(Math.random() * 10);
+    var i;
+    return ((function() {
+      var _i, _results;
+      _results = [];
+      for (i = _i = 1; _i <= 4; i = ++_i) {
+        _results.push(parseInt(Math.random() * 10));
+      }
+      return _results;
+    })()).join("");
   };
 
   app.get('/', function(req, res) {
-    return res.send('hello world');
-  });
-
-  app.get('/index.html', function(req, res) {
     return res.sendfile('index.html');
   });
 
@@ -143,12 +147,33 @@
     });
   });
 
-  app.get('/admin/list_members', function(req, res) {
+  app.get('/admin/list_member', function(req, res) {
     return User.find(function(err, users) {
-      return res.render('admin_list_members.jade', {
-        users: users,
-        active_index: 1
-      });
+      return res.json(users);
+    });
+  });
+
+  app.get('/admin/member', function(req, res) {
+    return res.render('admin_member.jade', {
+      active_index: 1
+    });
+  });
+
+  app.post('/admin/update_member', function(req, res) {
+    var setval;
+    setval = {};
+    setval[req.param("name")] = req.param("value");
+    return User.update({
+      _id: req.param('pk')
+    }, {
+      $set: setval
+    }, function(err) {
+      if (err) {
+        res.statusCode = 500;
+        return res.send("");
+      } else {
+        return res.send("ok");
+      }
     });
   });
 
@@ -188,6 +213,24 @@
     });
   });
 
+  app.post('/admin/update_product', function(req, res) {
+    var setval;
+    setval = {};
+    setval[req.param("name")] = req.param("value");
+    return Product.update({
+      _id: req.param('pk')
+    }, {
+      $set: setval
+    }, function(err) {
+      if (err) {
+        res.statusCode = 500;
+        return res.send("");
+      } else {
+        return res.send("ok");
+      }
+    });
+  });
+
   app.get('/contact/:file', function(req, res) {
     return res.sendfile('contact/' + req.params.file);
   });
@@ -201,7 +244,7 @@
   });
 
   app.get('/products/index.html', function(req, res) {
-    return res.sendfile('products/index.html');
+    return res.render('products.jade');
   });
 
   app.get('/products/:kind/index.html', function(req, res) {

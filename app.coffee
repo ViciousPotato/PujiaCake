@@ -28,7 +28,7 @@ generate_random_code = () ->
 	return (parseInt(Math.random() * 10) for i in [1..4]).join("")
 
 # Resource files, images, css, js.
-app.get '/index.html', (req, res) ->
+app.get '/', (req, res) ->
 	res.sendfile 'index.html'
 
 app.get '/css/css/:file', (req, res) ->
@@ -83,9 +83,22 @@ app.post '/member/login', (req, res) ->
 app.get '/admin/', (req, res) ->
 	res.render 'admin_index.jade', {active_index : 0}
 
-app.get '/admin/list_members', (req, res) ->
+app.get '/admin/list_member', (req, res) ->
 	User.find (err, users) ->
-		res.render 'admin_list_members.jade', {users : users, active_index : 1}
+		res.json(users)
+
+app.get '/admin/member', (req, res) ->
+	res.render 'admin_member.jade', {active_index : 1}
+
+app.post '/admin/update_member', (req, res) ->
+	setval = {}
+	setval[req.param("name")] = req.param("value")
+	User.update {_id : req.param('pk')}, {$set : setval}, (err) ->
+		if err
+		    res.statusCode = 500
+		    res.send ""
+		else
+		    res.send "ok"
 
 app.get '/admin/add_product', (req, res) ->
 	res.render 'admin_add_product.jade', {active_index : 2}
@@ -109,6 +122,17 @@ app.get '/admin/list_product', (req, res) ->
 	Product.find (err, products) ->
 		res.json(products)
 
+app.post '/admin/update_product', (req, res) ->
+	setval = {}
+	setval[req.param("name")] = req.param("value")
+	Product.update {_id : req.param('pk')}, {$set : setval}, (err) ->
+		if err
+		    res.statusCode = 500
+		    res.send ""
+		else
+		    res.send "ok"
+
+
 app.get '/contact/:file', (req, res) ->
 	res.sendfile 'contact/' + req.params.file
 
@@ -119,7 +143,7 @@ app.get '/fonts/:file', (req, res) ->
 	res.sendfile 'fonts/' + req.params.file
 
 app.get '/products/index.html', (req, res) ->
-	res.sendfile 'products/index.html'
+	res.render 'products.jade'
 
 app.get '/products/:kind/index.html', (req, res) ->
 	if req.params.kind == 'cakes'
