@@ -22,7 +22,11 @@
   productSchema = mongoose.Schema({
     name: String,
     description: String,
-    price: String
+    price: String,
+    onDiscount: Boolean,
+    onGroupon: Boolean,
+    image: String,
+    kind: String
   });
 
   Product = db.model('Product', productSchema);
@@ -66,6 +70,10 @@
     return res.sendfile('index.html');
   });
 
+  app.get('/index.html', function(req, res) {
+    return res.sendfile('index.html');
+  });
+
   app.get('/css/css/:file', function(req, res) {
     return res.sendfile('css/css/' + req.params.file);
   });
@@ -84,6 +92,18 @@
 
   app.get('/images/products/:file', function(req, res) {
     return res.sendfile('images/products/' + req.params.file);
+  });
+
+  app.get('/contact/:file', function(req, res) {
+    return res.sendfile('contact/' + req.params.file);
+  });
+
+  app.get('/files/:file', function(req, res) {
+    return res.sendfile('files/' + req.params.file);
+  });
+
+  app.get('/fonts/:file', function(req, res) {
+    return res.sendfile('fonts/' + req.params.file);
   });
 
   app.get('/about/:file', function(req, res) {
@@ -231,32 +251,25 @@
     });
   });
 
-  app.get('/contact/:file', function(req, res) {
-    return res.sendfile('contact/' + req.params.file);
-  });
-
-  app.get('/files/:file', function(req, res) {
-    return res.sendfile('files/' + req.params.file);
-  });
-
-  app.get('/fonts/:file', function(req, res) {
-    return res.sendfile('fonts/' + req.params.file);
-  });
-
   app.get('/products/index.html', function(req, res) {
     return res.render('products.jade');
   });
 
   app.get('/products/:kind/index.html', function(req, res) {
-    if (req.params.kind === 'cakes') {
-      return Product.find({}, function(err, products) {
-        return res.render('products_cakes.jade', {
-          products: products,
-          user: req.session['user']
+    switch (req.params.kind) {
+      case 'cakes':
+        return Product.find({}, function(err, products) {
+          return res.render('products_cakes.jade', {
+            products: products,
+            user: req.session['user']
+          });
         });
-      });
-    } else {
-      return res.sendfile('products/' + req.params.kind + '/index.html');
+      case 'chocalates':
+        return res.render('products_chocalates.jade');
+      case 'candies':
+        return res.render('products_candies.jade');
+      default:
+        return res.sendfile('products/' + req.params.kind + '/index.html');
     }
   });
 

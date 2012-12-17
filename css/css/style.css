@@ -170,7 +170,7 @@ ul.pages li{float:left;font-size:.9em;height:19px;list-style:none;margin:0 0 0 5
 #extras table{border-collapse:collapse;width:100%;}
 #extras tr{border-bottom:1px solid #e6e5e4;}#extras tr.last{border:none;}
 #extras td,#extras th{padding:7px 6px;text-align:left;}
-footer{color:#d8cfc6;overflow:hidden;position:relative;z-index:0;}footer h3{color:#FFF;font-size:1.6em;margin-top:15px;}
+footer{color:#d8cfc6;overflow:hidden;position:relative;z-index:0;clear:both;}footer h3{color:#FFF;font-size:1.6em;margin-top:15px;}
 footer h4{color:#FFF;margin-bottom:15px;font-size:1.5em;}
 footer .wrapper.separator{background:url(../../images/footer-background-sections.png) top right no-repeat;min-height:330px;overflow:hidden;padding:0 520px 0 40px;position:relative;width:390px;}
 footer abbr{font-weight:bold;}

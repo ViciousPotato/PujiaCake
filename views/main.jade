@@ -12,28 +12,28 @@ html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
     meta(charset='utf-8') 
     title
       block title
-    link(rel='shortcut icon', href='../favicon.ico')
-    link(rel='stylesheet', href='../css/css/style.css')
-    script(src='../js/modernizr-1.6.min.js')
-  body#p-catering
+    link(rel='shortcut icon', href='/favicon.ico')
+    link(rel='stylesheet', href='/css/css/style.css')
+    script(src='/js/modernizr-1.6.min.js')
+  body
     header
       .wrapper
         h1
-          a.img(href='../index.html', title='Go back to the homepage')  Homemade Cakes
+          a.img(href='/index.html', title='Go back to the homepage')  Homemade Cakes
         nav
           ul
             li#m-home
-              a.img(href='../index.html') Home
+              a.img(href='/index.html') Home
             li#m-about
-              a.img(href='../about/index.html') About Us
+              a.img(href='/about/index.html') About Us
             li#m-range
-              a.img(href='../products/index.html') Our Range
+              a.img(href='/products/index.html') Our Range
             li#m-catering
               a.img.active(href='index.html') Catering
             li#m-contact
-              a.img(href='../contact/index.html') Contact
+              a.img(href='/contact/index.html') Contact
             li#m-facebook
-              a#facebook-icon(href='http;//weibo.com', target='_blank') weibo
+              a#facebook-icon(href='http://weibo.com', target='_blank') weibo
             li#m-shoppingcart
               a#shoppingcart-icon(href='/cart') Shopping Cart
     .wrapper.content
@@ -42,11 +42,16 @@ html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
           nav
             ul#sidenav.coral
               li
-                a(href='chocalates/index.html') 巧克力
+                a(href='/products/chocalates/index.html') 巧克力
               li
-                a(href='candies/index.html') 糖果
+                a(href='/products/candies/index.html') 糖果
               li
-                a(href='cakes/index.html') 糕点 
+                a(href='/products/cakes/index.html') 糕点 
+            a.b(href='/files/keith-cakes-brochure.pdf')
+              h4.coral Need catering?
+              p.imgcat
+                img(src='/images/catering-mini.png', width='101', height='82', alt='')
+              p 下载产品目录
 
       section#main
         block content

@@ -9,7 +9,15 @@ userSchema = mongoose.Schema {email : String, password : String}
 User = db.model 'User', userSchema
 
 # Product
-productSchema = mongoose.Schema {name : String, description : String, price : String}
+productSchema = mongoose.Schema {
+	name : String,
+	description : String,
+	price : String,
+	onDiscount : Boolean,
+	onGroupon : Boolean,
+	image : String,
+	kind : String
+}
 Product = db.model 'Product', productSchema
 
 app = express()
@@ -31,6 +39,9 @@ generate_random_code = () ->
 app.get '/', (req, res) ->
 	res.sendfile 'index.html'
 
+app.get '/index.html', (req, res) ->
+	res.sendfile 'index.html'
+
 app.get '/css/css/:file', (req, res) ->
 	res.sendfile 'css/css/' + req.params.file
 
@@ -45,6 +56,16 @@ app.get '/images/:file', (req, res) ->
 
 app.get '/images/products/:file', (req, res) ->
 	res.sendfile 'images/products/' + req.params.file
+
+app.get '/contact/:file', (req, res) ->
+	res.sendfile 'contact/' + req.params.file
+
+app.get '/files/:file', (req, res) ->
+	res.sendfile 'files/' + req.params.file
+
+app.get '/fonts/:file', (req, res) ->
+	res.sendfile 'fonts/' + req.params.file
+
 
 # About
 app.get '/about/:file', (req, res) ->
@@ -132,24 +153,20 @@ app.post '/admin/update_product', (req, res) ->
 		else
 		    res.send "ok"
 
-
-app.get '/contact/:file', (req, res) ->
-	res.sendfile 'contact/' + req.params.file
-
-app.get '/files/:file', (req, res) ->
-	res.sendfile 'files/' + req.params.file
-
-app.get '/fonts/:file', (req, res) ->
-	res.sendfile 'fonts/' + req.params.file
-
+# Products
 app.get '/products/index.html', (req, res) ->
 	res.render 'products.jade'
 
 app.get '/products/:kind/index.html', (req, res) ->
-	if req.params.kind == 'cakes'
-		Product.find {}, (err, products) ->
-			res.render 'products_cakes.jade', {products : products, user : req.session['user']}
-	else
-		res.sendfile 'products/' + req.params.kind + '/index.html'
+	switch req.params.kind
+		when 'cakes'
+			Product.find {}, (err, products) ->
+				res.render 'products_cakes.jade', {products : products, user : req.session['user']}
+		when 'chocalates'
+			res.render 'products_chocalates.jade'
+		when 'candies'
+			res.render 'products_candies.jade'
+		else
+			res.sendfile 'products/' + req.params.kind + '/index.html'
 
 app.listen 3000
