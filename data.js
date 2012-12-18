@@ -1,0 +1,28 @@
+use test;
+db.products.remove();
+db.products.insert(
+	[{
+		name : '圆边巧克力蛋糕', description : '圆边的蛋糕', price : '200', 
+		onDiscount : true, onGroupon : true, 
+		image : '/images/Round-sponge-chocolate-smarties-cake-175.jpg',
+		kind : 'cakes'
+	},
+	{
+		name : '花心蛋糕', description : '测试数据', price : '100',
+		onDiscount : true, onGroupon : true, 
+		image : '/images/Square-Sponge-Floral-Cake-171.jpg',
+		kind : 'cakes'
+	},
+	{
+		name : '坚果蛋糕', description : '坚果蛋糕，纯天然材料', price : '12.5', 
+		onDiscount : true, onGroupon : true, 
+		image : '/images/Square-Sponge-Fruit-Nuts-Cake-172.jpg',
+		kind : 'cakes'
+	},
+	{
+		name : '褔桃', description : '褔桃，老人儿童皆适宜', price : '11', 
+		onDiscount : false, onGroupon : false, 
+		image : '/images/Square-Sponge-Fruit-Nuts-Cake-172.jpg',
+		kind : 'cakes'
+	}]
+);

@@ -137,7 +137,11 @@ app.post '/admin/add_product', (req, res) ->
 		res.redirect('/admin/')
 
 app.get '/admin/product', (req, res) ->
-	res.render 'admin_product.jade', {active_index : 2}
+	Product.find {onDiscount : true}, (discount_err, discount_products) ->
+		console.log discount_products
+		Product.find {onGroupon : true}, (groupon_err, groupon_products) ->
+			console.log groupon_products
+			res.render 'admin_product.jade', {active_index : 2}
 
 app.get '/admin/list_product', (req, res) ->
 	Product.find (err, products) ->

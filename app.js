@@ -222,8 +222,18 @@
   });
 
   app.get('/admin/product', function(req, res) {
-    return res.render('admin_product.jade', {
-      active_index: 2
+    return Product.find({
+      onDiscount: true
+    }, function(discount_err, discount_products) {
+      console.log(discount_products);
+      return Product.find({
+        onGroupon: true
+      }, function(groupon_err, groupon_products) {
+        console.log(groupon_products);
+        return res.render('admin_product.jade', {
+          active_index: 2
+        });
+      });
     });
   });
 
