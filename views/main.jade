@@ -14,7 +14,9 @@ html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
       block title
     link(rel='shortcut icon', href='/favicon.ico')
     link(rel='stylesheet', href='/css/css/style.css')
+    block extracss
     script(src='/js/modernizr-1.6.min.js')
+    script(src='/js/jquery.js')
   body
     header
       .wrapper
@@ -25,15 +27,15 @@ html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
             li#m-home
               a.img(href='/index.html') Home
             li#m-about
-              a.img(href='/about/index.html') About Us
-            li#m-range
-              a.img(href='/products/index.html') Our Range
-            li#m-catering
-              a.img.active(href='index.html') Catering
-            li#m-contact
-              a.img(href='/contact/index.html') Contact
-            li#m-facebook
-              a#facebook-icon(href='http://weibo.com', target='_blank') weibo
+              a.img(href='/about') About Us
+            li#m-product
+              a.img(href='/products') Products
+            li#m-member
+              a.img(href='/member') Member
+            li#m-guide
+              a.img(href='/guide') Guide
+            li#m-weibo
+              a#weibo-icon(href='http://weibo.com', target='_blank') weibo
             li#m-shoppingcart
               a#shoppingcart-icon(href='/cart') Shopping Cart
     .wrapper.content
@@ -42,11 +44,11 @@ html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
           nav
             ul#sidenav.coral
               li
-                a(href='/products/chocalates/index.html') 巧克力
+                a(href='/products/chocalates') 巧克力
               li
-                a(href='/products/candies/index.html') 糖果
+                a(href='/products/candies') 糖果
               li
-                a(href='/products/cakes/index.html') 糕点 
+                a(href='/products/cakes') 糕点 
             a.b(href='/files/keith-cakes-brochure.pdf')
               h4.coral Need catering?
               p.imgcat
@@ -73,13 +75,27 @@ html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
                 | SEO
                 span Melbourne
             | by Koodoz Design
-    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js')
-    script(src='http://maps.google.com/maps/api/js?sensor=false')
-    script
-      //<![CDATA[
-      !window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.4.2.min.js"%3E%3C/script%3E'));
-      //]]>
     script
       SROOTPATH = '/'
+    script(src='../js/jquery.js')
     script(src='../js/plugins.js')
     script(src='../js/init.js')
+    script
+      var section = window.location.pathname.split("/")[1];
+      var elem;
+      switch(section) {
+        case "about":
+          elem = $('#m-about a');
+          break;
+        case "member":
+          elem = $("#m-member a");
+          break;
+        case "products":
+          elem = $("#m-product a");
+          break;
+        case "guide":
+          elem = $("#m-guide a");
+          break;
+        default:
+      }
+      elem.addClass('active');

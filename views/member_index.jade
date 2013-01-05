@@ -9,6 +9,16 @@ block title
 block sidebar
   if user != null
     欢迎#{user.email}
+    nav
+      ul#sidenav.coral
+        li
+          a(href="/member/profile") 我的资料
+        li
+          a(href="/member/address") 我的地址
+        li
+          a(href="/member/order") 我的订单
+        li
+          a(href="/member/score") 我的积分
   else
     style
       #login-form {
@@ -50,7 +60,7 @@ block sidebar
         input#email(name='email')
       div
         label.loginlabel(for='email') 密码
-        input#password(name='password')
+        input#password(name='password', type="password")
       div
       input.loginsubmit(type='submit', value='登录')
       div.loginextra
@@ -63,3 +73,8 @@ block sidebar
     #register-notice
       p 还不是会员？
         a(href='/member/register')注册
+
+
+block content
+  div(style="height: 400px;")
+    p 会员空间

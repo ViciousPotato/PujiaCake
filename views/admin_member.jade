@@ -55,16 +55,11 @@ block content
     $.get('/admin/list_member', function(data) {
         var dataSource = new StaticDataSource({
           columns : [
-            {
-              property : 'email',
-              label : 'Email',
-              sortable : true
-            }, 
-            {
-              property : 'password',
-              label : '密码',
-              sortable : true
-            }
+            { property : 'email', label : 'Email', sortable : true }, 
+            { property : 'password', label : '密码', sortable : true},
+            { property : 'name', label : '姓名', sortable : true},
+            { property : 'address', label : '地址', sortable : true},
+            { property : 'phone', label : '电话号码', sortable : true}
           ],
           data : data,
           delay : 200

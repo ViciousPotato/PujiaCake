@@ -1,0 +1,30 @@
+extends cart
+
+block sidebar
+
+block content
+  style
+    .lheader {
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+  h4 送货信息
+  hr
+  
+  p.lheader 送货地址
+  hr
+  ul
+    li #{user.name}
+    li #{user.address}
+    li #{user.zipCode}
+    li #{user.phone}
+
+  p.lheader 付款方式
+  hr
+  p 支付宝
+
+
+  form(action='/cart/confirm-order', method='post')
+    input(type='submit', value='确定')
+

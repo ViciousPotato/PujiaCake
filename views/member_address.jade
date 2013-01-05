@@ -1,0 +1,36 @@
+extends member_index
+
+block content
+  ul
+    - each address in addresses
+      li 收件人 #{address.name}
+      li 收货地址 #{address.address}
+      li 邮编 #{address.zipCode}
+      li 手机号 #{address.phone}
+
+  h4 添加新地址
+  .add-address-form
+    form(action="/member/address", method="post")
+      div
+        label 姓名
+        input#name(type="text", name="name")
+
+      div
+        label 地址
+        input#address(type="text", name="address")
+
+      div
+        label 手机号
+        input#phone(name="phone")
+
+      div
+        label 邮政编码
+        input#zip(name="zip")
+
+      div
+        label 送货方式
+        select#delivery-method(name="delivery-method")
+          option(value="express", selected)快递
+          option(value="sf")顺丰
+
+

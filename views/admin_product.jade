@@ -16,7 +16,7 @@ block content
                 input.input-medium(type='text', placeholder='Search')
                 button.btn
                   i.icon-search
-                button.btn#add-new-product
+                button.btn(type="button", data-backdrop="true", data-toggle="modal", data-target="#add-product-modal")
                   i.icon-plus-sign
       tfoot
         tr
@@ -51,6 +51,39 @@ block content
                 button.btn.grid-nextpage
                   i.icon-chevron-right
 
+  .modal.fade#add-product-modal(role="dialog", aria-labelledby="product-modal-label")
+    .modal-header
+      button.close(type="button", data-dismiss="modal", aria-hidden="true")x
+      h3#product-modal-label 添加产品
+    .modal-body
+        style
+          input.larger-text-field, textarea.larger-text-field { width : 300px; }
+
+        form#add-product-form.form-horizontal(action='/admin/add_product', method='post')
+            .control-group
+              label.control-label(for='product_name') 产品名
+              .controls
+                input.larger-text-field(type='text', id='product_name', name='product_name', placeholder='产品名')
+
+            .control-group
+              label.control-label(for='product_description') 产品描述
+              .controls
+                textarea.larger-text-field(rows='10', name='product_description', id='product_description')
+
+            .control-group
+              label.control-label(for='product_price') 产品价格
+              .controls
+                input(type='text', placeholder='产品价格', id='product_price', name='product_price')
+
+            .control-group
+              label.control-label(for='product_image') 产品图片
+              .controls
+                input(type='file', name='product_image')
+
+    .modal-footer
+      button.btn(data-dismiss="modal", aria-hidden="true") 关闭
+      button.btn.btn-primary#add-product-button 保存修改
+  
   script
     $.get('/admin/list_product', function(data) {
         var dataSource = new StaticDataSource({
@@ -71,12 +104,19 @@ block content
               sortable : true
             },
             {
+              property : "memberPrice",
+              label : "会员价",
+              sortable : true
+            },
+            {
               property : 'onDiscount',
-              label : '打折中'
+              label : '打折中',
+              sortable : true
             },
             {
               property : 'onGroupon',
-              label : '团购中'
+              label : '团购中',
+              sortable : true
             }
           ],
           data : data,
@@ -116,4 +156,8 @@ block content
             title : "输入产品价格"
           });
         });
+    });
+
+    $("#add-product-button").on('click', function() {
+      $("#add-product-form").submit();
     });

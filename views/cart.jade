@@ -1,0 +1,109 @@
+extends main
+
+block extracss
+  link(rel='stylesheet', href='/css/css/table.css')
+
+block content
+  style
+    #cart {
+      font-size: 13px;
+    }
+    #cart table th {
+      font-weight: bold;
+    }
+
+    #cart .origin-price {
+      color: #666;
+      text-decoration: line-through;
+      font-size: 12px;
+    }
+
+    #cart .member-price {
+      color: #900;
+      font-size: 14px;
+      margin-left: 3px;
+    }
+
+    #cart .reduce-button, .add-button {
+      width: 5px;
+    }
+
+  p.breadcrumbs
+    a(href='/cart') 购物车
+  
+  #cart
+    - var itemno = 1;
+    - var sumprice = 0;
+    - var memberSumPrice = 0;
+    - if (!user)
+      p
+        成为会员，享受优惠会员价，更有积分等你拿。会员快速
+        a(href="/member/register") 登录/注册成为会员
+    - if (cart)
+      table.table.table-bordered.table-striped
+        thead
+          tr
+            th
+            th 商品名称
+            th 规格
+            th 商品单价(元)
+            th 商品数量
+            th 商品总价
+            th 操作
+            th
+        tbody
+            - each item in cart
+              - var currentPrice = 0;
+              - var currentMemberPrice = 0;
+              - currentPrice = item.product.price * item.quantity
+              - if (user)
+                - currentMemberPrice = item.product.memberPrice * item.quantity 
+              - memberSumPrice += currentMemberPrice
+              - sumprice += currentPrice
+              tr
+                td #{itemno}
+                td 
+                  a(href="/products/#{item.product.kind}/#{item.product._id}") #{item.product.name}
+                td #{item.product.unit}
+                td
+                  - if (user)
+                    span.origin-price ￥#{item.product.price}
+                    span.member-price ￥#{item.product.memberPrice}
+                  - else
+                    | #{item.product.price}
+                td #{item.quantity}
+                td 
+                  - if (user)
+                    span.origin-price ￥#{currentPrice}
+                    span.member-price ￥#{currentMemberPrice}
+                  - else
+                    | #{currentPrice}
+                td 
+                  a.reduce-button(href="/cart/remove/#{item.product._id}") -
+                  | #{item.quantity}
+                  a.add-button(href="/cart/add/#{item.product._id}") +
+                td
+                  a(href='/cart/delete/#{item.id}') 删除
+              - itemno++
+      p 
+        | 总计 
+        - if (user)
+          span.origin-price ￥#{sumprice}
+          span.member-price ￥#{memberSumPrice}
+        - else
+          span.sumprice
+            ￥#{sumprice}
+      - if (user)
+        p
+          | 本次购买共节约
+          span.member-price
+            ￥#{sumprice-memberSumPrice}
+        p
+          | 本次购买可获得记分
+          span.member-price #{sumprice-memberSumPrice}
+      p 
+        a(href="/cart/checkout") 去结算
+    - else
+      p 购物车内无商品
+
+  p.breadcrumbs

@@ -27,6 +27,31 @@ block content
       div
         input#repassword(type="password", name='repassword')
 
+      h5(style="margin-top: 8px") 送货信息
+      hr(style="margin: 5px 0")
+
+      div
+        label 姓名
+        input#name(type="text", name="name")
+
+      div
+        label 地址
+        input#address(type="text", name="address")
+
+      div
+        label 手机号
+        input#phone(name="phone")
+
+      div
+        label 邮政编码
+        input#zip(name="zip")
+
+      div
+        label 送货方式
+        select#delivery-method(name="delivery-method")
+          option(value="express", selected)快递
+          option(value="sf")顺丰
+
       .tos
         ul
           li

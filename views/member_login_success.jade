@@ -1,5 +1,8 @@
 extends main
 
+block sidebar
+	欢迎#{user.email}
+
 block content
 	p 登录成功
-		a(href='/member/index.html')返回
+		a(href='/member')返回
