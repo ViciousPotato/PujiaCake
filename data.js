@@ -40,7 +40,7 @@ db.products.insert(
 	}
 );
 
-/*
+
 db.users.remove();
 db.users.insert(
 	{
@@ -88,5 +88,3 @@ db.addresses.insert({
 	deliveryMethod: 'express'
 
 });
-
-*/
