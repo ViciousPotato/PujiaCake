@@ -32,7 +32,7 @@ $(document).ready(function(){
 	$('a[rel*=external]').attr('target','_blank');
 	
 	// Apply fancybox to multiple items
-	$("a.m").fancybox({ 'width' : 600, 'height' : 600, 'titleShow' : false, 'overlayColor' : '#4B4335', 'overlayOpacity' : 0.87 });
+	// $("a.m").fancybox({ 'width' : 600, 'height' : 600, 'titleShow' : false, 'overlayColor' : '#4B4335', 'overlayOpacity' : 0.87 });
 
 	//remove the border from the previous sibling of a selected nav sidebar item
 	$('#sidenav li a.active').parent('li').prev().children('a').css({'background':'none'});
