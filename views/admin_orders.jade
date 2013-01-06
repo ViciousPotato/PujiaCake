@@ -1,0 +1,95 @@
+extends admin
+
+block content
+  style
+    #orders-grid {
+        margin-top: 20px;
+    }
+  h4 
+  table#orders-grid.table.table-bordered.datagrid
+      thead
+        tr
+          th
+            span.datagrid-header-title 订单列表
+            .datagrid-header-left
+            .datagrid-header-right
+              .input-append.search
+                input.input-medium(type='text', placeholder='Search')
+                button.btn
+                  i.icon-search
+                button.btn#add-new-member
+                  i.icon-plus-sign
+      tfoot
+        tr
+          th
+            .datagrid-footer-left(style='display: none;')
+              .grid-controls
+                span
+                  span.grid-start
+                  | -
+                  span.grid-end
+                  | of
+                  span.grid-count
+                select.grid-pagesize
+                  option 10
+                  option 20
+                  option 50
+                  option 100
+                span Per Page
+            .datagrid-footer-right(style='display: none;')
+              .grid-pager
+                button.btn.grid-prevpage
+                  i.icon-chevron-left
+                span Page
+                .input-append.dropdown.combobox
+                  input.span1(type='text')
+                  button.btn(data-toggle='dropdown')
+                    i.caret
+                  ul.dropdown-menu
+                span
+                  | of
+                  span.grid-pages
+                button.btn.grid-nextpage
+                  i.icon-chevron-right
+
+  script
+    $.get('/admin/list_orders', function(data) {
+        var dataSource = new StaticDataSource({
+          columns : [
+            { property : '_id', label : '订单编号', sortable : true},
+            { property : 'products', label : '订单商品', sortable : true},
+            { property : 'status', 'label' : '订单状态', sortable : true},
+            { property : 'amount', label : '订单金额', sortable : true},
+            { property : 'time', label : '时间', sortable : true }, 
+          ],
+          data : data,
+          delay : 200
+        });
+
+        $('#orders-grid').datagrid({
+          dataSource : dataSource,
+          cellrenderfunc : function(row, prop) {
+              return '<a href="#" class="member-' + prop + '" data-pk="' + row._id + 
+                     '" data-url="/admin/update_order" data-name="' + prop + '">' + 
+                     row[prop] + '</a>';
+          }
+        });
+
+       
+      });
+    
+    $("#orders-grid").on('loaded', function(){
+      $(".member-email").each(function(index, element) {
+        $(element).editable({
+            type : "text",
+            title : "输入Email"
+          });
+        });
+
+        $(".member-password").each(function(index, element) {
+          $(element).editable({
+            type : "textarea",
+            title : "输入密码"
+          });
+        });
+    });

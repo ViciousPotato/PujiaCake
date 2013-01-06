@@ -9,22 +9,96 @@ block content
       margin-top: 15px;
     }
 
-  h4 送货信息
-  hr
-  
-  p.lheader 送货地址
-  hr
-  ul
-    li #{user.name}
-    li #{user.address}
-    li #{user.zipCode}
-    li #{user.phone}
+    .checkout-item {
+      margin-bottom: 15px;
+      position: relative;
+      border: 1px solid #F71833;
+      padding: 5px;
+    }
 
-  p.lheader 付款方式
-  hr
-  p 支付宝
+    .checkout-item-title {
+      display: block;
+      width: 90px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      padding-top: 17px;
+      padding-left: 10px;
+      /*background-color: #FB7E8D;*/
+      background-clip: border-box;
+      z-index: auto
+    }
+
+    .checkout-item-content {
+      display: block;
+      margin-left: 120px;
+      position: relative;
+    }
+
+    .checkout-name {
+      width: 90px;
+      position: absolute;
+      left: 0;
+    }
+
+    .checkout-detail {
+      margin-left: 120px;
+    }
+
+    .new-address-form label {
+      width: 50px;
+      display: block;
+    }
+
+  .checkout-item
+    .checkout-item-title
+      h5 送货信息
+    .checkout-item-content
+      - each address in user.addresses
+        .checkout-name
+          input(type="radio", name="address", value="#{address._id}")
+          | #{address.name}
+        .checkout-detail
+          p #{address.address}，邮编:#{address.zipCode}
+          p 收货人#{address.name}，联系电话#{address.phone}
+
+      .checkout-name
+        input(type="radio", name="address")
+        | 新地址
+      .checkout-detail
+        form.new-address-form
+          div
+            label 姓名
+            input#name(type="text", name="name")
+
+          div
+            label 地址
+            input#address(type="text", name="address")
+
+          div
+            label 手机号
+            input#phone(name="phone")
+
+          div
+            label 邮政编码
+            input#zip(name="zip")
+
+          div
+            label 送货方式
+            select#delivery-method(name="delivery-method")
+              option(value="express", selected)快递
+              option(value="sf")顺丰
+
+          input(type="submit", value="保存")
+
+  .checkout-item
+    .checkout-item-title
+      h5 支付方式
+    .checkout-item-content
+      p(style="margin: 30px") 支付宝
+
 
 
   form(action='/cart/confirm-order', method='post')
-    input(type='submit', value='确定')
+    input(type='submit', value='提交订单')
 

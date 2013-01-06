@@ -40,13 +40,13 @@ db.products.insert(
 	}
 );
 
+/*
 db.users.remove();
 db.users.insert(
 	{
 		email: '123@126.com',
 		password: '123',
 		addresses: [{
-			id: 1,
 			name: 'Martin',
 			address: '上海市浦东新区张江高科',
 			phone: '138164267865',
@@ -89,4 +89,4 @@ db.addresses.insert({
 
 });
 
-
+*/

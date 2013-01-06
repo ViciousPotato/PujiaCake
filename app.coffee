@@ -43,7 +43,10 @@ Product = db.model 'Product', productSchema
 orderSchema = new mongoose.Schema {
 	time: { type: Date, default: Date.now },
 	products: mongoose.Schema.Types.Mixed,
-	userId: mongoose.Schema.Types.ObjectId
+	userId: mongoose.Schema.Types.ObjectId,
+	addressId: mongoose.Schema.Types.ObjectId,
+	status: String,
+	amount: Number
 }
 
 Order = db.model 'Order', orderSchema
@@ -54,7 +57,7 @@ app.use express.bodyParser()
 app.use express.cookieParser('secret')
 #app.use express.logger()
 app.use express.methodOverride()
-app.use express.session {secret : 'secret'}
+app.use express.cookieSession {cookie: {maxAge: 100000000}}
 app.use express.static __dirname + '/static'
 
 app.set 'views', 'views/'
@@ -128,8 +131,9 @@ app.get '/member/address', (req, res) ->
 		user = _.first(users)
 		res.render 'member_address.jade', {addresses: user.addresses}
 
-app.get '/member/order', (req, res) ->
-	res.render 'member_order.jade'
+app.get '/member/orders', (req, res) ->
+	Order.find {userId: req.session['user']._id}, (error, orders) ->
+		res.render 'member_orders.jade', {'orders': orders}
 
 app.get '/member/score', (req, res) ->
 	res.render 'member_score.jade'
@@ -188,6 +192,13 @@ app.post '/admin/update_product', (req, res) ->
 		    res.send ""
 		else
 		    res.send "ok"
+
+app.get '/admin/orders', (req, res) ->
+	res.render 'admin_orders.jade', {active_index: 4}
+
+app.get '/admin/list_orders', (req, res) ->
+	Order.find {userId: req.session['user']._id}, (error, orders) ->
+		res.json(orders)
 
 # Products
 app.get '/products', (req, res) ->
@@ -256,12 +267,17 @@ app.get '/cart', (req, res) ->
 	res.render 'cart.jade', {cart : req.session['cart']}
 
 app.get '/cart/checkout', (req, res) ->
-	res.render 'cart_checkout.jade', {user : req.session['user']}
+	res.render 'cart_checkout.jade'
 
 app.post '/cart/confirm-order', (req, res) ->
 	order = Order {
 		products: req.session['cart'],
-		userId: req.session['user']._id
+		userId: req.session['user']._id,
+		addressId: req.param("address"),
+		status: 'paid',
+		amount: _.reduce req.session['cart'], (sum, product) ->
+			product.quantity * product.product.memberPrice + sum
+		, 0
 	}
 	order.save (err) ->
 		res.redirect '/member/orders'

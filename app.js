@@ -50,7 +50,10 @@
       "default": Date.now
     },
     products: mongoose.Schema.Types.Mixed,
-    userId: mongoose.Schema.Types.ObjectId
+    userId: mongoose.Schema.Types.ObjectId,
+    addressId: mongoose.Schema.Types.ObjectId,
+    status: String,
+    amount: Number
   });
 
   Order = db.model('Order', orderSchema);
@@ -63,8 +66,10 @@
 
   app.use(express.methodOverride());
 
-  app.use(express.session({
-    secret: 'secret'
+  app.use(express.cookieSession({
+    cookie: {
+      maxAge: 100000000
+    }
   }));
 
   app.use(express["static"](__dirname + '/static'));
@@ -195,8 +200,14 @@
     });
   });
 
-  app.get('/member/order', function(req, res) {
-    return res.render('member_order.jade');
+  app.get('/member/orders', function(req, res) {
+    return Order.find({
+      userId: req.session['user']._id
+    }, function(error, orders) {
+      return res.render('member_orders.jade', {
+        'orders': orders
+      });
+    });
   });
 
   app.get('/member/score', function(req, res) {
@@ -298,6 +309,20 @@
       } else {
         return res.send("ok");
       }
+    });
+  });
+
+  app.get('/admin/orders', function(req, res) {
+    return res.render('admin_orders.jade', {
+      active_index: 4
+    });
+  });
+
+  app.get('/admin/list_orders', function(req, res) {
+    return Order.find({
+      userId: req.session['user']._id
+    }, function(error, orders) {
+      return res.json(orders);
     });
   });
 
@@ -436,16 +461,19 @@
   });
 
   app.get('/cart/checkout', function(req, res) {
-    return res.render('cart_checkout.jade', {
-      user: req.session['user']
-    });
+    return res.render('cart_checkout.jade');
   });
 
   app.post('/cart/confirm-order', function(req, res) {
     var order;
     order = Order({
       products: req.session['cart'],
-      userId: req.session['user']._id
+      userId: req.session['user']._id,
+      addressId: req.param("address"),
+      status: 'paid',
+      amount: _.reduce(req.session['cart'], function(sum, product) {
+        return product.quantity * product.product.memberPrice + sum;
+      }, 0)
     });
     return order.save(function(err) {
       return res.redirect('/member/orders');
