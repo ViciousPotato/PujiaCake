@@ -3,6 +3,8 @@ jade = require 'jade'
 fs = require 'fs'
 _ = require 'underscore'
 mongoose = require 'mongoose'
+path = require 'path'
+
 db = mongoose.createConnection 'localhost', 'test'
 
 # Address
@@ -53,7 +55,7 @@ Order = db.model 'Order', orderSchema
 
 app = express()
 
-app.use express.bodyParser()
+app.use express.bodyParser({ keepExtensions: true, uploadDir: __dirname+'/static/uploads' })
 app.use express.cookieParser('secret')
 #app.use express.logger()
 app.use express.methodOverride()
@@ -166,13 +168,19 @@ app.get '/admin/add_index_product', (req, res) ->
 	res.render 'admin_add_index_product.jade', {active_index : 3}
 
 app.post '/admin/add_product', (req, res) ->
-	product = Product {
-		name : req.param('product_name'), 
-		description : req.param('product_description'), 
-		price : req.param('product_price')
+	product = new Product {
+		name: req.param('product_name'), 
+		description: req.param('product_description'), 
+		price: req.param('product_price'),
+		memberPrice: req.param('product_member_price'),
+		unit: req.param('product_unit'),
+		kind: req.param('product_kind'),
+		onDiscount: if req.param('product_on_discount') then true else false
+		onGroupon: if req.param('product_on_groupon') then true else false,
+		image: '/uploads/' + path.basename req.files.product_image.path
 	}
 	product.save (err) ->
-		res.redirect('/admin/product')
+		res.redirect '/admin/product'
 
 app.get '/admin/product', (req, res) ->
 	Product.find {onDiscount : true}, (discount_err, discount_products) ->
@@ -215,17 +223,11 @@ app.get '/products', (req, res) ->
 			res.render "error.jade", {error : discount_err}
 
 app.get '/products/:kind', (req, res) ->
-	switch req.params.kind
-		when 'cakes'
-			Product.find {}, (err, products) ->
-				res.render 'products_cakes.jade', {products : products, user : req.session['user']}
-		when 'chocalates'
-			res.render 'products_chocalates.jade'
-		when 'candies'
-			res.render 'products_candies.jade'
-		else
-			res.sendfile 'products/' + req.params.kind + '/index.html'
-
+	Product.find {kind: req.params.kind}, (error, products) ->
+		if error
+			res.json {error: error}
+		res.render 'products_kind.jade', {products: products}
+	
 app.get '/products/:kind/:productid', (req, res) ->
 	res.render 'products_product.jade'
 

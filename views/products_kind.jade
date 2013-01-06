@@ -1,0 +1,22 @@
+extends products
+
+block content
+  h3 Catering
+  p.breadcrumbs
+    a(href='../index.html') 产品列表
+
+    ul#product-list
+      - each product in products
+        li
+          a.m(href='/products/#{product.kind}/#{product.id}')
+            img(src='#{product.image}', alt='#{product.name}')
+            h4 #{product.name}
+          p.origin-price
+            | 原价
+            span ￥#{product.price}
+          p.member-price
+            | 会员价
+            span ￥#{product.memberPrice}
+          p.view
+            a(href='/cart/add/#{product._id}')
+              span.img 添加到购物车

@@ -59,7 +59,7 @@ block content
         style
           input.larger-text-field, textarea.larger-text-field { width : 300px; }
 
-        form#add-product-form.form-horizontal(action='/admin/add_product', method='post')
+        form#add-product-form.form-horizontal(action='/admin/add_product', method='post', enctype="multipart/form-data")
             .control-group
               label.control-label(for='product_name') 产品名
               .controls
@@ -86,7 +86,7 @@ block content
                 input(type='text', placeholder='产品单位', id='product_unit', name='product_unit')
 
             .control-group
-              label.control-label(for='product_image') 产品图片
+              label.control-label(for='product_image') 产品图片(157像素x157像素)
               .controls
                 input(type='file', name='product_image')
 
@@ -94,9 +94,20 @@ block content
               label.control-label(for="product_kind") 产品种类
               .controls
                 select(name="product_kind")
-                  option 蛋糕
-                  option 巧克力
-                  option 点心
+                  option(value='cakes') 蛋糕
+                  option(value='chocolates') 巧克力
+                  option(value='candies') 糖果
+
+            .control-group
+              label.control-label(for='product_on_discount') 产品参加打折
+              .controls
+                input(type='checkbox', value='onDiscount', name="product_on_discount")
+
+            .control-group
+              label.control-label(for='product_on_groupon') 产品参加团购
+              .controls
+                input(type='checkbox', value='onGroupon', name='product_on_groupon')
+
 
 
     .modal-footer
