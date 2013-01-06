@@ -37,8 +37,10 @@ block content
     - var memberSumPrice = 0;
     - if (!user)
       p
-        成为会员，享受优惠会员价，更有积分等你拿。会员快速
-        a(href="/member/register") 登录/注册成为会员
+        成为会员，享受优惠会员价，更有积分等你拿。会员
+        a(href="/member/login")快速登录
+        /
+        a(href="/member/register")注册成为会员
     - if (cart)
       table.table.table-bordered.table-striped
         thead

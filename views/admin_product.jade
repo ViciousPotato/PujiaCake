@@ -66,7 +66,7 @@ block content
                 input.larger-text-field(type='text', id='product_name', name='product_name', placeholder='产品名')
 
             .control-group
-              label.control-label(for='product_description') 产品描述
+              label.control-label(for='product_description') 产品简介
               .controls
                 textarea.larger-text-field(rows='10', name='product_description', id='product_description')
 
@@ -76,9 +76,28 @@ block content
                 input(type='text', placeholder='产品价格', id='product_price', name='product_price')
 
             .control-group
+              label.control-label(for='product_price') 会员价格
+              .controls
+                input(type='text', placeholder='会员价格', id='product_member_price', name='product_member_price')
+
+            .control-group
+              label.control-label(for='product_price') 产品规格
+              .controls
+                input(type='text', placeholder='产品单位', id='product_unit', name='product_unit')
+
+            .control-group
               label.control-label(for='product_image') 产品图片
               .controls
                 input(type='file', name='product_image')
+
+            .control-group
+              label.control-label(for="product_kind") 产品种类
+              .controls
+                select(name="product_kind")
+                  option 蛋糕
+                  option 巧克力
+                  option 点心
+
 
     .modal-footer
       button.btn(data-dismiss="modal", aria-hidden="true") 关闭
