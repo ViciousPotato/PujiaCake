@@ -69,22 +69,3 @@ db.users.insert(
 		}]
 	}
 );
-
-db.users.insert(
-	{
-		email : 'q@123.com',
-		password : '123',
-		addresses: [{
-		}]
-	}
-);
-
-db.addresses.insert({
-	userId:,
-	name : 'Lennon',
-	address: '上海市浦东新区张江高科',
-	phone: '188164267865',
-	zipCode : '201203',
-	deliveryMethod: 'express'
-
-});
