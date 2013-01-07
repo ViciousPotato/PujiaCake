@@ -118,36 +118,14 @@ block content
     $.get('/admin/list_product', function(data) {
         var dataSource = new StaticDataSource({
           columns : [
-            {
-              property : 'name',
-              label : '商品名称',
-              sortable : true
-            }, 
-            {
-              property : 'description',
-              label : '描述',
-              sortable : true
-            }, 
-            {
-              property : 'price',
-              label : '价格',
-              sortable : true
-            },
-            {
-              property : "memberPrice",
-              label : "会员价",
-              sortable : true
-            },
-            {
-              property : 'onDiscount',
-              label : '打折中',
-              sortable : true
-            },
-            {
-              property : 'onGroupon',
-              label : '团购中',
-              sortable : true
-            }
+            { property: 'name', label: '商品名称', sortable: true}, 
+            { property: 'description', label: '描述', sortable: true }, 
+            { property: 'price', label: '价格', sortable: true },
+            { property: "memberPrice", label: "会员价", sortable: true },
+            { property: 'onDiscount', label: '打折中', sortable: true },
+            { property: 'onGroupon', label: '团购中', sortable: true },
+            { property: 'unit', label: '规格', sortable: true },
+            { property: 'delete', label: '操作', sortable: false }
           ],
           data : data,
           delay : 200
@@ -156,9 +134,21 @@ block content
         $('#product-grid').datagrid({
           dataSource : dataSource,
           cellrenderfunc : function(row, prop) {
-              return '<a href="#" class="product-' + prop + '" data-pk="' + row._id + 
+              var html = "";
+              if (prop === 'onDiscount' || prop === 'onGroupon')
+                row[prop] = row[prop] ? '是' : '否';
+
+              switch (prop) {
+                case 'delete':
+                  html = '<a href="/admin/delete_product/'+row._id+'" onclick="return confirm(\'真的要删除么？\');">删除</a>';
+                  break;
+                default:
+                  html = '<a href="#" class="product-' + prop + '" data-pk="' + row._id + 
                      '" data-url="/admin/update_product" data-name="' + prop + '">' + 
                      row[prop] + '</a>';
+                  break;
+              }
+              return html;
           }
         });
 
@@ -184,6 +174,29 @@ block content
           $(element).editable({
             type : "text",
             title : "输入产品价格"
+          });
+        });
+
+        $(".product-unit").each(function(index, element) {
+          $(element).editable({
+            type : "text",
+            title : "输入产品规格"
+          });
+        });
+
+        $('.product-onDiscount').each(function(index, element) {
+          $(element).editable({
+            type: 'select',
+            title: '产品是否打折',
+            source: [{value: 1, text: '是'}, {value: 2, text: '否'}]
+          });
+        });
+
+        $('.product-onGroupon').each(function(index, element) {
+          $(element).editable({
+            type: 'select',
+            title: '产品是否团购',
+            source: [{value: 1, text: '是'}, {value: 2, text: '否'}]
           });
         });
     });

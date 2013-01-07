@@ -305,10 +305,23 @@
     });
   });
 
+  app.get('/admin/delete_product/:proudctid', function(req, res) {
+    return Product.remove({
+      _id: req.params.proudctid
+    }, function(error) {
+      return res.redirect('/admin/product');
+    });
+  });
+
   app.post('/admin/update_product', function(req, res) {
-    var setval;
+    var key, setval, val;
     setval = {};
-    setval[req.param("name")] = req.param("value");
+    key = req.param("name");
+    val = req.param("value");
+    if (key === 'onGroupon' || key === 'onDiscount') {
+      val = val === '1' ? true : false;
+    }
+    setval[key] = val;
     return Product.update({
       _id: req.param('pk')
     }, {

@@ -191,9 +191,18 @@ app.get '/admin/list_product', (req, res) ->
 	Product.find (err, products) ->
 		res.json(products)
 
+app.get '/admin/delete_product/:proudctid', (req, res) ->
+	Product.remove {_id: req.params.proudctid}, (error) ->
+		res.redirect '/admin/product'
+
 app.post '/admin/update_product', (req, res) ->
 	setval = {}
-	setval[req.param("name")] = req.param("value")
+	key = req.param("name")
+	val = req.param("value")
+	if key is 'onGroupon' or key is 'onDiscount'
+		val = if val is '1' then true else false
+
+	setval[key] = val
 	Product.update {_id : req.param('pk')}, {$set : setval}, (err) ->
 		if err
 		    res.statusCode = 500
