@@ -63,27 +63,42 @@ block content
             .control-group
               label.control-label(for='product_name') 产品名
               .controls
-                input.larger-text-field(type='text', id='product_name', name='product_name', placeholder='产品名')
+                input.larger-text-field(type='text', 
+                  id='product_name', name='product_name', placeholder='产品名',
+                  required, data-validation-required-message='请输入产品名')
 
             .control-group
               label.control-label(for='product_description') 产品简介
               .controls
-                textarea.larger-text-field(rows='10', name='product_description', id='product_description')
+                textarea.larger-text-field(rows='8', 
+                  name='product_description', id='product_description',
+                  required, data-validation-required-message='请输入简介')
 
             .control-group
               label.control-label(for='product_price') 产品价格
               .controls
-                input(type='text', placeholder='产品价格', id='product_price', name='product_price')
+                input(type='number', 
+                  placeholder='产品价格', id='product_price', 
+                  name='product_price', required,
+                  data-validation-number-message='请输入数字',
+                  data-validation-required-message='请输入产品价格')
 
             .control-group
               label.control-label(for='product_price') 会员价格
               .controls
-                input(type='text', placeholder='会员价格', id='product_member_price', name='product_member_price')
+                input(type='number', 
+                  placeholder='会员价格', id='product_member_price',
+                  name='product_member_price',
+                  data-validation-number-message='请输入数字',
+                  required,
+                  data-validation-required-message='请输入会员价格')
 
             .control-group
               label.control-label(for='product_price') 产品规格
               .controls
-                input(type='text', placeholder='产品单位', id='product_unit', name='product_unit')
+                input(type='text', 
+                  placeholder='产品单位', id='product_unit', name='product_unit',
+                  required, data-validation-required-message='请输入产品规格')
 
             .control-group
               label.control-label(for='product_image') 产品图片(157像素x157像素)
@@ -204,3 +219,16 @@ block content
     $("#add-product-button").on('click', function() {
       $("#add-product-form").submit();
     });
+
+    $("input,textarea,select").jqBootstrapValidation(
+      {
+          preventSubmit: true,
+          submitError: function($form, event, errors) {
+              // Here I do nothing, but you could do something like display 
+              // the error messages to the user, log, etc.
+          },
+          filter: function() {
+              return $(this).is(":visible");
+          }
+      }
+    );
