@@ -2,7 +2,7 @@ extends member_index
 
 block content
   ul
-    - each address in addresses
+    - each address in user.addresses
       li 收件人 #{address.name}
       li 收货地址 #{address.address}
       li 邮编 #{address.zipCode}

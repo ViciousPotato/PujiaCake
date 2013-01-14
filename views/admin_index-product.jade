@@ -1,0 +1,201 @@
+extends admin
+
+block content
+  style
+    #product-grid {
+        margin-top: 20px;
+    }
+  table#product-grid.table.table-bordered.datagrid
+      thead
+        tr
+          th
+            span.datagrid-header-title 首页产品列表
+            .datagrid-header-left
+            .datagrid-header-right
+              .input-append.search
+                input.input-medium(type='text', placeholder='Search')
+                button.btn
+                  i.icon-search
+                button.btn(
+                  type="button",
+                  data-backdrop="true",
+                  data-toggle="modal",
+                  data-target="#add-product-modal")
+                  i.icon-plus-sign
+      tfoot
+        tr
+          th
+            .datagrid-footer-left(style='display: none;')
+              .grid-controls
+                span
+                  span.grid-start
+                  | -
+                  span.grid-end
+                  | of
+                  span.grid-count
+                select.grid-pagesize
+                  option 10
+                  option 20
+                  option 50
+                  option 100
+                span Per Page
+            .datagrid-footer-right(style='display: none;')
+              .grid-pager
+                button.btn.grid-prevpage
+                  i.icon-chevron-left
+                span Page
+                .input-append.dropdown.combobox
+                  input.span1(type='text')
+                  button.btn(data-toggle='dropdown')
+                    i.caret
+                  ul.dropdown-menu
+                span
+                  | of
+                  span.grid-pages
+                button.btn.grid-nextpage
+                  i.icon-chevron-right
+
+  .modal.fade#add-product-modal(role="dialog", aria-labelledby="product-modal-label")
+    .modal-header
+      button.close(type="button", data-dismiss="modal", aria-hidden="true")x
+      h3#product-modal-label 添加产品
+    .modal-body
+        style
+          input.larger-text-field, textarea.larger-text-field { width : 300px; }
+
+        form#add-product-form.form-horizontal(action='/admin/index-product', method='post', enctype="multipart/form-data")
+            .control-group
+              label.control-label(for='product_name') 产品名
+              .controls
+                input.larger-text-field(
+                  type='text', 
+                  id='product_name', 
+                  name='product_name', 
+                  placeholder='产品名',
+                  required, 
+                  data-validation-required-message='请输入产品名')
+
+            .control-group
+              label.control-label(for='product_description') 产品简介
+              .controls
+                textarea.larger-text-field(
+                  rows='8', 
+                  name='product_description',
+                  id='product_description',
+                  required,
+                  data-validation-required-message='请输入简介')
+
+            .control-group
+              label.control-label(for='product_type') 产品类型
+              .controls
+                select#product_type(name="product_type")
+                  option(value="full") 单照片全幅
+                  option(value="withtext") 左文字右照片
+
+            .control-group
+              label.control-label(for='product_link') 产品链接
+              .controls
+                input(
+                  placeholder='产品URL', 
+                  id='product_link',
+                  name='product_link',
+                  required,
+                  data-validation-required-message='请输入产品连接')
+
+            .control-group
+              label.control-label(for='product_image') 产品图片(像素x像素)
+              .controls
+                input(type='file', name='product_image')
+
+    .modal-footer
+      button.btn(data-dismiss="modal", aria-hidden="true") 关闭
+      button.btn.btn-primary#add-product-button 保存修改
+  
+  script
+    $.get('/admin/index-product/list', function(data) {
+        var dataSource = new StaticDataSource({
+          columns: [
+            { property: 'name', label: '商品名称', sortable: true}, 
+            { property: 'description', label: '描述', sortable: true }, 
+            { property: 'image', label: '图片', sortable: true },
+            { property: 'type', label: "类型", sortable: true },
+            { property: 'delete', label: '删除', sortable: true }
+          ],
+          data: data,
+          delay: 200
+        });
+
+        $('#product-grid').datagrid({
+          dataSource: dataSource,
+          cellrenderfunc: function(row, prop) {
+              var html = '';
+              if (prop === 'type') {
+                if (row[prop] == 'image') {
+                  row[prop] = '大图';
+                } else {
+                  row[prop] = '图配文字';
+                }
+              }
+
+              switch (prop) {
+                case 'delete':
+                  html = '<a href="/admin/index-product/delete/'+row._id+'" onclick="return confirm(\'真的要删除么？\');">删除</a>';
+                  break;
+                default:
+                  html = '<a href="#" class="product-' + prop + '" data-pk="' + row._id + 
+                     '" data-url="/admin/index-product/update" data-name="' + prop + '">' + 
+                     row[prop] + '</a>';
+                  break;
+              }
+              return html;
+          }
+        });
+      });
+    
+    $("#product-grid").on('loaded', function(){
+      $(".product-name").each(function(index, element) {
+        $(element).editable({
+            type : "text",
+            title : "输入产品名称"
+          });
+        });
+
+        $(".product-description").each(function(index, element) {
+          $(element).editable({
+            type : "textarea",
+            title : "输入产品描述"
+          });
+        });
+
+        $(".product-image").each(function(index, element) {
+          $(element).editable({
+            type : "text",
+            title : "输入图片地址"
+          });
+        });
+
+        $('.product-type').each(function(index, element) {
+          $(element).editable({
+            type: 'select',
+            title: '产品类型',
+            source: [{value: 1, text: '大图'}, {value: 2, text: '图配文字'}]
+          });
+        });
+    });
+
+    $("#add-product-button").on('click', function() {
+      $("#add-product-form").submit();
+    });
+
+    $("input,textarea,select").jqBootstrapValidation(
+      {
+          preventSubmit: true,
+          submitError: function($form, event, errors) {
+              // Here I do nothing, but you could do something like display 
+              // the error messages to the user, log, etc.
+          },
+          filter: function() {
+              return $(this).is(":visible");
+          }
+      }
+    );
