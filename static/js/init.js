@@ -51,9 +51,18 @@ $(document).ready(function(){
 			dataType: 'json',
 			success: function(data) {
 		    $.each(data, function(i,item) {
-			    var htmlz = '<h3>' + item.name + '</h3><p class="intro">'+item.description+' <a class="coral" href="'+item.link+'"> <span style="margin-left: 300px;">&#62;</span></a></p>';
-			    var bg = 'url(' + item.image + ')';
-			    $('div.wrapper.content').prepend('<div class="hilite-extra" style="background-image: '+bg+';display:none;">'+htmlz+'</div>');
+          if (item.type == 'full') {
+            var htmlz = '';
+            var bg = 'url(' + item.image + '); background-position: 0, 0';
+          } else {
+          	var htmlz = '<h3>' + item.name + '</h3><p class="intro">' +
+              item.description + ' <a class="coral" href="' + item.link +
+              '"> <span style="margin-left: 300px;">&#62;</span></a></p>';
+			      var bg = 'url(' + item.image + ')';
+          }
+			    $('div.wrapper.content').prepend(
+            '<div class="hilite-extra" style="background-image: '+
+              bg+';display:none;">'+htmlz+'</div>');
 		    });
 		    rotateFrontHilites(1);
 			}
