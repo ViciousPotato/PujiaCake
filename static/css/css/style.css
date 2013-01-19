@@ -351,3 +351,9 @@ p.member-price span, #cart .sumprice {
 	color: #900;
 	text-decoration: bold;
 }
+
+/* index about */
+
+#history h3 {
+  line-height: 30px;
+}
