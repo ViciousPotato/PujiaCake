@@ -1,5 +1,5 @@
 {
-    "name": "Pujia Cake",
+    "name": "PujiaCake",
     "description": "Website for PujiaCake.",
     "version": "0.1.0",
     "author": "Zhou Honglin",
@@ -7,7 +7,8 @@
         "express":"*",
         "mongoose":"*",
         "jade":"*",
-	"underscore":"*"
+        "underscore":"*",
+        "debug":"*"
     },
     "devDependencies": {}
 }

@@ -1,3 +1,5 @@
+mongoose     = require 'mongoose'
+path         = require 'path'
 User         = require '../models/user.js'
 Product      = require '../models/product.js'
 IndexProduct = require '../models/index-product.js'

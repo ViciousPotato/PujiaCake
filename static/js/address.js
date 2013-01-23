@@ -42,7 +42,7 @@ var initProv = function(prov, city, defaultProv, defaultCity) {
 	
 	provHtml += '<option value="-1">请选择</option>';
 	for(var i = 0; i < _cityInfo.length; i++) {
-		provHtml += '<option value="' + _cityInfo[i].n + '"' + ((hasDefaultProv && _cityInfo[i].n == defaultProv) ? ' selected="selected"' : '') + '>' + _cityInfo[i].n + '</option>';
+		provHtml += '<option value="' + i + ',' + _cityInfo[i].n + '"' + ((hasDefaultProv && _cityInfo[i].n == defaultProv) ? ' selected="selected"' : '') + '>' + _cityInfo[i].n + '</option>';
 	}
 	provEl.html(provHtml);
 	initCities(provEl, cityEl, defaultCity);
@@ -53,13 +53,13 @@ var initProv = function(prov, city, defaultProv, defaultCity) {
 
 var initCities = function(provEl, cityEl, defaultCity) {
 	var hasDefaultCity = (typeof(defaultCity) != 'undefined');
-	if(provEl.val() != '' && parseInt(provEl.val()) >= 0) {
+	if(provEl.val() != '' && parseInt(provEl.val()) != -1) {
 		var cities = _cityInfo[parseInt(provEl.val())].c;
 		var cityHtml = '';
 		
 		cityHtml += '<option value="-1">请选择</option>';
 		for(var i = 0; i < cities.length; i++) {
-			cityHtml += '<option value="' + cities[i] + '"' + ((hasDefaultCity && cities[i] == defaultCity) ? ' selected="selected"' : '') + '>' + cities[i] + '</option>';
+			cityHtml += '<option value="' + i + ',' + cities[i] + '"' + ((hasDefaultCity && cities[i] == defaultCity) ? ' selected="selected"' : '') + '>' + cities[i] + '</option>';
 		}
 		cityEl.html(cityHtml);
 	} else {

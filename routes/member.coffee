@@ -1,4 +1,8 @@
+mongoose = require 'mongoose'
 User = require '../models/user.js'
+
+generate_random_code = () ->
+  return (parseInt(Math.random() * 10) for i in [1..4]).join("")
 
 module.exports = (app) ->
   # Member functions
@@ -15,6 +19,8 @@ module.exports = (app) ->
       password: req.param('password'),
       addresses: [{
         name:           req.param('name'),
+        province:       req.param('province').split(',')[1],
+        city:           req.param('city').split(',')[1],
         address:        req.param('address'),
         phone:          req.param('phone'),
         zipCode:        req.param('zip'),

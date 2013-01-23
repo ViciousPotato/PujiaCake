@@ -122,6 +122,18 @@ block content
               label.control-label(for='product_on_groupon') 产品参加团购
               .controls
                 input(type='checkbox', value='onGroupon', name='product_on_groupon')
+            
+            .control-group
+              label.control-label(for='product_weight') 产品每规格重量（克）
+              .controls
+                input(
+                type="number",
+                placeholer="产品每规格重量",
+                id="product_weight",
+                name="product_weight",
+                data-validation-number-messages="请输入数字",
+                required,
+                data-validation-required-message="请输入产品每规格重量，方便计算运费")
 
 
 
@@ -133,14 +145,15 @@ block content
     $.get('/admin/list_product', function(data) {
         var dataSource = new StaticDataSource({
           columns : [
-            { property: 'name', label: '商品名称', sortable: true}, 
-            { property: 'description', label: '描述', sortable: true }, 
-            { property: 'price', label: '价格', sortable: true },
-            { property: "memberPrice", label: "会员价", sortable: true },
-            { property: 'onDiscount', label: '打折中', sortable: true },
-            { property: 'onGroupon', label: '团购中', sortable: true },
-            { property: 'unit', label: '规格', sortable: true },
-            { property: 'delete', label: '操作', sortable: false }
+            { property: 'name',        label: '商品名称',       sortable: true}, 
+            { property: 'description', label: '描述',           sortable: true }, 
+            { property: 'price',       label: '价格',           sortable: true },
+            { property: "memberPrice", label: "会员价",         sortable: true },
+            { property: 'onDiscount',  label: '打折中',         sortable: true },
+            { property: 'onGroupon',   label: '团购中',         sortable: true },
+            { property: 'unit',        label: '规格',           sortable: true },
+            { property: 'delete',      label: '操作',           sortable: false },
+            { property: 'weight',      label: '每规格重量（克）', sortable: true }
           ],
           data : data,
           delay : 200
@@ -212,6 +225,13 @@ block content
             type: 'select',
             title: '产品是否团购',
             source: [{value: 1, text: '是'}, {value: 2, text: '否'}]
+          });
+        });
+        
+        $('.product-weight').each(function(index, element) {
+          $(element).editable({
+            type: 'number',
+            title: '产品每规格重量'
           });
         });
     });

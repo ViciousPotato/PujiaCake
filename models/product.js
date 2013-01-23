@@ -13,7 +13,11 @@
     onGroupon: Boolean,
     image: String,
     kind: String,
-    unit: String
+    unit: String,
+    weight: {
+      type: Number,
+      "default": 0
+    }
   });
 
   module.exports = mongoose.model('Product', productSchema);

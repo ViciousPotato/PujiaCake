@@ -1,5 +1,6 @@
-Product = require '../models/product.js'
-_       = require 'underscore.js'
+mongoose = require 'mongoose'
+Product  = require '../models/product.js'
+_        = require 'underscore'
 
 module.exports = (app) ->
   # Cart

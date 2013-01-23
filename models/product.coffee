@@ -10,6 +10,7 @@ productSchema = new mongoose.Schema {
   onGroupon:   Boolean,
   image:       String,
   kind:        String,
-  unit:        String
+  unit:        String,
+  weight:      { type: Number, default: 0 } # weight in g
 }
 module.exports = mongoose.model 'Product', productSchema

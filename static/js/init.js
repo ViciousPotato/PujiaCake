@@ -16,7 +16,7 @@ $(document).ready(function(){
 	$('#scrollers ul').quickScroll();
 	
 	//labelsInInputs
-	$('input[type=text], textarea').labelsInInputs({color: '#54301A', blur_color: '#D8CFC6', left: '36px'});
+	// $('input[type=text], textarea').labelsInInputs({color: '#54301A', blur_color: '#D8CFC6', left: '36px'});
 
 	// animate those cute validation bubbles	
 	$('form p small').hide().delay(500).slideDown();
@@ -47,48 +47,27 @@ $(document).ready(function(){
 		// This code reads from a json page full of data and crossfades the content on the homepage
 		
 		$.ajax({
-			url:  '/index-products',
+			url:      '/index-products',
 			dataType: 'json',
-			success: function(data) {
-		    $.each(data, function(i,item) {
-          if (item.type == 'full') {
-            var htmlz = '';
-            var bg = 'url(' + item.image + '); background-position: 0, 0';
-          } else {
-          	var htmlz = '<h3>' + item.name + '</h3><p class="intro">' +
-              item.description + ' <a class="coral" href="' + item.link +
-              '"> <span style="margin-left: 300px;">&#62;</span></a></p>';
-			      var bg = 'url(' + item.image + ')';
-          }
-			    $('div.wrapper.content').prepend(
-            '<div class="hilite-extra" style="background-image: '+
-              bg+';display:none;">'+htmlz+'</div>');
-		    });
-		    rotateFrontHilites(1);
-			}
-		});
+			success:  function(data) {
+		        $.each(data, function(i,item) {
+                    if (item.type == 'full') {
+                        var htmlz = '';
+                        var bg = 'url(' + item.image + '); background-position: 0, 0';
+                    } else {
+                        var htmlz = '<h3>' + item.name + '</h3><p class="intro">' +
+                          item.description + ' <a class="coral" href="' + item.link +
+                          '"> <span style="margin-left: 300px;">&#62;</span></a></p>';
+                        var bg = 'url(' + item.image + ')';
+                    }
+                        $('div.wrapper.content').prepend(
+                            '<div class="hilite-extra" style="background-image: '+
+                            bg+';display:none;">'+htmlz+'</div>');
+                    });
+                        rotateFrontHilites(1);
+            }
+        });
 	}
-
-	if($('body').attr('id') == 'contact') {
-		$('#map').before('<p id="expand"><span>Expand</span></p>');
-		initialise_map();
-	
-		$('#expand').toggle(function() {
-			$('#map').animate({height:'500px'}, 'slow', function() {
-				initialise_map();
-				$('#expand span').text('Contract').addClass('col');
-			});
-			
-		}, function () {
-			$('#map').animate({height:'250px'}, 'slow', function() {
-				initialise_map();
-				$('#expand span').text('Expand').removeClass('col');
-			});
-		});
-	
-	};
-	
-
 });
 
 
