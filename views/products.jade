@@ -11,7 +11,7 @@ block content
     - each product in discount_products
       li
         a.m(href='/products/#{product.kind}/#{product.id}')
-          img(src='#{product.image}', alt='#{product.name}')
+          img.product-image(src='#{product.image}', alt='#{product.name}')
           h4 #{product.name}
         p.origin-price
           | 原价

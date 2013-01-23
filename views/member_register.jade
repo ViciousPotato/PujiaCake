@@ -36,7 +36,11 @@ block content
 
       div
         label 地址
-        input#address(type="text", name="address")
+        select#province(name="province")
+        | 省
+        select#city(name="city")
+        | 市
+        input#address(type="text", name="address", placeholder="地址")
 
       div
         label 手机号
@@ -60,4 +64,6 @@ block content
               我同意
               a(href='#') 注册条款
 
-      input(type="submit", value="注册") 
+      input(type="submit", value="注册")
+  script
+    initProv('#province', '#city');

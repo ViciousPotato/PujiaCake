@@ -1,0 +1,84 @@
+extends admin
+
+block content
+  style
+    #fee-grid {
+        margin-top: 20px;
+    }
+  table#fee-grid.table.table-bordered.datagrid
+      thead
+        tr
+          th
+            span.datagrid-header-title 快递费用列表
+            .datagrid-header-left
+      tfoot
+        tr
+          th
+            .datagrid-footer-left(style='display: none;')
+              .grid-controls
+                span
+                  span.grid-start
+                  | -
+                  span.grid-end
+                  | of
+                  span.grid-count
+                select.grid-pagesize
+                  option 10
+                  option 20
+                  option 50
+                  option 100
+                span Per Page
+            .datagrid-footer-right(style='display: none;')
+              .grid-pager
+                button.btn.grid-prevpage
+                  i.icon-chevron-left
+                span Page
+                .input-append.dropdown.combobox
+                  input.span1(type='text')
+                  button.btn(data-toggle='dropdown')
+                    i.caret
+                  ul.dropdown-menu
+                span
+                  | of
+                  span.grid-pages
+                button.btn.grid-nextpage
+                  i.icon-chevron-right
+
+  script
+    $.get('/admin/list_express_fee', function(data) {
+        var dataSource = new StaticDataSource({
+          columns : [
+            { property : 'province',  label : '省市',    sortable : true }, 
+            { property : 'sfFee',     label : '顺丰',    sortable : true },
+            { property : 'othersFee', label : '其它快递', sortable : true },
+            { property : 'unit',      label : '单位',    sortable : true }
+          ],
+          data : data,
+          delay : 200
+        });
+
+        $('#fee-grid').datagrid({
+          dataSource : dataSource,
+          cellrenderfunc : function(row, prop) {
+              return '<a href="#" class="fee-' + prop + '" data-pk="' + row._id + 
+                     '" data-url="/admin/update_fee" data-name="' + prop + '">' + 
+                     row[prop] + '</a>';
+          }
+        });
+      });
+    
+    $("#fee-grid").on('loaded', function(){
+      $(".fee-sfFee").each(function(index, element) {
+        $(element).editable({
+            type : "text",
+            title : "输入顺丰每公斤价格"
+          });
+        });
+
+        $(".fee-othersFee").each(function(index, element) {
+          $(element).editable({
+            type : "text",
+            title : "输入其它快递每公斤价格"
+          });
+        });
+    });

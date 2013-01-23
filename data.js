@@ -1,3 +1,178 @@
+db.expressfees.remove()
+db.expressfees.insert([
+{
+  province: '北京',
+  sfFee: 5,
+  othersFee: 2,
+},
+{
+  province: '天津',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '河北',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '山西',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '内蒙古自治区',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '辽宁',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '吉林',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '黑龙江',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '上海',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '江苏',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '浙江',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '安徽',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '福建',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '江西',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '山东',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '河南',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '湖北',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '湖南',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '广东',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '广西壮族自治区',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '海南',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '重庆',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '四川',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '贵州',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '云南',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '西藏自治区',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '陕西',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '甘肃',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '青海',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '宁夏回族自治区',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '新疆维吾尔自治区',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '香港',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '澳门',
+  sfFee: 5,
+  othersFee: 2
+},
+{
+  province: '台湾',
+  sfFee: 5,
+  othersFee: 2
+}
+])
+
+/*
 db.products.remove()
 db.products.insert(
 	{
@@ -69,3 +244,4 @@ db.users.insert(
 		}]
 	}
 );
+*/

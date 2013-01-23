@@ -357,3 +357,9 @@ p.member-price span, #cart .sumprice {
 #history h3 {
   line-height: 30px;
 }
+
+/* Products page */
+a.m img.product-image {
+  width: 157px;
+  height: 157px;
+}

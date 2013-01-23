@@ -10,6 +10,8 @@ db = mongoose.createConnection 'localhost', 'test'
 # Address
 addressSchema = new mongoose.Schema {
   name:           String,
+  province:       String,
+  city:           String,
   address:        String,
   phone:          String,
   zipCode:        String,
@@ -21,7 +23,7 @@ userSchema = new mongoose.Schema {
   password:  String,
   addresses: [addressSchema]
 }
-User = db.model 'User', userSchema
+User = mongoose.model 'User', userSchema
 
 # Product
 productSchema = new mongoose.Schema {
@@ -35,7 +37,7 @@ productSchema = new mongoose.Schema {
   kind:        String,
   unit:        String
 }
-Product = db.model 'Product', productSchema
+Product = mongoose.model 'Product', productSchema
 
 # Product show on front page.
 indexProductSchema = new mongoose.Schema {
@@ -46,7 +48,7 @@ indexProductSchema = new mongoose.Schema {
   type:        String,
   link:        String
 }
-IndexProduct = db.model 'IndexProduct', indexProductSchema
+IndexProduct = mongoose.model 'IndexProduct', indexProductSchema
 
 orderSchema = new mongoose.Schema {
   time:      { type: Date, default: Date.now },
@@ -56,7 +58,16 @@ orderSchema = new mongoose.Schema {
   status:    String, # 'confirmed' | 'paid' | 'onexpress' 
   amount:    Number
 }
-Order = db.model 'Order', orderSchema
+Order = mongoose.model 'Order', orderSchema
+
+# Express fees.
+expressFeeSchema = new mongoose.Schema {
+  province:  String,
+  sfFee:     Number,
+  othersFee: Number,
+  unit:      { type: String, default: 'kg' }
+}
+ExpressFee = mongoose.model 'ExpressFee', expressFeeSchema
 
 app = express()
 
@@ -78,6 +89,7 @@ generate_random_code = () ->
   return (parseInt(Math.random() * 10) for i in [1..4]).join("")
 
 app.use (req, res, next) ->
+  # Use in views
   app.locals.user = req.session.user
   next()
 
@@ -266,6 +278,24 @@ app.post '/admin/index-product', (req, res) ->
   product.save (error) ->
     res.render 'admin_index-product.jade', { active_index: 3 }
   
+app.get '/admin/express-fee', (req, res) ->
+  res.render 'admin_express.jade', { active_index: 6 }
+
+app.get '/admin/list_express_fee', (req, res) ->
+  ExpressFee.find {}, (error, fees) ->
+    res.json(fees)
+
+app.post '/admin/update_fee', (req, res) ->
+  setval = {}
+  key = req.param('name')
+  val = req.param('val')
+  setval[key] = val
+  ExpressFee.update {_id: req.param('pk')}, {$set: setval}, (err) ->
+    if err
+      res.status(500)
+    else
+      res.json({ 'status': 'ok' })
+
 
 # Products
 app.get '/products', (req, res) ->
