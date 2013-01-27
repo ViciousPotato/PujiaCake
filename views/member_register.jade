@@ -4,6 +4,18 @@ block title
   注册
 
 block content
+  style
+    #register-form div {
+      height: 40px;
+    }
+    
+    #submit {
+      border: 1px solid rgb(206, 28, 41);
+      background-color: rgb(206, 28, 41);
+      color: white;
+      height: 26px;
+    }
+
   #register-form
     h1 注册
     p.login 已经是会员？
@@ -23,12 +35,10 @@ block content
       div
         label(for="") 再输一遍密码
           abbr(title='必填')*
-
-      div
         input#repassword(type="password", name='repassword')
 
       h5(style="margin-top: 8px") 送货信息
-      hr(style="margin: 5px 0")
+      hr(style="margin: 10px 0 15px 0")
 
       div
         label 姓名
@@ -36,10 +46,10 @@ block content
 
       div
         label 地址
-        select#province(name="province")
-        | 省
+        select#province(name="province", style="")
+        span(style="margin: 0 5px 0 5px") 省
         select#city(name="city")
-        | 市
+        span(style="margin: 0 5px 0 5px") 市
         input#address(type="text", name="address", placeholder="地址")
 
       div
@@ -53,7 +63,7 @@ block content
       div
         label 送货方式
         select#delivery-method(name="delivery-method")
-          option(value="express", selected)快递
+          option(value="others", selected)普通快递
           option(value="sf")顺丰
 
       .tos
@@ -64,6 +74,6 @@ block content
               我同意
               a(href='#') 注册条款
 
-      input(type="submit", value="注册")
+      input(type="submit", value="注册", id="submit")
   script
     initProv('#province', '#city');

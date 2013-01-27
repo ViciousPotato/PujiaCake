@@ -1,7 +1,5 @@
 extends cart
 
-block sidebar
-
 block content
   style
     .lheader {
@@ -14,6 +12,7 @@ block content
       position: relative;
       border: 1px solid #F71833;
       padding: 5px;
+      background-color: rgb(255, 249, 237)
     }
 
     .checkout-item-title {
@@ -49,6 +48,10 @@ block content
       width: 50px;
       display: block;
     }
+    
+    .address-radio {
+      margin-right: 5px;
+    }
 
   .checkout-item
     .checkout-item-title
@@ -56,41 +59,31 @@ block content
     .checkout-item-content
       - each address in user.addresses
         .checkout-name
-          input(type="radio", name="address", value="#{address._id}")
+          input.address-radio(type="radio", name="address", value="#{address._id}")
           | #{address.name}
         .checkout-detail
           p #{address.address}，邮编:#{address.zipCode}
-          p 收货人#{address.name}，联系电话#{address.phone}
+          p 收货人#{address.name}
+          p 联系电话#{address.phone}
+    
+      a(href="/member/address") 送货信息管理
 
-      .checkout-name
-        input(type="radio", name="address")
-        | 新地址
-      .checkout-detail
-        form.new-address-form
-          div
-            label 姓名
-            input#name(type="text", name="name")
-
-          div
-            label 地址
-            input#address(type="text", name="address")
-
-          div
-            label 手机号
-            input#phone(name="phone")
-
-          div
-            label 邮政编码
-            input#zip(name="zip")
-
-          div
-            label 送货方式
-            select#delivery-method(name="delivery-method")
-              option(value="express", selected)快递
-              option(value="sf")顺丰
-
-          input(type="submit", value="保存")
-
+  .checkout-item-title
+    h5 送货方式
+  .checkout-item-content
+    input(type="radio", name="express", value="sf")
+    | 顺丰
+    input(type="radio", name="express", value="others")
+    | 其它快递
+    p 快递费用 
+  
+  .checkout-item-title
+    h5 费用清单
+  .checkout-item-content
+    p 商品费用
+    p 快递费用
+    p 
+  
   .checkout-item
     .checkout-item-title
       h5 支付方式

@@ -1,0 +1,32 @@
+extends admin
+
+block content
+  style
+    .larger-text-field { width : 400px; }
+
+  form.form-horizontal(action='/admin/add_product', method='post')
+    legend 添加产品
+
+      .control-group
+        label.control-label(for='product_name') 产品名
+        .controls
+          input.larger-text-field(type='text', id='product_name', name='product_name', placeholder='产品名')
+
+      .control-group
+        label.control-label(for='product_description') 产品描述
+        .controls
+          textarea.larger-text-field(rows='10', name='product_description', id='product_description')
+
+      .control-group
+        label.control-label(for='product_price') 产品价格
+        .controls
+          input(type='text', placeholder='产品价格', id='product_price', name='product_price')
+
+      .control-group
+        label.control-label(for='product_image') 产品图片
+        .controls
+          input(type='file', name='product_image')
+
+      .control-group
+        .controls
+          button.btn(type='submit') 保存

@@ -1,177 +1,22 @@
-db.expressfees.remove()
-db.expressfees.insert([
-{
-  province: '北京',
-  sfFee: 5,
-  othersFee: 2,
-},
-{
-  province: '天津',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '河北',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '山西',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '内蒙古自治区',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '辽宁',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '吉林',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '黑龙江',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '上海',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '江苏',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '浙江',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '安徽',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '福建',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '江西',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '山东',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '河南',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '湖北',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '湖南',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '广东',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '广西壮族自治区',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '海南',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '重庆',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '四川',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '贵州',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '云南',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '西藏自治区',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '陕西',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '甘肃',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '青海',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '宁夏回族自治区',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '新疆维吾尔自治区',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '香港',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '澳门',
-  sfFee: 5,
-  othersFee: 2
-},
-{
-  province: '台湾',
-  sfFee: 5,
-  othersFee: 2
-}
-])
-
+db.expressfees.remove();
+var provinces = ["北京市", "天津市", "上海市", "重庆市", "河北省", "山西省", "台湾省", "辽宁省", "吉林省", "黑龙江省", "江苏省", "浙江省", "安徽省", "福建省", "江西省", "山东省", "河南省", "湖北省", "湖南省", "广东省", "甘肃省", "四川省", "贵州省", "海南省", "云南省", "青海省", "陕西省", "广西壮族自治区", "西藏自治区", "宁夏回族自治区"];
+provinces.forEach(function(province) {
+    db.expressfees.insert({
+        province: province,
+        sfFee: {
+            basicFee:        5.0,
+            basicWeight:     500,
+            extraFeeUinit:   2.0,
+            extraWeightUnit: 500
+        },
+        othersFee: {
+            basicFee:        5.0,
+            basicWeight:     500,
+            extraFeeUinit:   2.0,
+            extraWeightUnit: 500        
+        }
+    });    
+});
 /*
 db.products.remove()
 db.products.insert(

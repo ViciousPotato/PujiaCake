@@ -25,7 +25,8 @@ block content
     }
 
     #cart .reduce-button, .add-button {
-      width: 5px;
+      width: 15px;
+      height: 15px;
     }
 
   p.breadcrumbs
@@ -52,7 +53,6 @@ block content
             th 商品数量
             th 商品总价
             th 操作
-            th
         tbody
             - each item in cart
               - var currentPrice = 0;
@@ -73,17 +73,16 @@ block content
                     span.member-price ￥#{item.product.memberPrice}
                   - else
                     | #{item.product.price}
-                td #{item.quantity}
+                td 
+                  a.reduce-button(href="/cart/remove/#{item.product._id}") -
+                  | #{item.quantity}
+                  a.add-button(href="/cart/add/#{item.product._id}") +
                 td 
                   - if (user)
                     span.origin-price ￥#{currentPrice}
                     span.member-price ￥#{currentMemberPrice}
                   - else
                     | #{currentPrice}
-                td 
-                  a.reduce-button(href="/cart/remove/#{item.product._id}") -
-                  | #{item.quantity}
-                  a.add-button(href="/cart/add/#{item.product._id}") +
                 td
                   a(href='/cart/delete/#{item.id}') 删除
               - itemno++
@@ -101,7 +100,7 @@ block content
           span.member-price
             ￥#{sumprice-memberSumPrice}
         p
-          | 本次购买可获得记分
+          | 本次购买可获得积分
           span.member-price #{sumprice-memberSumPrice}
       p 
         a(href="/cart/checkout") 去结算
