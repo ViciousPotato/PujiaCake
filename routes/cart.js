@@ -121,21 +121,21 @@
       cart = req.session.cart;
       user = req.session.user;
       province = req.params.province;
-      debug('calculating express fee to %s', province);
-      weight = _.reduce(cart, function(sum, product) {
-        return sum + product.quantity * product.weight;
+      debug('calculating express fee for %s', province);
+      debug('cart is ', cart);
+      weight = _.reduce(cart, function(sum, item) {
+        return sum + item.quantity * item.product.weight;
       }, 0);
-      return ExpressFee.find({
+      debug('calculating express fee for weight ', weight);
+      return ExpressFee.findOne({
         province: province
-      }, function(error, expressFees) {
-        var expressFee;
+      }, function(error, expressFee) {
         if (error) {
           return res.json({
             error: error
           });
         }
-        debug('Found express fees: ', expressFees);
-        expressFee = _.first(expressFees);
+        debug('Found express fee: ', expressFee);
         return res.json({
           sfFee: expressFee.calculateSFFee(weight),
           otherFee: expressFee.calculateOthersFee(weight)

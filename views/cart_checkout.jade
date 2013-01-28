@@ -49,7 +49,7 @@ block content
       display: block;
     }
     
-    .address-radio {
+    .radio {
       margin-right: 5px;
     }
 
@@ -59,30 +59,31 @@ block content
     .checkout-item-content
       - each address in user.addresses
         .checkout-name
-          input.address-radio(type="radio", name="address", value="#{address._id}")
+          input.radio.address-radio(type="radio", name="address", value="#{address._id}")
           | #{address.name}
         .checkout-detail
-          p #{address.address}，邮编:#{address.zipCode}
+          p #{address.province}, #{address.city}, #{address.address}，邮编:#{address.zipCode}
           p 收货人#{address.name}
           p 联系电话#{address.phone}
     
       a(href="/member/address") 送货信息管理
 
-  .checkout-item-title
-    h5 送货方式
-  .checkout-item-content
-    input(type="radio", name="express", value="sf")
-    | 顺丰
-    input(type="radio", name="express", value="others")
-    | 其它快递
-    p 快递费用 
+  .checkout-item
+    .checkout-item-title
+      h5 送货方式
+    .checkout-item-content
+      input.radio(type="radio", name="express", value="sf")
+      | 顺丰
+      input.radio(type="radio", name="express", value="others")
+      | 其它快递
+      p 快递费用 
   
-  .checkout-item-title
-    h5 费用清单
-  .checkout-item-content
-    p 商品费用
-    p 快递费用
-    p 
+    .checkout-item-title
+      h5 费用清单
+    .checkout-item-content
+      p 商品费用
+      p 快递费用
+      p 
   
   .checkout-item
     .checkout-item-title
@@ -94,4 +95,7 @@ block content
 
   form(action='/cart/confirm-order', method='post')
     input(type='submit', value='提交订单')
+    
+  script
+  
 

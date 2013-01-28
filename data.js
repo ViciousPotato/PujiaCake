@@ -17,6 +17,7 @@ provinces.forEach(function(province) {
         }
     });    
 });
+
 /*
 db.products.remove()
 db.products.insert(

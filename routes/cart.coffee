@@ -72,20 +72,21 @@ module.exports = (app) ->
     user     = req.session.user
     province = req.params.province
     
-    debug('calculating express fee to %s', province)
+    debug 'calculating express fee for %s', province
+    debug 'cart is ', cart
     
-    weight = _.reduce cart, (sum, product) ->
-      sum + product.quantity * product.weight
+    weight = _.reduce cart, (sum, item) ->
+      sum + item.quantity * item.product.weight
     , 0
     
-    ExpressFee.find {
+    debug 'calculating express fee for weight ', weight
+    
+    ExpressFee.findOne {
       province: province # TODO: what if no address
-    }, (error, expressFees) ->
+    }, (error, expressFee) ->
       return res.json { error: error } if error
       
-      debug 'Found express fees: ', expressFees
-      
-      expressFee = _.first expressFees
+      debug 'Found express fee: ', expressFee
       
       return res.json {
         sfFee:    expressFee.calculateSFFee(weight),
