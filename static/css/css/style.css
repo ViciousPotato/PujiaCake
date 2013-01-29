@@ -98,8 +98,8 @@ form p{margin-bottom:30px;padding:0 0 0 24px;}form p.formerror input,form p.form
 form p.formerror small{background:#cc0d1c;color:#FFF;display:block;height:20px;line-height:20px;position:relative;text-align:center;top:5px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
 button{background:url(../../images/buttons.png) no-repeat;border:none;display:block;margin:0 0 0 auto;text-indent:-9999px;}
 /*input[type=text]{background:none;border:none;border-bottom:1px solid #e6e5e4;color:#54301a;font-size:1.3em;height:28px;padding:0 10px;width:293px;}*/
-textarea{background:none;border:1px solid #e6e5e4;color:#54301a;font-size:1.3em;padding:5px 10px;width:293px;}
-#contact-form p.buttonholder{width:330px;}
+textarea{background:none;border:1px solid #e6e5e4;color:#54301a;font-size:1.3em;padding:5px 10px;width:245px;}
+#contact-form p.buttonholder{width:150px;}
 #contact-form button{background-position:0 -29px;height:38px;width:160px;}#contact-form button:hover{background-position:-164px -29px;}
 body{background:#d8cfc6 url(../../images/background.png) top center repeat-y;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6em;}
 h1,h2,h3,h4,h5,h6{color:#cc0d1c;font-family:'BlissRegular',Helvetica,Arial,sans-serif;font-weight:normal;text-transform:uppercase;}
@@ -377,4 +377,15 @@ h5 {
 .ornament_footer {
   clear: both;
   height: 183px;
+}
+
+.underline-input {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #e6e5e4;
+  color: #54301a;
+  font-size: 1.3em;
+  height: 28px;
+  padding: 0 10px;
+  width: 245px;
 }
