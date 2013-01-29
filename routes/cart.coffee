@@ -7,63 +7,93 @@ debug      = require('debug')('routes/cart')
 module.exports = (app) ->
   # Cart
   # Cart storage structure is [
-  #   { quantity, product, id },
+  #   { quantity(Number), product, id(String) },
   # ]
-  app.get '/cart/add/:productid', (req, res) ->
-    Product.find { _id: req.params.productid }, (err, products) ->
-      product = products[0]
-      productid = product._id.toString()
-
-      if req.session['cart'] is undefined
-        debug("cart is undefined")
-        req.session['cart'] = [{ quantity: 1, product: product, id: productid }]
-      else
-        debug(console.log "cart is defined=" + req.session.cart)
-        p = (prod for prod in req.session['cart'] when prod.id is productid)
-        if p.length == 0
-          #console.log "and we did not find product"
-          req.session['cart'].push {quantity : 1, id : productid, product : product}
-        else
-          p[0].quantity++
-
-      res.render 'cart.jade', { cart: req.session['cart'] }
-
-  app.get '/cart/remove/:productid', (req, res) ->
-    newcart = _.map req.session['cart'], (product) ->
-      if product.id is req.params.productid
-        product.quantity--
-      if product.quantity < 0
-        product.quantity = 0
-      return product
-    req.session['cart'] = newcart
-    res.render 'cart.jade', { cart: req.session['cart'] }
-
-  app.get '/cart/delete/:productid', (req, res) ->
-    req.session['cart'] = (item for item in req.session['cart'] when item.id isnt req.params.productid)
-    res.redirect('/cart')
-
-  app.get '/cart', (req, res) ->
-    res.render 'cart.jade', {cart : req.session['cart']}
-
-  app.get '/cart/checkout', (req, res) ->
-    res.render 'cart_checkout.jade'
-
-  app.post '/cart/confirm-order', (req, res) ->
-    cart = req.session.cart
-    
+  
+  # Calculate total amount of cart
+  amountCart = (cart) ->
     amount_reducer = (sum, product) ->
        product.quantity * product.product.memberPrice + sum
-    amount = _.reduce cart, amount_reducer, 0
+    return _.reduce cart, amount_reducer, 0
+  
+  # Calculate total weight of cart
+  weightCart = (cart) ->
+    _.reduce cart, (sum, item) ->
+      sum + item.quantity * item.product.weight
+    , 0
+  
+  app.get '/cart', (req, res) ->
+    res.render 'cart.jade', { cart: req.session.cart }
+    
+  app.get '/cart/add/:productid', (req, res) ->
+    Product.findOne _id: req.params.productid, (error, product) ->
+      if product is null and not error
+          error = message: '无法找到产品'  
+      return res.render 'error.jade', error: error if error
+      
+      productid = product._id.toString()
+      
+      req.session.cart = [] if not req.session.cart
+      
+      # Check if added product existed in cart.
+      p = _.find req.session.cart, (p) -> p.id is productid
+      if p
+        p.quantity++
+      else
+        req.session.cart.push {
+          quantity: 1,
+          id:       productid,
+          product:  product
+        }
         
-    order = Order {
-      products:  req.session['cart'],
-      userId:    req.session['user']._id,
-      addressId: req.param("address"),
+      res.render 'cart.jade', { cart: req.session.cart }
+
+  # Reduce product quantity.
+  app.get '/cart/remove/:productid', (req, res) ->
+    newcart = _.map req.session.cart, (product) ->
+      product.quantity--   if product.id is req.params.productid
+      product.quantity = 0 if product.quantity < 0
+      product
+  
+    req.session.cart = newcart
+    res.render 'cart.jade', { cart: req.session.cart }
+
+  # Remove product completely.
+  app.get '/cart/delete/:productid', (req, res) ->
+    productid = req.params.productid
+    req.session.cart = 
+      _.filter req.session.cart, (item) -> item.id isnt productid
+    res.redirect('/cart')
+
+  app.get '/cart/checkout', (req, res) ->
+    cart = req.session.cart
+    # Calculate express fees for all user addresses.
+    provinces = _.map req.session.user.addresses, (address) -> 
+      address.province
+    
+    ExpressFee.find province: { $in: provinces }, (error, fees) ->
+      return res.render 'error.jade', { error: error } if error
+      weight = weightCart cart
+      calcFees = 
+        _.map fees, (fee) ->
+          province: fee.province
+          sfFee:    fee.calculateSFFee(weight)
+          otherFee: fee.calculateOthersFee(weight)
+      res.render 'cart_checkout.jade',
+        amount: amountCart(cart), fees: calcFees
+
+  app.post '/cart/confirm-order', (req, res) ->
+    amount = amountCart req.session.cart
+        
+    order  = Order {
+      products:  req.session.cart,
+      userId:    req.session.user._id,
+      addressId: req.body.addressId,
       status:    'paid',
       amount:    amount
     }
     
-    order.save (err) ->
+    order.save (error) ->
       res.redirect '/member/orders'
   
   app.get '/cart/express-fee/:province', (req, res) ->

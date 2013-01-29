@@ -1,5 +1,8 @@
 extends cart
 
+block title
+  确认信息
+
 block content
   style
     .lheader {
@@ -52,6 +55,11 @@ block content
     .radio {
       margin-right: 5px;
     }
+    
+    .express-choice {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
 
   .checkout-item
     .checkout-item-title
@@ -59,7 +67,7 @@ block content
     .checkout-item-content
       - each address in user.addresses
         .checkout-name
-          input.radio.address-radio(type="radio", name="address", value="#{address._id}")
+          input.radio.address-radio(type="radio", name="address", value="#{address.province}")
           | #{address.name}
         .checkout-detail
           p #{address.province}, #{address.city}, #{address.address}，邮编:#{address.zipCode}
@@ -72,17 +80,24 @@ block content
     .checkout-item-title
       h5 送货方式
     .checkout-item-content
-      input.radio(type="radio", name="express", value="sf")
-      | 顺丰
-      input.radio(type="radio", name="express", value="others")
-      | 其它快递
-      p 快递费用 
+      .express-choice
+        input#sf-radio.radio(type="radio", name="express", value="sf")
+        | 顺丰
+      .express-choice
+        input#other-radio.radio(type="radio", name="express", value="others")
+        | 其它快递
   
+  .checkout-item
     .checkout-item-title
       h5 费用清单
     .checkout-item-content
-      p 商品费用
-      p 快递费用
+      p 
+        | 商品费用 
+        span.price ￥#{amount}
+      p 
+        | 快递费用
+        span#express-fee.price
+        span 总重1kg
       p 
   
   .checkout-item
@@ -97,5 +112,26 @@ block content
     input(type='submit', value='提交订单')
     
   script
-  
+    function updateExpressFee() {
+      var province = $('.address-radio[checked]').val();
+      var expressFee = $.grep(fees, function(f) {
+        if (f.province == province) return true;
+        return false;
+      })[0];
+      
+      if ($('#sf-radio').attr('checked')) {
+        $('#express-fee').text('￥' + expressFee.sfFee);
+      } else {
+        $('#express-fee').text('￥' + expressFee.otherFee);
+      }
+    }
+    
+    var fees = !{JSON.stringify(fees)};
+    $('.address-radio').first().attr('checked', true);
+    $('#sf-radio').attr('checked', true);
+    updateExpressFee();
+    
+    $('.address-radio').on('change', updateExpressFee);
+    $('#sf-radio').on('change', updateExpressFee);
+    $('#other-radio').on('change', updateExpressFee);
 

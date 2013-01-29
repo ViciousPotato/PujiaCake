@@ -13,54 +13,63 @@
   debug = require('debug')('routes/cart');
 
   module.exports = function(app) {
+    var amountCart, weightCart;
+    amountCart = function(cart) {
+      var amount_reducer;
+      amount_reducer = function(sum, product) {
+        return product.quantity * product.product.memberPrice + sum;
+      };
+      return _.reduce(cart, amount_reducer, 0);
+    };
+    weightCart = function(cart) {
+      return _.reduce(cart, function(sum, item) {
+        return sum + item.quantity * item.product.weight;
+      }, 0);
+    };
+    app.get('/cart', function(req, res) {
+      return res.render('cart.jade', {
+        cart: req.session.cart
+      });
+    });
     app.get('/cart/add/:productid', function(req, res) {
-      return Product.find({
+      return Product.findOne({
         _id: req.params.productid
-      }, function(err, products) {
-        var p, prod, product, productid;
-        product = products[0];
+      }, function(error, product) {
+        var p, productid;
+        if (product === null && !error) {
+          error = {
+            message: '无法找到产品'
+          };
+        }
+        if (error) {
+          return res.render('error.jade', {
+            error: error
+          });
+        }
         productid = product._id.toString();
-        if (req.session['cart'] === void 0) {
-          debug("cart is undefined");
-          req.session['cart'] = [
-            {
-              quantity: 1,
-              product: product,
-              id: productid
-            }
-          ];
+        if (!req.session.cart) {
+          req.session.cart = [];
+        }
+        p = _.find(req.session.cart, function(p) {
+          return p.id === productid;
+        });
+        if (p) {
+          p.quantity++;
         } else {
-          debug(console.log("cart is defined=" + req.session.cart));
-          p = (function() {
-            var _i, _len, _ref, _results;
-            _ref = req.session['cart'];
-            _results = [];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              prod = _ref[_i];
-              if (prod.id === productid) {
-                _results.push(prod);
-              }
-            }
-            return _results;
-          })();
-          if (p.length === 0) {
-            req.session['cart'].push({
-              quantity: 1,
-              id: productid,
-              product: product
-            });
-          } else {
-            p[0].quantity++;
-          }
+          req.session.cart.push({
+            quantity: 1,
+            id: productid,
+            product: product
+          });
         }
         return res.render('cart.jade', {
-          cart: req.session['cart']
+          cart: req.session.cart
         });
       });
     });
     app.get('/cart/remove/:productid', function(req, res) {
       var newcart;
-      newcart = _.map(req.session['cart'], function(product) {
+      newcart = _.map(req.session.cart, function(product) {
         if (product.id === req.params.productid) {
           product.quantity--;
         }
@@ -69,50 +78,61 @@
         }
         return product;
       });
-      req.session['cart'] = newcart;
+      req.session.cart = newcart;
       return res.render('cart.jade', {
-        cart: req.session['cart']
+        cart: req.session.cart
       });
     });
     app.get('/cart/delete/:productid', function(req, res) {
-      var item;
-      req.session['cart'] = (function() {
-        var _i, _len, _ref, _results;
-        _ref = req.session['cart'];
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          item = _ref[_i];
-          if (item.id !== req.params.productid) {
-            _results.push(item);
-          }
-        }
-        return _results;
-      })();
+      var productid;
+      productid = req.params.productid;
+      req.session.cart = _.filter(req.session.cart, function(item) {
+        return item.id !== productid;
+      });
       return res.redirect('/cart');
     });
-    app.get('/cart', function(req, res) {
-      return res.render('cart.jade', {
-        cart: req.session['cart']
+    app.get('/cart/checkout', function(req, res) {
+      var cart, provinces;
+      cart = req.session.cart;
+      provinces = _.map(req.session.user.addresses, function(address) {
+        return address.province;
+      });
+      return ExpressFee.find({
+        province: {
+          $in: provinces
+        }
+      }, function(error, fees) {
+        var calcFees, weight;
+        if (error) {
+          return res.render('error.jade', {
+            error: error
+          });
+        }
+        weight = weightCart(cart);
+        calcFees = _.map(fees, function(fee) {
+          return {
+            province: fee.province,
+            sfFee: fee.calculateSFFee(weight),
+            otherFee: fee.calculateOthersFee(weight)
+          };
+        });
+        return res.render('cart_checkout.jade', {
+          amount: amountCart(cart),
+          fees: calcFees
+        });
       });
     });
-    app.get('/cart/checkout', function(req, res) {
-      return res.render('cart_checkout.jade');
-    });
     app.post('/cart/confirm-order', function(req, res) {
-      var amount, amount_reducer, cart, order;
-      cart = req.session.cart;
-      amount_reducer = function(sum, product) {
-        return product.quantity * product.product.memberPrice + sum;
-      };
-      amount = _.reduce(cart, amount_reducer, 0);
+      var amount, order;
+      amount = amountCart(req.session.cart);
       order = Order({
-        products: req.session['cart'],
-        userId: req.session['user']._id,
-        addressId: req.param("address"),
+        products: req.session.cart,
+        userId: req.session.user._id,
+        addressId: req.body.addressId,
         status: 'paid',
         amount: amount
       });
-      return order.save(function(err) {
+      return order.save(function(error) {
         return res.redirect('/member/orders');
       });
     });
