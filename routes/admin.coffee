@@ -1,9 +1,10 @@
 mongoose     = require 'mongoose'
 path         = require 'path'
-User         = require '../models/user.js'
-Product      = require '../models/product.js'
-IndexProduct = require '../models/index-product.js'
-Order        = require '../models/order.js'
+User         = require '../models/user'
+Product      = require '../models/product'
+IndexProduct = require '../models/index-product'
+Order        = require '../models/order'
+Comment      = require '../models/comment'
 
 module.exports = (app) ->
   # Admin
@@ -77,9 +78,7 @@ module.exports = (app) ->
     Order.find {userId: req.session['user']._id}, (error, orders) ->
       res.json(orders)
 
-  app.get '/admin/messages', (req, res) ->
-    res.send 'not implemented'
-
+  # Index products
   app.get '/admin/index-product', (req, res) ->
     res.render 'admin_index-product.jade', { active_index: 3 }
 
@@ -120,12 +119,13 @@ module.exports = (app) ->
     product.save (error) ->
       res.render 'admin_index-product.jade', { active_index: 3 }
   
+  # Express fees.
   app.get '/admin/express-fee', (req, res) ->
     res.render 'admin_express.jade', { active_index: 6 }
 
   app.get '/admin/list_express_fee', (req, res) ->
     ExpressFee.find {}, (error, fees) ->
-      res.json(fees)
+      res.json fees
 
   app.post '/admin/update_fee', (req, res) ->
     setval = {}
@@ -133,8 +133,14 @@ module.exports = (app) ->
     val = req.param('val')
     setval[key] = val
     ExpressFee.update {_id: req.param('pk')}, {$set: setval}, (err) ->
-      if err
-        res.status(500)
-      else
-        res.json({ 'status': 'ok' })
+      return res.status(500) if err
+      res.json 'status': 'ok'
+  
+  # Comments
+  app.get '/admin/comments', (req, res) ->
+    res.render 'admin_comment.jade', active_index: 7
+  
+  app.get '/admin/list_comments', (req, res) ->
+    Comment.find {}, (error, comments) ->
+      res.json comments
   

@@ -59,33 +59,34 @@ html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
       section#main
         block content
         
-    footer
-      .wrapper.separator
-        .vcard
-      section#copyright
-        .wrapper
-          p © Copyright 2013 濮家饼
-    script
-      SROOTPATH = '/'
-    script(src='../js/jquery.js')
-    script(src='../js/plugins.js')
-    script(src='../js/init.js')
-    script
-      var section = window.location.pathname.split("/")[1];
-      var elem;
-      switch(section) {
-        case "about":
-          elem = $('#m-about a');
-          break;
-        case "member":
-          elem = $("#m-member a");
-          break;
-        case "products":
-          elem = $("#m-product a");
-          break;
-        case "guide":
-          elem = $("#m-guide a");
-          break;
-        default:
-      }
-      elem.addClass('active');
+    .not-home
+      footer
+        .wrapper.separator
+          .vcard
+        section#copyright
+          .wrapper
+            p © Copyright 2013 濮家饼
+      script
+        SROOTPATH = '/'
+      script(src='../js/jquery.js')
+      script(src='../js/plugins.js')
+      script(src='../js/init.js')
+      script
+        var section = window.location.pathname.split("/")[1];
+        var elem;
+        switch(section) {
+          case "about":
+            elem = $('#m-about a');
+            break;
+          case "member":
+            elem = $("#m-member a");
+            break;
+          case "products":
+            elem = $("#m-product a");
+            break;
+          case "guide":
+            elem = $("#m-guide a");
+            break;
+          default:
+        }
+        elem.addClass('active');

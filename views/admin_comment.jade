@@ -2,14 +2,14 @@ extends admin
 
 block content
   style
-    #product-grid {
+    #comment-grid {
         margin-top: 20px;
     }
-  table#member-grid.table.table-bordered.datagrid
+  table#comment-grid.table.table-bordered.datagrid
       thead
         tr
           th
-            span.datagrid-header-title 会员列表
+            span.datagrid-header-title 留言列表
             .datagrid-header-left
             .datagrid-header-right
               .input-append.search
@@ -52,43 +52,26 @@ block content
                   i.icon-chevron-right
 
   script
-    $.get('/admin/list_member', function(data) {
+    $.get('/admin/list_comments', function(data) {
         var dataSource = new StaticDataSource({
           columns : [
-            { property : 'email', label : 'Email', sortable : true }, 
-            { property : 'password', label : '密码', sortable : true},
-            { property : 'name', label : '姓名', sortable : true},
-            { property : 'address', label : '地址', sortable : true},
-            { property : 'phone', label : '电话号码', sortable : true}
+            { property: 'name',    label: '姓名',   sortable : true }, 
+            { property: 'email',   label: 'Email', sortable : true },
+            { property: 'phone',   label: '电话',   sortable : true },
+            { property: 'enquiry', label: '留言',   sortable : true }
           ],
           data : data,
           delay : 200
         });
 
-        $('#member-grid').datagrid({
+        $('#comment-grid').datagrid({
           dataSource : dataSource,
           cellrenderfunc : function(row, prop) {
               return '<a href="#" class="member-' + prop + '" data-pk="' + row._id + 
-                     '" data-url="/admin/update_member" data-name="' + prop + '">' + 
+                     '" data-url="/admin/update_comment" data-name="' + prop + '">' + 
                      row[prop] + '</a>';
           }
         });
 
        
       });
-    
-    $("#member-grid").on('loaded', function(){
-      $(".member-email").each(function(index, element) {
-        $(element).editable({
-            type : "text",
-            title : "输入Email"
-          });
-        });
-
-        $(".member-password").each(function(index, element) {
-          $(element).editable({
-            type : "textarea",
-            title : "输入密码"
-          });
-        });
-    });

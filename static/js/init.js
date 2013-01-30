@@ -8,9 +8,9 @@ $(document).ready(function(){
 
 	// add non semantic markup for fancy background images
 	$('body#home div.wrapper.scr').wrap('<div class="ornament_2" />');
-	$('div.ornament_2, body:not(#home) footer').wrap('<div class="ornament_footer" />');
-	$('body:not(#home) div.ornament_footer').addClass('foot');
-	$('div.ornament_footer #copyright').before('<div id="footer-patch"></div>');
+	//$('div.ornament_2, body:not(#home) footer').wrap('<div class="ornament_1" />');
+	//$('body:not(#home) div.ornament_1').addClass('foot');
+	//$('div.ornament_1 #copyright').before('<div id="footer-patch"></div>');
 
 	// product scroller
 	$('#scrollers ul').quickScroll();

@@ -198,13 +198,12 @@ body#home p#koodoz a{color:#54301a;}body#home p#koodoz a:hover{color:#cc0d1c;}
 #p-catering .b{padding-left:200px;}
 .ornament_1{height:483px;clear:both;position:relative;}
 .ornament_1.foot{top:-40px;}
-.ornament_2,.ornament_1 footer{}
+.ornament_2,.ornament_1 footer{background:url('../../images/ornament_2-background.png') center -3px no-repeat;}
 .ornament_2{min-height:483px;}
-.ornament_1 footer{padding-top:100px;}
-.ornament_1 footer *{position:relative;z-index:2;}
-.ornament_footer #copyright{background:url('../../images/ornament_1-background.png') center 0 repeat-x;min-height:100px;}
-#footer-patch{border-bottom:1px dashed #8d7e6f;position:absolute !important;height:100px;top:331px;width:100%;z-index:1;}
-#christmasAlert{padding:20px 20px 0;background:url(../../images/keith-santa.png) 14px 68px no-repeat #ffffff;}#christmasAlert .christmasButton{background:url(../../images/christmas-button.png) no-repeat;color:#fff;height:30px;padding:10px 70px 15px 20px;margin:10px 0 20px;display:block;font-size:11px;line-height:1.2;}
+
+.not-home footer *{position:relative;z-index:2;}
+.not-home footer #copyright{background:url('../../images/ornament_1-background.png') center 0 repeat-x;min-height:100px;}
+#footer-patch{background:url('../../images/ornament_1-background.png') center 0 repeat-x;border-bottom:1px dashed #8d7e6f;position:absolute !important;height:100px;top:331px;width:100%;z-index:1;}#christmasAlert{padding:20px 20px 0;background:url(../../images/keith-santa.png) 14px 68px no-repeat #ffffff;}#christmasAlert .christmasButton{background:url(../../images/christmas-button.png) no-repeat;color:#fff;height:30px;padding:10px 70px 15px 20px;margin:10px 0 20px;display:block;font-size:11px;line-height:1.2;}
 #christmasAlert ul{margin:0 0 20px 160px;padding:0;background:none;}
 #christmasAlert li{border-bottom:1px solid #E6E5E4;width:200px;margin:5px 0;list-style:none;background:none;}
 #christmasAlert h3{margin-bottom:20px;}

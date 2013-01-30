@@ -47,5 +47,6 @@ require('./routes/admin.js')(app)
 require('./routes/cart.js')(app)
 require('./routes/member.js')(app)
 require('./routes/products.js')(app)
+require('./routes/comment.js')(app)
 
 app.listen 3000

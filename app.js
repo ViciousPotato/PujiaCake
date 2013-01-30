@@ -72,6 +72,8 @@
 
   require('./routes/products.js')(app);
 
+  require('./routes/comment.js')(app);
+
   app.listen(3000);
 
 }).call(this);
