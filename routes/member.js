@@ -25,7 +25,7 @@
   };
 
   module.exports = function(app) {
-    var currentUser, extractAddr;
+    var currentUser, extractAddr, listOrderProduct;
     extractAddr = function(req) {
       var address;
       address = {
@@ -45,6 +45,9 @@
       }, function(error, users) {
         return callback(error, error || _.first(users));
       });
+    };
+    listOrderProduct = function(order) {
+      return '';
     };
     app.get('/member', function(req, res) {
       var random_code;
@@ -116,27 +119,27 @@
       return res.render('member_address.jade');
     });
     app.post('/member/address', function(req, res) {
-      return User.find({
+      return User.findOne({
         _id: req.session.user._id
-      }, function(error, users) {
-        var address, user;
-        user = _.first(users);
+      }, function(error, user) {
+        var address;
         address = extractAddr(req);
         user.addresses.push(address);
         return user.save(function(error) {
-          return res.render('error.jade', {
-            error: error
-          });
+          if (error) {
+            return res.render('error.jade', {
+              error: error
+            });
+          }
           return res.redirect('/member/address');
         });
       });
     });
     app.put('/member/address', function(req, res) {
-      return User.find({
+      return User.findOne({
         _id: req.session.user._id
-      }, function(error, users) {
-        var address, user;
-        user = _.first(users);
+      }, function(error, user) {
+        var address;
         address = extractAddr(req);
         return user.updateAddress(req.body.id, address, function(error) {
           if (error) {

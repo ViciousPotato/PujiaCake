@@ -56,11 +56,11 @@ block content
     $.get('/admin/list_orders', function(data) {
         var dataSource = new StaticDataSource({
           columns : [
-            { property : '_id', label : '订单编号', sortable : true},
+            { property : '_id',      label : '订单编号', sortable : true},
             { property : 'products', label : '订单商品', sortable : true},
-            { property : 'status', 'label' : '订单状态', sortable : true},
-            { property : 'amount', label : '订单金额', sortable : true},
-            { property : 'time', label : '时间', sortable : true }, 
+            { property : 'status',   label : '订单状态', sortable : true},
+            { property : 'amount',   label : '订单金额', sortable : true},
+            { property : 'time',     label : '时间',    sortable : true }, 
           ],
           data : data,
           delay : 200
@@ -69,7 +69,7 @@ block content
         $('#orders-grid').datagrid({
           dataSource : dataSource,
           cellrenderfunc : function(row, prop) {
-              return '<a href="#" class="member-' + prop + '" data-pk="' + row._id + 
+              return '<a href="#" class="order-' + prop + '" data-pk="' + row._id + 
                      '" data-url="/admin/update_order" data-name="' + prop + '">' + 
                      row[prop] + '</a>';
           }
@@ -79,17 +79,10 @@ block content
       });
     
     $("#orders-grid").on('loaded', function(){
-      $(".member-email").each(function(index, element) {
+      $(".order-status").each(function(index, element) {
         $(element).editable({
             type : "text",
-            title : "输入Email"
-          });
-        });
-
-        $(".member-password").each(function(index, element) {
-          $(element).editable({
-            type : "textarea",
-            title : "输入密码"
+            title : "输入订单状态"
           });
         });
     });

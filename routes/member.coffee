@@ -28,6 +28,9 @@ module.exports = (app) ->
     , (error, users) ->
       callback error, error or _.first users
   
+  listOrderProduct = (order) ->
+    ''
+  
   # Member functions
   app.get '/member', (req, res) ->
     random_code = generate_random_code()
@@ -50,12 +53,12 @@ module.exports = (app) ->
         deliveryMethod: req.param('delivery-method')
 
     user.save (error) ->
-      return res.json({ 'error': error }) if error
+      return res.json 'error': error  if error
       res.render 'member_register_success.jade' 
 
   app.get '/member/login', (req, res) ->
     random_code = generate_random_code()
-    res.render 'member_index.jade', { random_code: random_code }
+    res.render 'member_index.jade', random_code: random_code
 
   app.post '/member/login', (req, res) ->
     User.find
@@ -71,7 +74,7 @@ module.exports = (app) ->
     Order.find
       userId: req.session.user._id
     , (error, orders) ->
-      res.render 'member_orders.jade', { orders: orders }
+      res.render 'member_orders.jade', orders: orders
 
   app.get '/member/profile', (req, res) ->
     res.render 'member_profile.jade'
@@ -83,27 +86,25 @@ module.exports = (app) ->
   
   # Create new address
   app.post '/member/address', (req, res) ->
-    User.find
+    User.findOne
       _id: req.session.user._id
-    , (error, users) ->
-      user    = _.first users
+    , (error, user) ->
       address = extractAddr req
       
       user.addresses.push address
       user.save (error) ->
-        return res.render 'error.jade', { error: error }
+        return res.render 'error.jade', error: error if error
         res.redirect '/member/address' 
   
   # Update address
   app.put '/member/address', (req, res) ->
-    User.find
+    User.findOne
       _id: req.session.user._id
-    , (error, users) ->
-      user    = _.first users
+    , (error, user) ->
       address = extractAddr req
       user.updateAddress req.body.id, address, (error) ->
-        return res.json { error: error } if error
-        res.json { success: 'success' }
+        return res.json error: error if error
+        res.json success: 'success'
         
   # Delete address
   app.delete '/member/address', (req, res) ->
@@ -111,14 +112,14 @@ module.exports = (app) ->
       return res.json { error: error } if error
       user.addresses.id(req.body.id).remove()
       user.save (error) ->
-        return res.json { error: error } if error
-        res.json { success: 'success' }
+        return res.json error: error if error
+        res.json success: 'success'
 
   app.get '/member/orders', (req, res) ->
     Order.find
       userId: req.session.user._id
     , (error, orders) ->
-      res.render 'member_orders.jade', { 'orders': orders }
+      res.render 'member_orders.jade', 'orders': orders
 
   app.get '/member/score', (req, res) ->
     res.render 'member_score.jade'

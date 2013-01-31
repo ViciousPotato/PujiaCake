@@ -1,6 +1,7 @@
 mongoose   = require 'mongoose'
 Product    = require '../models/product'
 ExpressFee = require '../models/express-fee'
+Order      = require '../models/order'
 _          = require 'underscore'
 debug      = require('debug')('routes/cart')
 
@@ -23,7 +24,7 @@ module.exports = (app) ->
     , 0
   
   app.get '/cart', (req, res) ->
-    res.render 'cart.jade', { cart: req.session.cart }
+    res.render 'cart.jade', cart: req.session.cart
     
   app.get '/cart/add/:productid', (req, res) ->
     Product.findOne _id: req.params.productid, (error, product) ->
@@ -40,11 +41,10 @@ module.exports = (app) ->
       if p
         p.quantity++
       else
-        req.session.cart.push {
+        req.session.cart.push
           quantity: 1,
           id:       productid,
           product:  product
-        }
         
       res.render 'cart.jade', { cart: req.session.cart }
 
@@ -80,18 +80,21 @@ module.exports = (app) ->
           sfFee:    fee.calculateSFFee(weight)
           otherFee: fee.calculateOthersFee(weight)
       res.render 'cart_checkout.jade',
-        amount: amountCart(cart), fees: calcFees
+        amount: amountCart(cart), 
+        fees:   calcFees,
+        weight: weight
 
   app.post '/cart/confirm-order', (req, res) ->
     amount = amountCart req.session.cart
         
-    order  = Order {
+    order  = Order
       products:  req.session.cart,
       userId:    req.session.user._id,
       addressId: req.body.addressId,
       status:    'paid',
       amount:    amount
-    }
+    
+    req.session.cart = []
     
     order.save (error) ->
       res.redirect '/member/orders'
@@ -111,15 +114,14 @@ module.exports = (app) ->
     
     debug 'calculating express fee for weight ', weight
     
-    ExpressFee.findOne {
+    ExpressFee.findOne
       province: province # TODO: what if no address
-    }, (error, expressFee) ->
+    , (error, expressFee) ->
       return res.json { error: error } if error
       
       debug 'Found express fee: ', expressFee
       
-      return res.json {
+      return res.json
         sfFee:    expressFee.calculateSFFee(weight),
         otherFee: expressFee.calculateOthersFee(weight) 
-      }
   

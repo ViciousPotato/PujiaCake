@@ -17,7 +17,10 @@ block content
       - each order in orders
         tr
           td #{order._id}
-          td #{order.products}
+          td 
+            ul
+              -each product in order.products
+                li #{product.product.name} #{product.quantity} 个
           td #{order.amount}
           td #{order.status}
           td     
