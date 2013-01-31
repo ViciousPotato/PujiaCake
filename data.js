@@ -6,13 +6,13 @@ provinces.forEach(function(province) {
         sfFee: {
             basicFee:        5.0,
             basicWeight:     500,
-            extraFeeUinit:   2.0,
+            extraFeeUnit:    2.0,
             extraWeightUnit: 500
         },
         othersFee: {
             basicFee:        5.0,
             basicWeight:     500,
-            extraFeeUinit:   2.0,
+            extraFeeUnit:    2.0,
             extraWeightUnit: 500        
         }
     });    

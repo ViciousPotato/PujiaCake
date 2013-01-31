@@ -48,10 +48,15 @@ block content
     $.get('/admin/list_express_fee', function(data) {
         var dataSource = new StaticDataSource({
           columns : [
-            { property : 'province',  label : '省市',    sortable : true }, 
-            { property : 'sfFee',     label : '顺丰',    sortable : true },
-            { property : 'othersFee', label : '其它快递', sortable : true },
-            { property : 'unit',      label : '单位',    sortable : true }
+            { property: 'province',                  label: '省市',              sortable: true }, 
+            { property: 'sfFee_basicFee',            label: '顺丰基本费用(元)',    sortable: true },
+            { property: 'sfFee_basicWeight',         label: '顺丰基本称重(克)',    sortable: true },
+            { property: 'sfFee_extraFeeUnit',        label: '顺丰超出单位费用(元)', sortable: true },
+            { property: 'sfFee_extraWeightUnit',     label: '顺丰超出单位重量(克)', sortable: true },
+            { property: 'othersFee_basicFee',        label: '其它基本费用(元)',    sortable: true },
+            { property: 'othersFee_basicWeight',     label: '其它基本称重(克)',    sortable: true },
+            { property: 'othersFee_extraFeeUnit',    label: '其它超出单位费用(元)', sortable: true },
+            { property: 'othersFee_extraWeightUnit', label: '其它超出单位重量(克)', sortable: true }
           ],
           data : data,
           delay : 200
@@ -68,17 +73,59 @@ block content
       });
     
     $("#fee-grid").on('loaded', function(){
-      $(".fee-sfFee").each(function(index, element) {
+      $(".fee-sfFee_basicFee").each(function(index, element) {
         $(element).editable({
             type : "text",
-            title : "输入顺丰每公斤价格"
-          });
+            title : "输入顺丰基本费用"
         });
+      });
 
-        $(".fee-othersFee").each(function(index, element) {
-          $(element).editable({
+      $(".fee-sfFee_basicWeight").each(function(index, element) {
+        $(element).editable({
             type : "text",
-            title : "输入其它快递每公斤价格"
-          });
+            title : "输入顺丰基本重量"
         });
+      });
+      
+      $(".fee-sfFee_extraFeeUnit").each(function(index, element) {
+        $(element).editable({
+            type : "text",
+            title : "输入顺丰超出基本重量单位计费"
+        });
+      });
+      
+      $(".fee-sfFee_extraWeightUnit").each(function(index, element) {
+        $(element).editable({
+            type : "text",
+            title : "输入顺丰超出基本重量单位"
+        });
+      });
+      
+      $(".fee-othersFee_basicFee").each(function(index, element) {
+        $(element).editable({
+            type : "text",
+            title : "输入其它快递基本费用"
+        });
+      });
+      
+      $(".fee-othersFee_basicWeight").each(function(index, element) {
+        $(element).editable({
+            type : "text",
+            title : "输入其它快递基本重量"
+        });
+      });
+      
+      $(".fee-othersFee_extraFeeUnit").each(function(index, element) {
+        $(element).editable({
+            type : "text",
+            title : "输入其它快递超出基本重量单位计费"
+        });
+      });
+      
+      $(".fee-othersFee_extraWeightUnit").each(function(index, element) {
+        $(element).editable({
+            type : "text",
+            title : "输入其它快递超出基本重量单位"
+        });
+      });
     });

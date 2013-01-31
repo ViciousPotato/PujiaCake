@@ -5,6 +5,7 @@ Product      = require '../models/product'
 IndexProduct = require '../models/index-product'
 Order        = require '../models/order'
 Comment      = require '../models/comment'
+ExpressFee   = require '../models/express-fee'
 
 module.exports = (app) ->
   # Admin
@@ -94,19 +95,18 @@ module.exports = (app) ->
         return res.json {error: error}
       res.json(products)
 
-  app.get '/admin/index-product/update', (req, res) ->
-    setval = {}
-    key = req.param('name')
-    val = req.param('value')
+  app.post '/admin/index-product/update', (req, res) ->
+    key = req.param 'name'
+    val = req.param 'value'
     if key is 'type'
       val = if val is '1' then 'full' else 'withtext'
+
+    setval = {}
     setval[key] = val
+    
     IndexProduct.update {_id: req.param('pk')}, {$set: setval}, (err) ->
-      if err
-        res.statusCode = 500
-        res.send ""
-      else
-        res.json({'status': 'ok'})
+      return res.status 500 if err
+      res.json({'status': 'ok'})
 
   app.post '/admin/index-product', (req, res) ->
     product = new IndexProduct
@@ -124,15 +124,17 @@ module.exports = (app) ->
     res.render 'admin_express.jade', { active_index: 6 }
 
   app.get '/admin/list_express_fee', (req, res) ->
-    ExpressFee.find {}, (error, fees) ->
+    ExpressFee.listFlatten (error, fees) ->
+      return res.render 'error.jade', error: error if error
       res.json fees
 
   app.post '/admin/update_fee', (req, res) ->
-    setval = {}
-    [key, val] = [req.param 'name', req.param 'val']
-    setval[key] = val
-    ExpressFee.update {_id: req.param('pk')}, {$set: setval}, (err) ->
-      return res.status(500) if err
+    id  = req.param 'pk'
+    key = req.param 'name'
+    val = req.param 'value'
+    
+    ExpressFee.updateFlatten id, key, val, (error) ->      
+      return res.status(500) if error
       res.json 'status': 'ok'
   
   # Comments
