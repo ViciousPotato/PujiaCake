@@ -68,10 +68,13 @@ block content
           cellrenderfunc : function(row, prop) {
               if (prop == 'delete') {
                 return '<a href="/admin/comment/delete/' + row._id + '" onclick="return confirm(\'真的要删除么？\');">删除</a>';
+              } else if (prop == 'enquiry') {
+                return '<pre>' + prop + '</pre>';
+              } else {
+                return '<a href="#" class="member-' + prop + '" data-pk="' + row._id + 
+                       '" data-url="/admin/update_comment" data-name="' + prop + '">' + 
+                       row[prop] + '</a>';
               }
-              return '<a href="#" class="member-' + prop + '" data-pk="' + row._id + 
-                     '" data-url="/admin/update_comment" data-name="' + prop + '">' + 
-                     row[prop] + '</a>';
           }
         });
 
