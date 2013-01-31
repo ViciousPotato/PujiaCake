@@ -10,25 +10,34 @@ ExpressFee   = require '../models/express-fee'
 module.exports = (app) ->
   # Admin
   app.get '/admin/', (req, res) ->
-    res.render 'admin_index.jade', { active_index: 0 }
+    res.render 'admin_index.jade', active_index: 0 
   
+  # Members
   app.get '/admin/list_member', (req, res) ->
-    User.find (error, users) ->
-      res.json(users)
+    User.listFlatten (error, users) ->
+      res.json users
 
   app.get '/admin/member', (req, res) ->
-    res.render 'admin_member.jade', { active_index: 1 }
+    res.render 'admin_member.jade', active_index: 1
+    
+  app.get '/admin/member/delete/:memberid', (req, res)->
+    User.remove
+      _id: req.params.memberid
+    , (error) ->
+      return res.render 'error.jade', error: error if error
+      res.redirect '/admin/member'
 
   app.post '/admin/update_member', (req, res) ->
     setval = {}
     setval[req.param('name')] = req.param('value')
-    User.update {
+    User.update
       _id: req.param('pk')
-    }, { $set: setval }, (error) ->
-      if error
-        return res.json { error: error }
-      res.json { 'status': 'ok' }
+    , $set: setval
+    , (error) ->
+      return res.json error: error if error
+      res.json 'status': 'ok'
 
+  # Products
   app.post '/admin/add_product', (req, res) ->
     product = new Product {
       name:        req.param('product_name'), 

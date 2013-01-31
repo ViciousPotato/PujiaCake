@@ -54,12 +54,10 @@ block content
   script
     $.get('/admin/list_member', function(data) {
         var dataSource = new StaticDataSource({
-          columns : [
-            { property : 'email', label : 'Email', sortable : true }, 
-            { property : 'password', label : '密码', sortable : true},
-            { property : 'name', label : '姓名', sortable : true},
-            { property : 'address', label : '地址', sortable : true},
-            { property : 'phone', label : '电话号码', sortable : true}
+          columns: [
+            { property: 'email',    label: 'Email',  sortable: true }, 
+            { property: 'password', label: '密码',    sortable: true },
+            { property: 'delete',   label: '操作',    sortable: true }
           ],
           data : data,
           delay : 200
@@ -68,9 +66,12 @@ block content
         $('#member-grid').datagrid({
           dataSource : dataSource,
           cellrenderfunc : function(row, prop) {
-              return '<a href="#" class="member-' + prop + '" data-pk="' + row._id + 
-                     '" data-url="/admin/update_member" data-name="' + prop + '">' + 
-                     row[prop] + '</a>';
+            if (prop == 'delete') {
+              return '<a href="/admin/member/delete/' + row._id + '" onclick="return confirm(\'真的要删除么？\');">删除</a>';
+            }
+            return '<a href="#" class="member-' + prop + '" data-pk="' + row._id + 
+                   '" data-url="/admin/update_member" data-name="' + prop + '">' + 
+                   row[prop] + '</a>';
           }
         });
 

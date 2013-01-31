@@ -22,6 +22,27 @@
     addresses: [addressSchema]
   });
 
+  userSchema.statics.listFlatten = function(callback) {
+    return this.find({}, function(error, users) {
+      var flatten;
+      if (error) {
+        return callback(error);
+      }
+      flatten = _.map(users, function(user) {
+        return user.flatten();
+      });
+      return callback(null, flatten);
+    });
+  };
+
+  userSchema.methods.flatten = function() {
+    return {
+      _id: this._id,
+      email: this.email,
+      password: this.password
+    };
+  };
+
   userSchema.methods.addAddress = function(address, callback) {
     this.addresses.push(address);
     return this.save(function(error) {

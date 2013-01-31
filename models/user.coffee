@@ -19,6 +19,18 @@ userSchema = new mongoose.Schema {
   addresses: [ addressSchema ]
 }
 
+userSchema.statics.listFlatten = (callback) ->
+  this.find {}, (error, users) ->
+    return callback error if error
+    flatten = _.map users, (user) ->
+      user.flatten()
+    callback null, flatten
+
+userSchema.methods.flatten = () ->
+  _id:      this._id,
+  email:    this.email,
+  password: this.password
+
 userSchema.methods.addAddress = (address, callback) ->
   @addresses.push address
   @save (error) ->

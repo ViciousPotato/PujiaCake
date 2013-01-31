@@ -25,13 +25,25 @@
       });
     });
     app.get('/admin/list_member', function(req, res) {
-      return User.find(function(error, users) {
+      return User.listFlatten(function(error, users) {
         return res.json(users);
       });
     });
     app.get('/admin/member', function(req, res) {
       return res.render('admin_member.jade', {
         active_index: 1
+      });
+    });
+    app.get('/admin/member/delete/:memberid', function(req, res) {
+      return User.remove({
+        _id: req.params.memberid
+      }, function(error) {
+        if (error) {
+          return res.render('error.jade', {
+            error: error
+          });
+        }
+        return res.redirect('/admin/member');
       });
     });
     app.post('/admin/update_member', function(req, res) {
