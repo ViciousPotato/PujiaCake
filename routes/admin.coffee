@@ -121,7 +121,7 @@ module.exports = (app) ->
   
   # Express fees.
   app.get '/admin/express-fee', (req, res) ->
-    res.render 'admin_express.jade', { active_index: 6 }
+    res.render 'admin_express.jade', active_index: 6
 
   app.get '/admin/list_express_fee', (req, res) ->
     ExpressFee.listFlatten (error, fees) ->
@@ -139,7 +139,7 @@ module.exports = (app) ->
   
   # Comments
   app.get '/admin/comments', (req, res) ->
-    res.render 'admin_comment.jade', active_index: 7
+    res.render 'admin_comment.jade', active_index: 5
   
   app.get '/admin/list_comments', (req, res) ->
     Comment.find {}, (error, comments) ->

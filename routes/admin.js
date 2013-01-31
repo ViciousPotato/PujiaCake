@@ -211,7 +211,7 @@
     });
     app.get('/admin/comments', function(req, res) {
       return res.render('admin_comment.jade', {
-        active_index: 7
+        active_index: 5
       });
     });
     app.get('/admin/list_comments', function(req, res) {
