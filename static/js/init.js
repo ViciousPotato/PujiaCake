@@ -61,7 +61,14 @@ $(document).ready(function(){
                             '<div class="hilite-extra" style="background-image: '+
                             bg+';display:none;">'+htmlz+'</div>');
                     });
-                        rotateFrontHilites(1);
+                    //    rotateFrontHilites(1);
+                    // Slide
+                    $('#slides').slides({
+                       generatePagination: true,
+                       play: 3000,
+                       pause: 1500,
+                       hoverPause: true 
+                    });
             }
         });
 	}

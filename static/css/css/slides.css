@@ -1,0 +1,79 @@
+/* Separate pagination from others */
+
+/*
+	Pagination
+*/
+
+
+.pagination {
+	margin: 16px auto 0;
+	width: 100px;
+  position: relative;
+  top: -15px;
+  left: 5px;
+}
+
+.pagination li {
+	float:left;
+	margin:0 5px;
+	list-style:none;
+}
+
+.pagination li a {
+	display:block;
+	width:12px;
+	height:0;
+	padding-top:12px;
+	background-image:url(../img/pagination.png);
+	background-position:0 0;
+	float:left;
+	overflow:hidden;
+}
+
+.pagination li.current a {
+	background-position:0 -12px;
+}
+
+#slides {
+  position: relative;
+  width: 950px;
+  margin: 0 auto;
+}
+
+/*
+	Next/prev buttons
+*/
+#slides .next,#slides .prev {
+	position:absolute;
+	top:150px;
+	left:-39px;
+	width:24px;
+	height:43px;
+	display:block;
+	z-index:101;
+}
+
+#slides .next {
+	left:950px;
+}
+
+/*
+	Slideshow style
+*/
+
+
+/*
+	Slides container
+	Important:
+	Set the width of your slides container
+	If height not specified height will be set by the slide content
+	Set to display none, prevents content flash
+*/
+
+.slides_container {
+	width:950px;
+	height:400px;
+	overflow:hidden;
+	position:relative;
+	display:none;
+}
