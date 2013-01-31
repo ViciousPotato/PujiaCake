@@ -109,13 +109,13 @@ module.exports = (app) ->
         res.json({'status': 'ok'})
 
   app.post '/admin/index-product', (req, res) ->
-    product = new IndexProduct {
+    product = new IndexProduct
       name:        req.param('product_name'),
       description: req.param('product_description'),
       type:        req.param('product_type'),
       link:        req.param('product_link'),
       image:       '/uploads/' + path.basename req.files.product_image.path
-    }
+      
     product.save (error) ->
       res.render 'admin_index-product.jade', { active_index: 3 }
   
@@ -129,8 +129,7 @@ module.exports = (app) ->
 
   app.post '/admin/update_fee', (req, res) ->
     setval = {}
-    key = req.param('name')
-    val = req.param('val')
+    [key, val] = [req.param 'name', req.param 'val']
     setval[key] = val
     ExpressFee.update {_id: req.param('pk')}, {$set: setval}, (err) ->
       return res.status(500) if err
@@ -143,4 +142,10 @@ module.exports = (app) ->
   app.get '/admin/list_comments', (req, res) ->
     Comment.find {}, (error, comments) ->
       res.json comments
+      
+  app.get '/admin/comment/delete/:commentid', (req, res) ->
+    Comment.remove
+      _id: req.params.commentid
+    , (error) ->
+      res.redirect '/admin/comments'
   

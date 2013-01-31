@@ -76,22 +76,22 @@ block content
                   data-validation-required-message='请输入产品名')
 
             .control-group
-              label.control-label(for='product_description') 产品简介
+              label.control-label(for='product_description') 产品说明
               .controls
                 textarea.larger-text-field(
                   rows='8', 
                   name='product_description',
                   id='product_description',
                   required,
-                  data-validation-required-message='请输入简介')
+                  data-validation-required-message='请输入说明')
 
             .control-group
               label.control-label(for='product_type') 产品类型
               .controls
                 select#product_type(name="product_type")
-                  option(value="full") 单照片全幅
                   option(value="withtext") 左文字右照片
-
+                  option(value="full") 单照片全幅
+                  
             .control-group
               label.control-label(for='product_link') 产品链接
               .controls
@@ -103,7 +103,7 @@ block content
                   data-validation-required-message='请输入产品连接')
 
             .control-group
-              label.control-label(for='product_image') 产品图片(像素x像素)
+              label.control-label(for='product_image') 产品图片(文字配图为460像素x400像素，单个图片为950像素x400像素)
               .controls
                 input(type='file', name='product_image')
 
@@ -115,11 +115,11 @@ block content
     $.get('/admin/index-product/list', function(data) {
         var dataSource = new StaticDataSource({
           columns: [
-            { property: 'name', label: '商品名称', sortable: true}, 
-            { property: 'description', label: '描述', sortable: true }, 
-            { property: 'image', label: '图片', sortable: true },
-            { property: 'type', label: "类型", sortable: true },
-            { property: 'delete', label: '删除', sortable: true }
+            { property: 'name',        label: '商品名称', sortable: true}, 
+            { property: 'description', label: '描述',    sortable: true }, 
+            { property: 'image',       label: '图片',    sortable: true },
+            { property: 'type',        label: "类型",    sortable: true },
+            { property: 'delete',      label: '操作',    sortable: true }
           ],
           data: data,
           delay: 200

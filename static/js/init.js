@@ -26,9 +26,6 @@ $(document).ready(function(){
 	//user feedback messages
 	$('div.success, div.info, div.warning').hide().fadeIn(1000);
 
-	$('p#koodoz span').remove();
-	$('p#koodoz').html($('p#koodoz').text()).wrapInner('<a href="http://www.koodoz.com.au" target="_blank" />');
-	
 	$('a[rel*=external]').attr('target','_blank');
 	
 	// Apply fancybox to multiple items

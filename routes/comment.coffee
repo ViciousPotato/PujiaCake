@@ -13,6 +13,7 @@ module.exports = (app) ->
       return res.render 'error.jade', error: error if error
       
       res.redirect '/guide'
+
       
       
     

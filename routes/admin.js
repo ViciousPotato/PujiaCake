@@ -191,10 +191,9 @@
       });
     });
     app.post('/admin/update_fee', function(req, res) {
-      var key, setval, val;
+      var key, setval, val, _ref;
       setval = {};
-      key = req.param('name');
-      val = req.param('val');
+      _ref = [req.param('name', req.param('val'))], key = _ref[0], val = _ref[1];
       setval[key] = val;
       return ExpressFee.update({
         _id: req.param('pk')
@@ -214,9 +213,16 @@
         active_index: 7
       });
     });
-    return app.get('/admin/list_comments', function(req, res) {
+    app.get('/admin/list_comments', function(req, res) {
       return Comment.find({}, function(error, comments) {
         return res.json(comments);
+      });
+    });
+    return app.get('/admin/comment/delete/:commentid', function(req, res) {
+      return Comment.remove({
+        _id: req.params.commentid
+      }, function(error) {
+        return res.redirect('/admin/comments');
       });
     });
   };
