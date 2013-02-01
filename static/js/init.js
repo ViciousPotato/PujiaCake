@@ -67,7 +67,10 @@ $(document).ready(function(){
                        generatePagination: true,
                        play: 3000,
                        pause: 1500,
-                       hoverPause: true 
+                       hoverPause: true,
+                       effect: 'slide, fade',
+                       crossfade: true,
+                       slideSpeed: 450
                     });
             }
         });

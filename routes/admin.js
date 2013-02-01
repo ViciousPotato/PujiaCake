@@ -121,6 +121,9 @@
         }
       });
     });
+    app.get('/admin/product/detail', function(req, res) {
+      return res.render('admin_product_detail.jade');
+    });
     app.get('/admin/orders', function(req, res) {
       return res.render('admin_orders.jade', {
         active_index: 4

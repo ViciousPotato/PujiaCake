@@ -80,7 +80,11 @@ module.exports = (app) ->
           res.send ""
       else
           res.send "ok"
+  
+  app.get '/admin/product/detail', (req, res) ->
+    res.render 'admin_product_detail.jade'
 
+  # Orders
   app.get '/admin/orders', (req, res) ->
     res.render 'admin_orders.jade', {active_index: 4}
 

@@ -7,7 +7,7 @@
 
 .pagination {
 	margin: 16px auto 0;
-	width: 100px;
+	width: 200px;
   position: relative;
   top: -15px;
   left: 5px;
@@ -15,7 +15,7 @@
 
 .pagination li {
 	float:left;
-	margin:0 5px;
+	margin:0 3px;
 	list-style:none;
 }
 
