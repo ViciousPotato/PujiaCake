@@ -1,0 +1,11 @@
+extends admin
+
+block content
+  script(src='/js/ckeditor/ckeditor.js')
+  form
+    textarea(name="editor")
+    script
+      CKEDITOR.replace('editor', {
+        language: 'zh-cn'
+      });
+      

@@ -82,7 +82,7 @@ module.exports = (app) ->
           res.send "ok"
   
   app.get '/admin/product/detail', (req, res) ->
-    res.render 'admin_product_detail.jade'
+    res.render 'admin_product_detail.jade', active_index: 6
 
   # Orders
   app.get '/admin/orders', (req, res) ->
