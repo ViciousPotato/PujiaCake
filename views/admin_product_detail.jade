@@ -2,10 +2,11 @@ extends admin
 
 block content
   script(src='/js/ckeditor/ckeditor.js')
-  form
-    textarea(name="editor")
+  form(action="/admin/product/#{product._id}/detail", method="post")
+    h3 #{product.name}
+    textarea(name="detail") #{product.detail}
     script
-      CKEDITOR.replace('editor', {
+      CKEDITOR.replace('detail', {
         language: 'zh-cn'
       });
-      
+    input(type="submit", value="保存")

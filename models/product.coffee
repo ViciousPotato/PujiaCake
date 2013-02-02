@@ -11,6 +11,10 @@ productSchema = new mongoose.Schema {
   image:       String,
   kind:        String,
   unit:        String,
-  weight:      { type: Number, default: 0 } # weight in g
+  weight:      { type: Number, default: 0 }, # weight in g
+  detail:      String
 }
-module.exports = mongoose.model 'Product', productSchema
+
+Product = mongoose.model 'Product', productSchema
+
+module.exports = Product

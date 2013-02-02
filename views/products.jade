@@ -6,9 +6,8 @@ block title
 block content
   p.breadcrumbs
     a(href='index.html') 产品列表
-    | > 今日特惠
   ul#product-list
-    - each product in discount_products
+    - each product in products
       li
         a.m(href='/products/#{product.kind}/#{product.id}')
           img.product-image(src='#{product.image}', alt='#{product.name}')
@@ -19,20 +18,6 @@ block content
         p.member-price
           | 会员价
           span ￥#{product.memberPrice}
-        p.view
-          a(href='/cart/add/#{product._id}')
-            span.img 添加到购物车
-
-  p.breadcrumbs
-    a(href='index.html') 产品列表
-    | > 今日团购
-  ul#product-list
-    - each product in groupon_products
-      li
-        a.m(href='#{product.image}')
-          img(src='#{product.image}', alt='#{product.name}')
-          h4 #{product.name}
-        p ￥#{product.price}
         p.view
           a(href='/cart/add/#{product._id}')
             span.img 添加到购物车

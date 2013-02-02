@@ -12,32 +12,15 @@
 
   module.exports = function(app) {
     app.get('/products', function(req, res) {
-      debug('/products', 'Finding products');
-      return Product.find({
-        onDiscount: true
-      }, function(discount_err, discount_products) {
-        debug('/products', 'found some discount products');
-        if (!discount_err) {
-          return Product.find({
-            onGroupon: true
-          }, function(groupon_err, groupon_products) {
-            debug('/products', 'found some groupon products');
-            if (!groupon_err) {
-              return res.render("products.jade", {
-                discount_products: discount_products,
-                groupon_products: groupon_products
-              });
-            } else {
-              return res.render("error.jade", {
-                error: groupon_err
-              });
-            }
-          });
-        } else {
-          return res.render("error.jade", {
-            error: discount_err
+      return Product.find({}, function(error, products) {
+        if (error) {
+          return res.render('error.jade', {
+            error: error
           });
         }
+        return res.render('products.jade', {
+          products: products
+        });
       });
     });
     app.get('/products/:kind', function(req, res) {
@@ -54,8 +37,19 @@
         });
       });
     });
-    app.get('/products/:kind/:productid', function(req, res) {
-      return res.render('products_product.jade');
+    app.get('/products/:kind/:id', function(req, res) {
+      return Product.findOne({
+        _id: req.params.id
+      }, function(error, product) {
+        if (error) {
+          return res.render('error.jade', {
+            error: error
+          });
+        }
+        return res.render('products_product.jade', {
+          product: product
+        });
+      });
     });
     return app.get('/index-products', function(req, res) {
       return IndexProduct.find({}, function(error, products) {

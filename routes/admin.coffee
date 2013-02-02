@@ -81,15 +81,32 @@ module.exports = (app) ->
       else
           res.send "ok"
   
-  app.get '/admin/product/detail', (req, res) ->
-    res.render 'admin_product_detail.jade', active_index: 6
+  
+  # Product details.
+  app.get '/admin/product/:id/detail', (req, res) ->
+    Product.findOne
+      _id: req.params.id
+    , (error, product) ->
+      return res.render 'error.jade', eror: error if error
+      res.render 'admin_product_detail.jade', 
+        active_index: 2, product: product
+  
+  app.post '/admin/product/:id/detail', (req, res) ->
+    Product.update
+      _id: req.params.id
+    , $set: { detail: req.body.detail } 
+    , (error) ->
+      return res.render 'error.jade', error: error if error
+      res.redirect "/admin/product/#{req.params.id}/detail"
 
   # Orders
   app.get '/admin/orders', (req, res) ->
     res.render 'admin_orders.jade', {active_index: 4}
 
   app.get '/admin/list_orders', (req, res) ->
-    Order.find {userId: req.session['user']._id}, (error, orders) ->
+    Order.find
+      userId: req.session['user']._id
+    , (error, orders) ->
       res.json(orders)
 
   # Index products

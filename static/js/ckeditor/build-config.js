@@ -70,8 +70,9 @@ var CKBUILDER_CONFIG = {
 		'listblock' : 1,
 		'fakeobjects' : 1,
 		'menubutton' : 1,
-		'font' : 1,
-		'find' : 1
+		'panelbutton' : 1,
+		'colorbutton' : 1,
+		'colordialog' : 1
 	},
 	languages : {
 		'zh-cn' : 1,

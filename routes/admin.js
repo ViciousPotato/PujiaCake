@@ -121,9 +121,35 @@
         }
       });
     });
-    app.get('/admin/product/detail', function(req, res) {
-      return res.render('admin_product_detail.jade', {
-        active_index: 6
+    app.get('/admin/product/:id/detail', function(req, res) {
+      return Product.findOne({
+        _id: req.params.id
+      }, function(error, product) {
+        if (error) {
+          return res.render('error.jade', {
+            eror: error
+          });
+        }
+        return res.render('admin_product_detail.jade', {
+          active_index: 2,
+          product: product
+        });
+      });
+    });
+    app.post('/admin/product/:id/detail', function(req, res) {
+      return Product.update({
+        _id: req.params.id
+      }, {
+        $set: {
+          detail: req.body.detail
+        }
+      }, function(error) {
+        if (error) {
+          return res.render('error.jade', {
+            error: error
+          });
+        }
+        return res.redirect("/admin/product/" + req.params.id + "/detail");
       });
     });
     app.get('/admin/orders', function(req, res) {
