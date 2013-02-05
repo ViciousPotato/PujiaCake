@@ -1,0 +1,80 @@
+extends admin
+
+block content
+  style
+    #news-grid {
+        margin-top: 20px;
+    }
+  table#news-grid.table.table-bordered.datagrid
+      thead
+        tr
+          th
+            span.datagrid-header-title 新闻列表
+            .datagrid-header-left
+            .datagrid-header-right
+              .input-append.search
+                input.input-medium(type='text', placeholder='Search')
+                button.btn
+                  i.icon-search
+                button.btn#add-new-news
+                  a(href="/admin/news/new")
+                    i.icon-plus-sign
+      tfoot
+        tr
+          th
+            .datagrid-footer-left(style='display: none;')
+              .grid-controls
+                span
+                  span.grid-start
+                  | -
+                  span.grid-end
+                  | of
+                  span.grid-count
+                select.grid-pagesize
+                  option 10
+                  option 20
+                  option 50
+                  option 100
+                span Per Page
+            .datagrid-footer-right(style='display: none;')
+              .grid-pager
+                button.btn.grid-prevpage
+                  i.icon-chevron-left
+                span Page
+                .input-append.dropdown.combobox
+                  input.span1(type='text')
+                  button.btn(data-toggle='dropdown')
+                    i.caret
+                  ul.dropdown-menu
+                span
+                  | of
+                  span.grid-pages
+                button.btn.grid-nextpage
+                  i.icon-chevron-right
+
+  script
+    $.get('/admin/news/list', function(data) {
+        var dataSource = new StaticDataSource({
+          columns: [
+            { property: 'title',   label: '标题',  sortable: true },
+            { property: 'time',    label: '时间',  sortable: true },
+            { property: 'delete',  label: '操作',  sortable: true }
+          ],
+          data : data,
+          delay : 200
+        });
+
+        $('#news-grid').datagrid({
+          dataSource : dataSource,
+          cellrenderfunc : function(row, prop) {
+            if (prop == 'delete') {
+              return '<a href="/admin/news/' + row._id + 
+                     '/delete" onclick="return confirm(\'真的要删除么？\');">删除</a>' +
+                     '|' +
+                     '<a href="/admin/news/' + row._id + '/edit">编辑</a>';
+            } else {
+              return row[prop];
+            }
+          }
+        });
+      });

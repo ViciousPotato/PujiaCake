@@ -16,5 +16,4 @@ productSchema = new mongoose.Schema {
 }
 
 Product = mongoose.model 'Product', productSchema
-
 module.exports = Product

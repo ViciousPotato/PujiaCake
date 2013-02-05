@@ -1,0 +1,14 @@
+extends admin
+
+block content
+  h3 企业文化设置
+  form(action="/admin/about", method="post")
+    textarea(name="about") !{about}
+    input.btn-primary(type="submit", value="保存")
+    
+  script(src='/js/ckeditor/ckeditor.js')
+  script
+    CKEDITOR.replace('about', {
+      language: 'zh-cn'
+    });
+  

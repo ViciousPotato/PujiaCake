@@ -5,8 +5,9 @@ indexProductSchema = new mongoose.Schema {
   name:        String,
   description: String,
   image:       String,
-  # type = 'full' | 'withtext' to decide how to display on front page.
-  type:        String,
+  type:        String,   # type = 'full' | 'withtext'
   link:        String
 }
-module.exports = mongoose.model 'IndexProduct', indexProductSchema
+
+IndexProduct = mongoose.model 'IndexProduct', indexProductSchema
+module.exports = IndexProduct 

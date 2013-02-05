@@ -1,0 +1,10 @@
+extends about
+
+block content
+  ul.news-list
+    - each n in news
+      h3 #{n.title}
+      span #{n.time}
+      .news-content
+        !{n.content}
+  

@@ -56,10 +56,6 @@
     return res.sendfile('index.html');
   });
 
-  app.get('/about', function(req, res) {
-    return res.render('about.jade');
-  });
-
   app.get('/guide', function(req, res) {
     return res.render("guide.jade");
   });
@@ -73,6 +69,8 @@
   require('./routes/products.js')(app);
 
   require('./routes/comment.js')(app);
+
+  require('./routes/about.js')(app);
 
   app.listen(3000);
 

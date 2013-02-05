@@ -1,0 +1,21 @@
+extends admin
+
+block content
+  h3 修改新闻动态
+  script(src='/js/ckeditor/ckeditor.js')
+  style
+    .form-entry {
+      margin-top: 10px;
+    }
+  form(action="/admin/news/#{news._id}/edit", method="post")
+    .form-entry
+      input(name="title", placeholder="标题", value="#{news.title}") 
+    .form-entry
+      textarea(name="content") !{news.content}
+    .form-entry
+      input.btn-primary(type="submit")
+    
+  script
+    CKEDITOR.replace('content', {
+      language: 'zh-cn'
+    });

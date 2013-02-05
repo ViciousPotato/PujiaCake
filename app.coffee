@@ -35,10 +35,6 @@ app.get '/', (req, res) ->
 app.get '/index.html', (req, res) ->
   res.sendfile 'index.html'
 
-# About
-app.get '/about', (req, res) ->
-  res.render 'about.jade'
-
 # Guide
 app.get '/guide', (req, res) ->
   res.render "guide.jade"
@@ -48,5 +44,6 @@ require('./routes/cart.js')(app)
 require('./routes/member.js')(app)
 require('./routes/products.js')(app)
 require('./routes/comment.js')(app)
+require('./routes/about.js')(app)
 
 app.listen 3000

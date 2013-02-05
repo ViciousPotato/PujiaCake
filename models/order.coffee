@@ -8,4 +8,6 @@ orderSchema = new mongoose.Schema {
   status:    String, # 'confirmed' | 'paid' | 'onexpress' 
   amount:    Number
 }
-module.exports = mongoose.model 'Order', orderSchema
+
+Order = mongoose.model 'Order', orderSchema
+module.exports = Order

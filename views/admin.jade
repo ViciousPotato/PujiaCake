@@ -27,44 +27,62 @@ html.fuelux
     .container-fluid
       .row-fluid
         .span2
-          ul.nav.nav-list#left-nav
-            li
-              a(href='/admin/')
-                i.icon-home.icon-white 
-                首页
-            li
-              a(href='/admin/member')
-                i.icon-user 
-                会员管理
+          .well
+            ul.nav.nav-list#left-nav
+              li
+                a(href='/admin/')
+                  i.icon-home.icon-white 
+                  首页
+                
+              li.nav-header
+                会员
+            
+              li
+                a(href='/admin/member')
+                  i.icon-user 
+                  会员管理
 
-            li
-              a(href='/admin/product')
-                i.icon-th
-                产品管理
+              li.nav-header
+                产品
+              li
+                a(href='/admin/product')
+                  i.icon-th
+                  产品管理
+              li
+                a(href='/admin/index-product')
+                  i.icon-th-list
+                  首页产品管理
 
-            li
-              a(href='/admin/index-product')
-                i.icon-th-list
-                首页产品管理
+              li.nav-header
+                订单
+              li
+                a(href='/admin/orders')
+                  i.icon-shopping-cart
+                  订单管理
+              li
+                a(href='/admin/express-fee')
+                  i.icon-globe
+                  快递费用设置
+            
 
-            li
-              a(href='/admin/orders')
-                i.icon-shopping-cart
-                订单管理
-
-            li
-              a(href='/admin/comments')
-                i.icon-comment
-                留言管理
-
-            li
-              a(href='/admin/express-fee')
-                i.icon-globe
-                快递费用管理
+              li.nav-header
+                其它
+              li
+                a(href='/admin/comments')
+                  i.icon-comment
+                  留言管理
+              li
+                a(href='/admin/about')
+                  i.icon-plus
+                  企业文化设置
+              li
+                a(href='/admin/news')
+                  i.icon-news
+                  企业动态管理
 
 
         .span10
           block content
             显示动态
     script
-      $($('#left-nav li')[#{active_index}]).addClass('active')
+      $($('#left-nav li:not(.nav-header)')[#{active_index}]).addClass('active')

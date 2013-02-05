@@ -6,6 +6,8 @@ IndexProduct = require '../models/index-product'
 Order        = require '../models/order'
 Comment      = require '../models/comment'
 ExpressFee   = require '../models/express-fee'
+About        = require '../models/about'
+News         = require '../models/news'
 
 module.exports = (app) ->
   # Admin
@@ -111,12 +113,12 @@ module.exports = (app) ->
 
   # Index products
   app.get '/admin/index-product', (req, res) ->
-    res.render 'admin_index-product.jade', { active_index: 3 }
+    res.render 'admin_index-product.jade', active_index: 3
 
   app.get '/admin/index-product/delete/:productid', (req, res) ->
-    IndexProduct.remove {
+    IndexProduct.remove
       _id: req.params.productid
-    }, (error) ->
+    , (error) ->
       res.redirect '/admin/index-product'
 
   app.get '/admin/index-product/list', (req, res) ->
@@ -147,11 +149,11 @@ module.exports = (app) ->
       image:       '/uploads/' + path.basename req.files.product_image.path
       
     product.save (error) ->
-      res.render 'admin_index-product.jade', { active_index: 3 }
+      res.render 'admin_index-product.jade', active_index: 3
   
   # Express fees.
   app.get '/admin/express-fee', (req, res) ->
-    res.render 'admin_express.jade', active_index: 6
+    res.render 'admin_express.jade', active_index: 5
 
   app.get '/admin/list_express_fee', (req, res) ->
     ExpressFee.listFlatten (error, fees) ->
@@ -169,7 +171,7 @@ module.exports = (app) ->
   
   # Comments
   app.get '/admin/comments', (req, res) ->
-    res.render 'admin_comment.jade', active_index: 5
+    res.render 'admin_comment.jade', active_index: 6
   
   app.get '/admin/list_comments', (req, res) ->
     Comment.find {}, (error, comments) ->
@@ -181,3 +183,55 @@ module.exports = (app) ->
     , (error) ->
       res.redirect '/admin/comments'
   
+  # About
+  app.get '/admin/about', (req, res) ->
+    About.findOne {}, (error, about) ->
+      return res.render 'error.jade', error: error if error
+      res.render 'admin_about.jade', 
+        about: about.about, active_index: 7
+
+  app.post '/admin/about', (req, res) ->
+    About.remove {}, (error) ->
+      # Clean and create
+      about = new About
+        about: req.body.about
+      about.save (error) ->
+        res.redirect '/admin/about'
+  
+  # News
+  app.get '/admin/news', (req, res) ->
+    res.render 'admin_news.jade', active_index: 8
+      
+  app.get '/admin/news/list', (req, res) ->
+    News.find {}, (error, news) ->
+      res.json news
+      
+  app.get '/admin/news/:id/delete', (req, res) ->
+    News.remove
+      _id: req.params.id
+    , (error) ->
+      res.redirect '/admin/news'
+    
+  app.get '/admin/news/:id/edit', (req, res) ->
+    News.findOne
+      _id: req.params.id
+    , (error, news) ->
+      res.render 'admin_news_edit.jade', 
+        active_index: 8, news: news
+  
+  app.post '/admin/news/:id/edit', (req, res) ->
+    News.update
+      _id: req.params.id
+    , $set: { title: req.body.title, content: req.body.content }
+    , (error) ->
+      res.redirect "/admin/news/#{req.params.id}/edit"
+  
+  app.get '/admin/news/new', (req, res) ->
+    res.render 'admin_news_add.jade', active_index: 8
+  
+  app.post '/admin/news/new', (req, res) ->
+    news = new News
+      title:   req.body.title
+      content: req.body.content
+    news.save (error) ->
+      res.redirect '/admin/news'
