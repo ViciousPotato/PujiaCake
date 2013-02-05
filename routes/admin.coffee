@@ -188,7 +188,7 @@ module.exports = (app) ->
     About.findOne {}, (error, about) ->
       return res.render 'error.jade', error: error if error
       res.render 'admin_about.jade', 
-        about: about.about, active_index: 7
+        about: about?.about, active_index: 7
 
   app.post '/admin/about', (req, res) ->
     About.remove {}, (error) ->

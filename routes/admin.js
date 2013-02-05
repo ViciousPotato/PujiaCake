@@ -281,7 +281,7 @@
           });
         }
         return res.render('admin_about.jade', {
-          about: about.about,
+          about: about != null ? about.about : void 0,
           active_index: 7
         });
       });
