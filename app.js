@@ -60,7 +60,7 @@
     return res.render("guide.jade");
   });
 
-  require('./routes/admin.js')(app);
+  require('./routes/admin')(app);
 
   require('./routes/cart.js')(app);
 

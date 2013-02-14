@@ -18,20 +18,15 @@ html.fuelux
     .navbar.navbar-inverse.navbar-static-top
       .navbar-inner
         a.brand(href='#') 后台管理
-        ul.nav
-          li.active
-            a(href='#') 首页
-          li
-            a(href='#')
 
     .container-fluid
       .row-fluid
         .span2
-          .well
+          .well(style="margin-top: 25px;")
             ul.nav.nav-list#left-nav
               li
                 a(href='/admin/')
-                  i.icon-home.icon-white 
+                  i.icon-home
                   首页
                 
               li.nav-header
@@ -81,7 +76,7 @@ html.fuelux
                   企业动态管理
 
 
-        .span10
+        .span10(style="margin-top: 25px;")
           block content
             显示动态
     script

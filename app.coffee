@@ -39,7 +39,7 @@ app.get '/index.html', (req, res) ->
 app.get '/guide', (req, res) ->
   res.render "guide.jade"
 
-require('./routes/admin.js')(app)
+require('./routes/admin')(app)
 require('./routes/cart.js')(app)
 require('./routes/member.js')(app)
 require('./routes/products.js')(app)
