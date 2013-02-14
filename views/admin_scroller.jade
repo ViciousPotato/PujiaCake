@@ -1,4 +1,160 @@
 extends admin
 
 block content
-  p Hello
+  table#scroller-grid.table.table-bordered.datagrid
+    thead
+      tr
+        th
+          span.datagrid-header-title 列表
+          .datagrid-header-left
+          .datagrid-header-right
+            .input-append.search
+              input.input-medium(type='text', placeholder='Search')
+              button.btn
+                i.icon-search
+              button.btn(type="button", data-backdrop="true", data-toggle="modal", data-target="#add-scroller-modal")
+                i.icon-plus-sign
+      tfoot
+        tr
+          th
+            .datagrid-footer-left(style='display: none;')
+              .grid-controls
+                span
+                  span.grid-start
+                  | -
+                  span.grid-end
+                  | of
+                  span.grid-count
+                select.grid-pagesize
+                  option 10
+                  option 20
+                  option 50
+                  option 100
+                span Per Page
+            .datagrid-footer-right(style='display: none;')
+              .grid-pager
+                button.btn.grid-prevpage
+                  i.icon-chevron-left
+                span Page
+                .input-append.dropdown.combobox
+                  input.span1(type='text')
+                  button.btn(data-toggle='dropdown')
+                    i.caret
+                  ul.dropdown-menu
+                span
+                  | of
+                  span.grid-pages
+                button.btn.grid-nextpage
+                  i.icon-chevron-right
+
+  .modal.fade#add-scroller-modal(
+    role="dialog", 
+    aria-labelledby="scroller-modal-label")
+    .modal-header
+      button.close(type="button", data-dismiss="modal", aria-hidden="true")x
+      h3#scroller-modal-label 添加产品
+    .modal-body
+        style
+          input.larger-text-field, textarea.larger-text-field { width : 300px; }
+
+        form#add-scroller-form.form-horizontal(
+          action='/admin/scroller/new', 
+          method='post', 
+          enctype="multipart/form-data")
+            .control-group
+              label.control-label(for='scroller_title') 标题
+              .controls
+                input.larger-text-field(type='text', 
+                  id='scroller_title', name='scroller_title', placeholder='标题',
+                  required, data-validation-required-message='请输入标题')
+
+            .control-group
+              label.control-label(for='scroller_image') 
+                | 产品图片
+                br
+                | (143像素x135像素)
+              .controls
+                input(type='file', name='scroller_image')
+
+            .control-group
+              label.control-label(for='scroller_title') 链接
+              .controls
+                input.larger-text-field(
+                  type='text', 
+                  id='scroller_link', 
+                  name='scroller_link', 
+                  placeholder='链接',
+                  required, 
+                  data-validation-required-message='请输入链接')
+
+
+    .modal-footer
+      button.btn(data-dismiss="modal", aria-hidden="true") 关闭
+      button.btn.btn-primary#add-scroller-button 保存修改
+  
+  script
+    $.get('/admin/scroller/list', function(data) {
+        var dataSource = new StaticDataSource({
+          columns : [
+            { property: 'title',  label: '标题',   sortable: true }, 
+            { property: 'image',  label: '图片',   sortable: true }, 
+            { property: 'link',   label: '链接',   sortable: true },
+            { property: 'delete', label: '操作',   sortable: true }
+          ],
+          data : data,
+          delay : 200
+        });
+
+        $('#scroller-grid').datagrid({
+          dataSource : dataSource,
+          cellrenderfunc : function(row, prop) {
+              var html = "";
+              switch (prop) {
+                case 'delete':
+                  html = '<a href="/admin/scroller/'+row._id+'/delete" onclick="return confirm(\'真的要删除么？\');">删除</a>';
+                  break;
+                default:
+                  html = '<a href="#" class="scroller-' + prop + '" data-pk="' + row._id + 
+                     '" data-url="/admin/scroller/update" data-name="' + prop + '">' + 
+                     row[prop] + '</a>';
+                  break;
+              }
+              return html;
+          }
+        });
+
+       
+      });
+    
+    $("#scroller-grid").on('loaded', function(){
+      $(".scroller-title").each(function(index, element) {
+        $(element).editable({
+            type : "text",
+            title : "输入标题"
+          });
+        });
+
+        $(".scroller-link").each(function(index, element) {
+          $(element).editable({
+            type : "textarea",
+            title : "输入链接"
+          });
+        });
+    });
+
+    $("#add-scroller-button").on('click', function() {
+      $("#add-scroller-form").submit();
+    });
+
+    $("input,textarea,select").jqBootstrapValidation(
+      {
+          preventSubmit: true,
+          submitError: function($form, event, errors) {
+              // Here I do nothing, but you could do something like display 
+              // the error messages to the user, log, etc.
+          },
+          filter: function() {
+              return $(this).is(":visible");
+          }
+      }
+    );

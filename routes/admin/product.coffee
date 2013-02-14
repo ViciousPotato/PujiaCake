@@ -1,3 +1,4 @@
+path    = require 'path'
 Product = require '../../models/product'
 
 module.exports = (app) ->

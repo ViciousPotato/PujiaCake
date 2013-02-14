@@ -1,9 +1,7 @@
 $(document).ready(function(){
 
 	// helpful classes
-	$('ul li:first-child').addClass('first');
-	$('ul li:last-child, ol li:last-child, .breadcrumbs:last, tr:last-child').addClass('last');
-	$('tr:even').addClass('even');
+  $('tr:even').addClass('even');
 	$('tr:odd').addClass('odd');
 
 	// add non semantic markup for fancy background images
@@ -12,8 +10,7 @@ $(document).ready(function(){
 	//$('body:not(#home) div.ornament_1').addClass('foot');
 	//$('div.ornament_1 #copyright').before('<div id="footer-patch"></div>');
 
-	// product scroller
-	$('#scrollers ul').quickScroll();
+
 	
 	//labelsInInputs
 	$('input[type=text], textarea').labelsInInputs({color: '#54301A', blur_color: '#D8CFC6', left: '36px'});
@@ -41,40 +38,57 @@ $(document).ready(function(){
 
 	if($('body').attr('id') == 'home') {
 
-		// This code reads from a json page full of data and crossfades the content on the homepage
-		
-		$.ajax({
-			url:      '/index-products',
-			dataType: 'json',
-			success:  function(data) {
-		        $.each(data, function(i,item) {
-                    if (item.type == 'full') {
-                        var htmlz = '';
-                        var bg = 'url(' + item.image + '); background-position: 0, 0';
-                    } else {
-                        var htmlz = '<h3>' + item.name + '</h3><p class="intro">' +
-                          item.description + ' <a class="coral" href="' + item.link +
-                          '"> <span style="margin-left: 300px;">&#62;</span></a></p>';
-                        var bg = 'url(' + item.image + ')';
-                    }
-                        $('div.wrapper.content').prepend(
-                            '<div class="hilite-extra" style="background-image: '+
-                            bg+';display:none;">'+htmlz+'</div>');
-                    });
-                    //    rotateFrontHilites(1);
-                    // Slide
-                    $('#slides').slides({
-                       generatePagination: true,
-                       play: 3000,
-                       pause: 1500,
-                       hoverPause: true,
-                       effect: 'slide, fade',
-                       crossfade: true,
-                       slideSpeed: 450
-                    });
-            }
-        });
-	}
+		// This code reads from a json page full of data and crossfades 
+    // the content on the homepage
+    $.ajax({
+    	url:      '/index-products',
+    	dataType: 'json',
+    	success:  function(data) {
+        $.each(data, function(i,item) {
+          if (item.type == 'full') {
+              var htmlz = '';
+              var bg = 'url(' + item.image + '); background-position: 0, 0';
+          } else {
+              var htmlz = '<h3>' + item.name + '</h3><p class="intro">' +
+                item.description + ' <a class="coral" href="' + item.link +
+                '"> <span style="margin-left: 300px;">&#62;</span></a></p>';
+              var bg = 'url(' + item.image + ')';
+          }
+              $('div.wrapper.content').prepend(
+                  '<div class="hilite-extra" style="background-image: '+
+                  bg+';display:none;">'+htmlz+'</div>');
+          });
+          // rotateFrontHilites(1);
+          // Slide
+          $('#slides').slides({
+             generatePagination: true,
+             play: 3000,
+             pause: 1500,
+             hoverPause: true,
+             effect: 'slide, fade',
+             crossfade: true,
+             slideSpeed: 450
+          });
+        }
+      });
+      
+      // Fill scroller
+      $.ajax({
+        url: '/admin/scroller/list',
+        dataType: 'json',
+        success: function(data) {
+          var ul = $('#scrollers ul');
+          $.each(data, function(i, item) {
+            var style = 'background-image: url(' + item.image + ')'; 
+            ul.append('<li><a href="' + item.link + '" style="' + style + '"></a></li>');
+          });
+        	$('ul li:first-child').addClass('first');
+        	$('ul li:last-child, ol li:last-child, .breadcrumbs:last, tr:last-child').addClass('last');
+        	// product scroller
+        	$('#scrollers ul').quickScroll();
+        }
+      });
+    }
 });
 
 
