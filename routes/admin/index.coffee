@@ -2,7 +2,7 @@ fs = require 'fs'
 
 module.exports = (app) ->
   app.get '/admin/', (req, res) ->
-    res.render 'admin_index.jade', active_index: 0 
+    res.render 'admin_index.jade'
   
   # Load all js files except index.js in current dir
   fs.readdir __dirname, (error, files) ->

@@ -7,7 +7,7 @@ module.exports = (app) ->
       res.json users
 
   app.get '/admin/member', (req, res) ->
-    res.render 'admin_member.jade', active_index: 1
+    res.render 'admin_member.jade'
     
   app.get '/admin/member/delete/:memberid', (req, res)->
     User.remove

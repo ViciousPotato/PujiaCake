@@ -6,9 +6,7 @@
 
   module.exports = function(app) {
     app.get('/admin/news', function(req, res) {
-      return res.render('admin_news.jade', {
-        active_index: 8
-      });
+      return res.render('admin_news.jade');
     });
     app.get('/admin/news/list', function(req, res) {
       return News.find({}, function(error, news) {
@@ -27,7 +25,6 @@
         _id: req.params.id
       }, function(error, news) {
         return res.render('admin_news_edit.jade', {
-          active_index: 8,
           news: news
         });
       });
@@ -45,9 +42,7 @@
       });
     });
     app.get('/admin/news/new', function(req, res) {
-      return res.render('admin_news_add.jade', {
-        active_index: 8
-      });
+      return res.render('admin_news_add.jade');
     });
     return app.post('/admin/news/new', function(req, res) {
       var news;

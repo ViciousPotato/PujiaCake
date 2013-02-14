@@ -6,9 +6,7 @@
 
   module.exports = function(app) {
     app.get('/admin/index-product', function(req, res) {
-      return res.render('admin_index-product.jade', {
-        active_index: 3
-      });
+      return res.render('admin_index-product.jade');
     });
     app.get('/admin/index-product/delete/:productid', function(req, res) {
       return IndexProduct.remove({
@@ -59,9 +57,7 @@
         image: '/uploads/' + path.basename(req.files.product_image.path)
       });
       return product.save(function(error) {
-        return res.render('admin_index-product.jade', {
-          active_index: 3
-        });
+        return res.render('admin_index-product.jade');
       });
     });
   };

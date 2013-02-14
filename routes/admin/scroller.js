@@ -6,9 +6,7 @@
 
   module.exports = function(app) {
     app.get('/admin/scroller', function(req, res) {
-      return res.render('admin_scroller.jade', {
-        active_index: 9
-      });
+      return res.render('admin_scroller.jade');
     });
     app.get('/admin/scroller/list', function(req, res) {
       return Scroller.find({}, function(error, scrollers) {
@@ -27,7 +25,6 @@
         _id: req.params.id
       }, function(error, scrollers) {
         return res.render('admin_scroller_edit.jade', {
-          active_index: 9,
           scrollers: scrollers
         });
       });
@@ -45,9 +42,7 @@
       });
     });
     app.get('/admin/scroller/new', function(req, res) {
-      return res.render('admin_news_add.jade', {
-        active_index: 8
-      });
+      return res.render('admin_news_add.jade');
     });
     return app.post('/admin/scroller/new', function(req, res) {
       var news;

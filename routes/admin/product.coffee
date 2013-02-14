@@ -18,7 +18,7 @@ module.exports = (app) ->
       res.redirect '/admin/product'
 
   app.get '/admin/product', (req, res) ->
-    res.render 'admin_product.jade', active_index: 2
+    res.render 'admin_product.jade'
 
   app.get '/admin/list_product', (req, res) ->
     Product.find (err, products) ->
@@ -52,8 +52,7 @@ module.exports = (app) ->
       _id: req.params.id
     , (error, product) ->
       return res.render 'error.jade', eror: error if error
-      res.render 'admin_product_detail.jade', 
-        active_index: 2, product: product
+      res.render 'admin_product_detail.jade', product: product
   
   app.post '/admin/product/:id/detail', (req, res) ->
     Product.update

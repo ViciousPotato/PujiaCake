@@ -3,7 +3,7 @@ ExpressFee = require '../../models/express-fee'
 module.exports = (app) ->
   # Express fees.
   app.get '/admin/express-fee', (req, res) ->
-    res.render 'admin_express.jade', active_index: 5
+    res.render 'admin_express.jade'
 
   # @JSON
   app.get '/admin/list_express_fee', (req, res) ->

@@ -23,9 +23,7 @@
       });
     });
     app.get('/admin/product', function(req, res) {
-      return res.render('admin_product.jade', {
-        active_index: 2
-      });
+      return res.render('admin_product.jade');
     });
     app.get('/admin/list_product', function(req, res) {
       return Product.find(function(err, products) {
@@ -71,7 +69,6 @@
           });
         }
         return res.render('admin_product_detail.jade', {
-          active_index: 2,
           product: product
         });
       });

@@ -6,9 +6,7 @@
 
   module.exports = function(app) {
     app.get('/admin/express-fee', function(req, res) {
-      return res.render('admin_express.jade', {
-        active_index: 5
-      });
+      return res.render('admin_express.jade');
     });
     app.get('/admin/list_express_fee', function(req, res) {
       return ExpressFee.listFlatten(function(error, fees) {

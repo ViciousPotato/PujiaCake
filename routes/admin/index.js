@@ -6,9 +6,7 @@
 
   module.exports = function(app) {
     app.get('/admin/', function(req, res) {
-      return res.render('admin_index.jade', {
-        active_index: 0
-      });
+      return res.render('admin_index.jade');
     });
     return fs.readdir(__dirname, function(error, files) {
       var file, _i, _len, _results;

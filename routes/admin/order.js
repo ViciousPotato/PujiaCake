@@ -6,9 +6,7 @@
 
   module.exports = function(app) {
     app.get('/admin/orders', function(req, res) {
-      return res.render('admin_orders.jade', {
-        active_index: 4
-      });
+      return res.render('admin_orders.jade');
     });
     return app.get('/admin/list_orders', function(req, res) {
       return Order.find({}, function(error, orders) {

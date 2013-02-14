@@ -11,9 +11,7 @@
       });
     });
     app.get('/admin/member', function(req, res) {
-      return res.render('admin_member.jade', {
-        active_index: 1
-      });
+      return res.render('admin_member.jade');
     });
     app.get('/admin/member/delete/:memberid', function(req, res) {
       return User.remove({

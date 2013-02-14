@@ -47,6 +47,10 @@ html.fuelux
                 a(href='/admin/index-product')
                   i.icon-th-list
                   首页产品管理
+              li
+                a(href='/admin/scroller')
+                  i.icon-th-list
+                  首页滚动管理
 
               li.nav-header
                 订单
@@ -80,4 +84,20 @@ html.fuelux
           block content
             显示动态
     script
-      $($('#left-nav li:not(.nav-header)')[#{active_index}]).addClass('active')
+      var menu_active_rules = [
+        /admin\/?$/,
+        /member$/,
+        /\/product$/,
+        /index-product$/,
+        /scroller$/,
+        /orders$/,
+        /express-fee$/,
+        /comments$/,
+        /about$/,
+        /news$/
+      ];
+      
+      for (var i = 0; i < menu_active_rules.length; i++) {
+        if (location.href.match(menu_active_rules[i])) break;
+      }
+      $($('#left-nav li:not(.nav-header)')[i]).addClass('active')

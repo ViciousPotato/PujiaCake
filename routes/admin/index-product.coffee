@@ -3,7 +3,7 @@ IndexProduct = require '../../models/index-product'
 module.exports = (app) ->
   # Index products
   app.get '/admin/index-product', (req, res) ->
-    res.render 'admin_index-product.jade', active_index: 3
+    res.render 'admin_index-product.jade'
 
   app.get '/admin/index-product/delete/:productid', (req, res) ->
     IndexProduct.remove
@@ -39,4 +39,4 @@ module.exports = (app) ->
       image:       '/uploads/' + path.basename req.files.product_image.path
       
     product.save (error) ->
-      res.render 'admin_index-product.jade', active_index: 3
+      res.render 'admin_index-product.jade'
