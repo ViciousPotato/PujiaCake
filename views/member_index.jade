@@ -8,7 +8,8 @@ block title
 
 block sidebar
   if user != null
-    欢迎#{user.email}
+    .welcome
+      | 欢迎#{user.email}
     nav
       ul#sidenav.coral
         li
@@ -57,7 +58,7 @@ block sidebar
     form#login-form(action='/member/login', method='post')
       div
         label.loginlabel(for='email') 会员名
-        input#email(name='email')
+        input#email.normal-input(name='email')
       div
         label.loginlabel(for='password') 密码
         input#password(name='password', type="password")

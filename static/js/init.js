@@ -13,7 +13,7 @@ $(document).ready(function(){
 
 	
 	//labelsInInputs
-	$('input[type=text], textarea').labelsInInputs({color: '#54301A', blur_color: '#D8CFC6', left: '36px'});
+	$('#contact-form input[type=text], textarea').labelsInInputs({color: '#54301A', blur_color: '#D8CFC6', left: '36px'});
 
 	// animate those cute validation bubbles	
 	$('form p small').hide().delay(500).slideDown();
