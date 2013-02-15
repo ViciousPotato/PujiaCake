@@ -174,7 +174,7 @@ ul.pages li{float:left;font-size:.9em;height:19px;list-style:none;margin:0 0 0 5
 #extras td,#extras th{padding:7px 6px;text-align:left;}
 footer{color:#d8cfc6;overflow:hidden;position:relative;z-index:0;clear:both;}footer h3{color:#FFF;font-size:1.6em;margin-top:15px;}
 footer h4{color:#FFF;margin-bottom:15px;font-size:1.5em;}
-footer .wrapper.separator{min-height:130px;overflow:hidden;padding:0 520px 0 40px;position:relative;width:390px;}
+footer .wrapper.separator{min-height:130px;overflow:hidden;padding:0 520px 0 40px;position:relative;width:422px;}
 footer abbr{font-weight:bold;}
 footer abbr,footer .type,footer .e,footer p.tel,footer a{color:#FFF;}
 footer.home{margin-top:-35px;background: url(../../images/home-background.png) no-repeat;}
@@ -183,11 +183,11 @@ footer.home .wrapper.separator,#card .wrapper.separator{background:url(../../ima
 footer.home abbr,#card abbr,footer.home .type,#card .type,footer.home .e,#card .e{color:#54301a;}
 footer.home a,#card a{color:#54301a;}footer.home a:hover,#card a:hover{color:#cc0d1c;}
 footer.home p.tel,#card p.tel{color:#54301a;}
-#hours{float:left;width:185px;}#hours abbr{display:inline-block;width:35px;}
+#hours{float:left;width:216px;}#hours abbr{display:inline-block;width:35px;}
 #hours ul{margin:0;}
 #hours li{list-style:none;}
 #hours h4{padding-left:2px;}
-div.vcard{float:left;width:205px;}div.vcard a{color:#FFF;}
+div.vcard{float:left;width:205px;margin-top: 15px;}div.vcard a{color:#FFF;}
 div.vcard p{margin:0;}div.vcard p.tel{font-size:2.2em;margin:20px 0 15px 0;}
 footer.home div.vcard a{color:#cc0d1c;}
 #copyright{border-top:1px dashed #8d7e6f;clear:both;font-size:.9em;overflow:hidden;}#copyright p{float:left;margin-bottom:20px;}

@@ -10,7 +10,6 @@ generate_random_code = ->
 
 module.exports = (app) ->
   # utils funcs
-  
   extractAddr = (req) ->
     address = 
       name:           req.body.name

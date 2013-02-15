@@ -7,4 +7,4 @@ module.exports = (app) ->
   # Load all js files except index.js in current dir
   fs.readdir __dirname, (error, files) ->
     require("./#{file}")(app) for file in files \
-      when file.match(/\.js$/) and file isnt 'index.js'
+      when file.match(/\.coffee$/) and file isnt 'index.coffee'

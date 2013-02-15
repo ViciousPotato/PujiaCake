@@ -1,6 +1,6 @@
 mongoose     = require 'mongoose'
-Product      = require '../models/product.js'
-IndexProduct = require '../models/index-product.js'
+Product      = require '../models/product'
+IndexProduct = require '../models/index-product'
 debug        = require('debug')('routes/products')
 
 module.exports = (app) ->

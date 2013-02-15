@@ -40,10 +40,10 @@ app.get '/guide', (req, res) ->
   res.render "guide.jade"
 
 require('./routes/admin')(app)
-require('./routes/cart.js')(app)
-require('./routes/member.js')(app)
-require('./routes/products.js')(app)
-require('./routes/comment.js')(app)
-require('./routes/about.js')(app)
+require('./routes/cart')(app)
+require('./routes/member')(app)
+require('./routes/products')(app)
+require('./routes/comment')(app)
+require('./routes/about')(app)
 
 app.listen 3000
