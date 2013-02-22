@@ -1,4 +1,17 @@
 extends member_index
 
 block content
-  | Not implemented
+  style
+    .profile-wrapper {
+      margin-top: 20px;
+    }
+    
+    .modify {
+      font-size: 12px;
+    }
+  .profile-wrapper
+    h5 Email
+    hr
+    p #{user.email}
+    p
+      a.modify(href="#") 修改  

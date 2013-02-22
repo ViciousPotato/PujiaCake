@@ -60,13 +60,13 @@ module.exports = (app) ->
     res.render 'member_index.jade', random_code: random_code
 
   app.post '/member/login', (req, res) ->
-    User.find
-      email:    req.param('email'),
-      password: req.param('password')
-    , (error, users) ->
-      return res.render 'member_login_failed.jade' if users.length is 0
-      req.session.user = _.first users
-      debug 'user logged in and user is: ', req.session.user
+    User.findOne
+      email:    req.body.email,
+      password: req.body.password
+    , (error, user) ->
+      return res.render 'member_login_failed.jade' if not user
+      req.session.user = user
+      debug 'user logged in and user is: ', user
       res.render 'member_login_success.jade' # TODO: or should we redirect?
 
   app.get '/member/orders', (req, res) ->

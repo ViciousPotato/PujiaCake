@@ -1,0 +1,10 @@
+extends admin
+
+block content
+  - each message in messages
+    .chat-box
+      .chat-from
+        #{message.from}
+      
+      
+  #{messages}

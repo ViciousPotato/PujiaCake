@@ -8,8 +8,11 @@ block title
 
 block sidebar
   if user != null
-    .welcome
-      | 欢迎#{user.email}
+    style
+      .welcome {
+        font-size: 14px;
+        mergin-bottom: 10px;
+      }
     nav
       ul#sidenav.coral
         li
@@ -18,8 +21,6 @@ block sidebar
           a(href="/member/address") 我的地址
         li
           a(href="/member/orders") 我的订单
-        li
-          a(href="/member/score") 我的积分
   else
     style
       #login-form {
@@ -78,4 +79,9 @@ block sidebar
 
 block content
   div(style="height: 400px;")
-    p 会员空间
+    h3 为什么要成为会员
+    p 当您成功购买商品后，系统会根据您购买的金额与商品属性，自动分配积分到您的账户中。对于获得积分的顾客，
+    | 可以使用积分进行兑换商品、抵扣价格、升级会员等，具体获得与使用办法，参考“帮助”下《积分获得与使用》。
+    h3 会员特权
+    p 商品打折服务
+    p 最新的产品通告

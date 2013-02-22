@@ -24,6 +24,9 @@ app.set 'view engine', 'jade'
 app.set 'view options', {layout : true}
 
 app.use (req, res, next) ->
+  random_id = () -> Math.random()
+  if not req.session.chatID
+    req.session.chatID = req.session.user?.email || random_id()
   # Use in views
   app.locals.user = req.session.user
   next()
@@ -42,8 +45,10 @@ app.get '/guide', (req, res) ->
 require('./routes/admin')(app)
 require('./routes/cart')(app)
 require('./routes/member')(app)
+require('./routes/address')(app)
 require('./routes/products')(app)
 require('./routes/comment')(app)
 require('./routes/about')(app)
+require('./routes/chat')(app)
 
 app.listen 3000
