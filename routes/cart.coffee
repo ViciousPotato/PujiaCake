@@ -91,8 +91,9 @@ module.exports = (app) ->
       products:  req.session.cart,
       userId:    req.session.user._id,
       addressId: req.body.address,
-      status:    'paid',
-      amount:    amount
+      status:    '已支付',
+      amount:    amount,
+      remark:    '等待客服确认'
     
     req.session.cart = []
     
