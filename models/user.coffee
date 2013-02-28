@@ -9,7 +9,9 @@ addressSchema = new mongoose.Schema {
   address:        String,
   phone:          String,
   zipCode:        String,
-  deliveryMethod: String
+  deliveryMethod: String,
+  gender:         String,
+  birthday:       Date
 }
 
 # Users

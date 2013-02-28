@@ -4,12 +4,12 @@ block content
   h5 修改地址
   hr
   .edit-address-form
-    form#address-form(action="/member/address/#{address.id}", method="post")
-      div
+    form#address-form(action="/member/address/#{address._id}", method="post")
+      div.form-item-div
         label 姓名
         input#name(type="text", name="name", value="#{address.name}")
 
-      div
+      div.form-item-div
         label 地址
         select#province(name="province", style="")
         span(style="margin: 0 5px 0 5px") 省
@@ -17,21 +17,26 @@ block content
         span(style="margin: 0 5px 0 5px") 市
         input#address(type="text", name="address", value="#{address.address}")
 
-      div
+      div.form-item-div
         label 手机号
         input#phone(name="phone", value="#{address.phone}")
 
-      div
+      div.form-item-div
         label 邮政编码
         input#zip(name="zip", value="#{address.zipCode}")
 
-      div
+      div.form-item-div
         label 送货方式
         select#delivery-method(name="delivery-method")
           option(value="others", selected)普通快递
           option(value="sf")顺丰
       
-      input(type="submit", value="修改", id="submit")
+      input.submit-button(type="submit", value="修改", id="submit")
       script
         initProv('#province', '#city');
+        $('#province option[value$="#{address.province}"]').attr('selected', true);
+        // Emulate select event
+        initCities($('#province'), $('#city'));
+        $('#city option[value$="#{address.city}"]').attr('selected', true);
+        $('#delivery-method option[value="#{address.deliveryMethod}"]').attr('selected', true);
   

@@ -9,19 +9,14 @@ block content
       height: 40px;
     }
     
-    #submit {
-      border: 1px solid rgb(206, 28, 41);
-      background-color: rgb(206, 28, 41);
-      color: white;
-      height: 26px;
-    }
-
   #register-form
     h1 注册
     p.login 已经是会员？
       a(href='/member/login') 登录
       .
     form(action='/member/register', method='post')
+      h5 基本信息
+      hr
       div
         label(for="") 邮箱
           abbr(title='必填')*
@@ -35,8 +30,8 @@ block content
       div
         label(for="") 再输一遍密码
           abbr(title='必填')*
-        input#repassword(type="password", name='repassword')
-
+        input#repassword(type="password", name='repassword')      
+      
       h5(style="margin-top: 8px") 送货信息
       hr(style="margin: 10px 0 15px 0")
 
@@ -53,7 +48,7 @@ block content
         input#address(type="text", name="address", placeholder="地址")
 
       div
-        label 手机号
+        label 联系电话
         input#phone(name="phone")
 
       div
@@ -66,6 +61,43 @@ block content
           option(value="others", selected)普通快递
           option(value="sf")顺丰
 
+      h5 其它资料
+      hr
+      div
+        label 性别
+        label(for="gender_male", style="width: 40px")
+          input#gender_male(type="radio", name="gender", value="0", checked)
+          |   男
+        label(for="gender_male", style="width: 40px;")
+          input#gender_male(type="radio", name="gender", value="1")
+          |   女
+        
+      div
+        label 生日
+        select#birthday_year(name="birthday_year")
+          option 年
+          year = 1940
+          endyear = 2013
+          while year <= endyear
+            option(value=year) #{year}
+            year = year + 1
+        
+        select#birthday_month(name="birthday_month")
+          option 月
+          month = 1
+          while month <= 12
+            option(value=month) #{month}
+            month = month + 1
+        
+        select#birthday_day(name="birthday_day")
+          option 日
+          day = 1
+          endday = 31
+          while day < endday
+            option(value=day) #{day}
+            day = day + 1
+        
+                
       .tos
         ul
           li
@@ -74,6 +106,7 @@ block content
               我同意
               a(href='#') 注册条款
 
-      input(type="submit", value="注册", id="submit")
+      input.submit-button(type="submit", value="注册", id="submit")
   script
     initProv('#province', '#city');
+    $('select[id^="birthday"]').css('margin-right', '10px');

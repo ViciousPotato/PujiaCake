@@ -9,9 +9,57 @@ block content
     .modify {
       font-size: 12px;
     }
-  .profile-wrapper
-    h5 Email
-    hr
-    p #{user.email}
-    p
-      a.modify(href="#") 修改  
+    
+    #register-form div {
+      height: 40px;
+    }
+  #register-form
+    form(action='/member/profile', method='post')
+      h5 我的资料
+      hr
+      div
+        label 性别
+        label(for="gender_male", style="width: 40px")
+          input#gender_male(type="radio", name="gender", value="0", checked)
+          |   男
+        label(for="gender_female", style="width: 40px;")
+          input#gender_female(type="radio", name="gender", value="1")
+          |   女
+          
+      div
+        label 生日
+        select#birthday_year(name="birthday_year")
+          option 年
+          year = 1940
+          endyear = 2013
+          while year <= endyear
+            option(value=year) #{year}
+            year = year + 1
+        
+        select#birthday_month(name="birthday_month")
+          option 月
+          month = 1
+          while month <= 12
+            option(value=month) #{month}
+            month = month + 1
+        
+        select#birthday_day(name="birthday_day")
+          option 日
+          day = 1
+          endday = 31
+          while day < endday
+            option(value=day) #{day}
+            day = day + 1
+      
+      input.submit-button(type="submit", value="保存")
+      - var birthday = new Date(user.birthday)
+      script
+        if (#{user.gender} === 0) {
+          $('#gender_male').click();
+        } else {
+          $('#gender_female').click();
+        }
+        
+        $('#birthday_year option[value="#{birthday.getFullYear()}"]').attr('selected', true);
+        $('#birthday_month option[value="#{birthday.getMonth()+1}"]').attr('selected', true);
+        $('#birthday_day option[value="#{birthday.getDay()}"]').attr('selected', true);

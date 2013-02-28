@@ -393,3 +393,14 @@ h5 {
   padding: 0 10px;
   width: 245px;
 }
+
+.submit-button {
+  border: 1px solid rgb(206, 28, 41);
+  background-color: rgb(206, 28, 41);
+  color: white;
+  height: 26px;
+}
+
+.form-item-div {
+    height: 40px;
+}

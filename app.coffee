@@ -21,7 +21,7 @@ app.use express.static __dirname + '/static'
 
 app.set 'views', 'views/'
 app.set 'view engine', 'jade'
-app.set 'view options', {layout : true}
+app.set 'view options', layout : true, pretty: true
 
 app.use (req, res, next) ->
   random_id = () -> Math.random()
@@ -29,6 +29,7 @@ app.use (req, res, next) ->
     req.session.chatID = req.session.user?.email || random_id()
   # Use in views
   app.locals.user = req.session.user
+  app.locals.pretty = true
   next()
 
 # Index

@@ -19,7 +19,7 @@ html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
     script(src='/js/modernizr-1.6.min.js')
     script(src='/js/jquery.js')
     script(src='/js/address.js')
-    script(src='/js/chat.js')
+    // script(src='/js/chat.js')
   body
     header
       .wrapper
@@ -58,8 +58,8 @@ html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
                 img(src='/images/catering-mini.png', width='101', height='82', alt='')
               p 下载产品目录
               
-            .contact-service
-              a(href="javascript: chatWith('')") 在线咨询
+            //.contact-service
+            //  a(href="javascript: chatWith('')") 在线咨询
 
       section#main
         block content
@@ -73,9 +73,9 @@ html.no-js(lang='en', xmlns='http://www.w3.org/1999/xhtml')
             p © Copyright 2013 濮家饼
       script
         SROOTPATH = '/'
-      script(src='../js/jquery.js')
-      script(src='../js/plugins.js')
-      script(src='../js/init.js')
+      script(src='/js/jquery.js')
+      script(src='/js/plugins.js')
+      script(src='/js/init.js')
       script
         var section = window.location.pathname.split("/")[1];
         var elem;

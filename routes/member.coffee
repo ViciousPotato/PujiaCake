@@ -39,6 +39,11 @@ module.exports = (app) ->
     res.render 'member_register.jade'
 
   app.post '/member/register', (req, res) ->
+    birthday = new Date(
+      req.body.birthday_year, 
+      req.body.birthday_month-1,
+      req.body.birthday_day)
+      
     user = new User
       email:     req.param('email'), 
       password:  req.param('password'),
@@ -49,7 +54,9 @@ module.exports = (app) ->
         address:        req.param('address'),
         phone:          req.param('phone'),
         zipCode:        req.param('zip'),
-        deliveryMethod: req.param('delivery-method')
+        deliveryMethod: req.param('delivery-method'),
+        gender:         req.param('gender'),
+        birthday:       birthday
 
     user.save (error) ->
       return res.json 'error': error  if error
@@ -59,6 +66,10 @@ module.exports = (app) ->
     random_code = generate_random_code()
     res.render 'member_index.jade', random_code: random_code
 
+  app.get '/member/logout', (req, res) ->
+    req.session.user = null
+    res.redirect '/member/'
+  
   app.post '/member/login', (req, res) ->
     User.findOne
       email:    req.body.email,
@@ -67,7 +78,7 @@ module.exports = (app) ->
       return res.render 'member_login_failed.jade' if not user
       req.session.user = user
       debug 'user logged in and user is: ', user
-      res.render 'member_login_success.jade' # TODO: or should we redirect?
+      res.render 'member_login_success.jade', user: user # TODO: or should we redirect?
 
   app.get '/member/orders', (req, res) ->
     Order.find
@@ -77,6 +88,24 @@ module.exports = (app) ->
 
   app.get '/member/profile', (req, res) ->
     res.render 'member_profile.jade'
+  
+  app.post '/member/profile', (req, res) ->
+    console.log 'updating ', req.session.user._id
+    User.update
+      _id: req.session.user._id
+    , { 
+        $set: {
+          gender:   req.body.gender,
+          birthday: new Date(
+                      req.body.birthday_year,
+                      req.body.birthday_month-1,
+                      req.body.birthday_day)
+        }
+      }
+    , (error) ->
+      console.log arguments
+      return res.redirect 'error.jade', error: error if error
+      return res.redirect '/member/profile'
 
   # Address related: list, create, edit, delete
   app.get '/member/address', (req, res) ->

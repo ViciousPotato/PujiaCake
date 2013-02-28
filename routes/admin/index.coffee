@@ -1,8 +1,10 @@
 fs = require 'fs'
+Activity = require '../../models/activity'
 
 module.exports = (app) ->
   app.get '/admin/', (req, res) ->
-    res.render 'admin_index.jade'
+    Activity.find {}, (error, activities) ->
+      res.render 'admin_index.jade', activities: activities
   
   # Load all js files except index.js in current dir
   fs.readdir __dirname, (error, files) ->
