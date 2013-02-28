@@ -51,11 +51,13 @@ block content
     $.get('/admin/list_orders', function(data) {
         var dataSource = new StaticDataSource({
           columns : [
-            { property : '_id',      label : '订单编号', sortable : true},
-            { property : 'products', label : '订单商品', sortable : true},
-            { property : 'status',   label : '订单状态', sortable : true},
-            { property : 'amount',   label : '订单金额', sortable : true},
-            { property : 'time',     label : '时间',    sortable : true }, 
+            { property : '_id',      label : '订单编号', sortable : true },
+            { property : 'products', label : '订单商品', sortable : true },
+            { property : 'status',   label : '订单状态', sortable : true },
+            { property : 'amount',   label : '订单金额', sortable : true },
+            { property : 'time',     label : '时间',    sortable : true },
+            { property : 'address',  label : '收货信息', sortable : true },
+            { property : 'remark',   label : '备注',     sortable: true }
           ],
           data : data,
           delay : 200
@@ -64,9 +66,29 @@ block content
         $('#orders-grid').datagrid({
           dataSource : dataSource,
           cellrenderfunc : function(row, prop) {
+              var val = row[prop];
+              if (prop == 'products') {
+                var products = row[prop];
+                var description = "<ul>";
+                for (var i = 0; i < (products?products.length:0); i++) {
+                  var product = products[i];
+                  description = description + "<li>" + product.product.name + 
+                  "x" + product.quantity + "</li>";
+                }
+                description += "</ul>";
+                val = description;
+              } else if (prop == 'address') {
+                var address = row[prop];
+                var description = "收件人：" + address.name + "<br />" +
+                                  "邮编：" + address.zipCode + "<br />" +
+                                  "电话：" + address.phone + "<br />" +
+                                  "地址：" + address.province + address.city + address.address + "<br />" +
+                                  "快递：" + address.deliveryMethod;
+                val = description;
+              }
               return '<a href="#" class="order-' + prop + '" data-pk="' + row._id + 
                      '" data-url="/admin/update_order" data-name="' + prop + '">' + 
-                     row[prop] + '</a>';
+                     val + '</a>';
           }
         });
 
@@ -78,6 +100,13 @@ block content
         $(element).editable({
             type : "text",
             title : "输入订单状态"
-          });
         });
+      });
+      $(".order-remark").each(function(index, element) {
+        $(element).editable({
+          type: "text",
+          title: "输入备注"
+        });
+      })
     });
+    

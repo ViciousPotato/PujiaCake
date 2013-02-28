@@ -7,6 +7,11 @@ block content
     textarea(name="detail") #{product.detail}
     script
       CKEDITOR.replace('detail', {
-        language: 'zh-cn'
+        language: 'zh-cn',
+        filebrowserBrowseUrl: '/admin/uploads/browse',
+        filebrowserUploadUrl: '/admin/uploads/upload'
       });
+    hr
     input(type="submit", value="保存")
+    p
+      a(href="/admin/product") 返回产品列表

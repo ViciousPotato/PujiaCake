@@ -5,15 +5,16 @@ module.exports = (app) ->
   # Products
   app.post '/admin/add_product', (req, res) ->
     product = new Product
-      name:        req.param('product_name'), 
-      description: req.param('product_description'), 
-      price:       req.param('product_price'),
-      memberPrice: req.param('product_member_price'),
-      unit:        req.param('product_unit'),
-      kind:        req.param('product_kind'),
+      name:        req.param('product_name')
+      description: req.param('product_description')
+      price:       req.param('product_price')
+      memberPrice: req.param('product_member_price')
+      unit:        req.param('product_unit')
+      kind:        req.param('product_kind')
       onDiscount:  if req.param('product_on_discount') then true else false
-      onGroupon:   if req.param('product_on_groupon') then true else false,
+      onGroupon:   if req.param('product_on_groupon') then true else false
       image:       '/uploads/' + path.basename req.files.product_image.path
+      weight:      req.param('product_weight')
 
     product.save (error) ->
       res.redirect '/admin/product'

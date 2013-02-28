@@ -1,5 +1,8 @@
 IndexProduct = require '../../models/index-product'
 
+path = require 'path'
+IndexProduct = require '../../models/index-product'
+
 module.exports = (app) ->
   # Index products
   app.get '/admin/index-product', (req, res) ->

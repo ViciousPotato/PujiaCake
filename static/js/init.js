@@ -80,7 +80,7 @@ $(document).ready(function(){
           var ul = $('#scrollers ul');
           $.each(data, function(i, item) {
             var style = 'background-image: url(' + item.image + ')'; 
-            ul.append('<li><a href="' + item.link + '" style="' + style + '"></a></li>');
+            ul.append('<li style="' + style + '"><a href="' + item.link + '"></a></li>');
           });
         	$('ul li:first-child').addClass('first');
         	$('ul li:last-child, ol li:last-child, .breadcrumbs:last, tr:last-child').addClass('last');

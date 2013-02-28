@@ -15,7 +15,8 @@ module.exports = (app) ->
       kind: req.params.kind
     , (error, products) ->
       return res.json error: error if error
-      res.render 'products_kind.jade', products: products
+      res.render 'products_kind.jade', 
+        products: products, kind: req.params.kind
   
   app.get '/products/:kind/:id', (req, res) ->
     Product.findOne

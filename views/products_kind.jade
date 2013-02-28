@@ -1,9 +1,16 @@
 extends products
 
 block content
-  h3 Catering
+  case kind
+    when 'cakes'
+      h3 糕点
+    when 'candies'
+      h3 糖果
+    when 'chocalates'
+      h3 巧克力
+      
   p.breadcrumbs
-    a(href='../index.html') 产品列表
+    a(href='/products') 返回产品列表
 
     ul#product-list
       - each product in products

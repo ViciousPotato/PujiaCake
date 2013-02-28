@@ -90,7 +90,7 @@ module.exports = (app) ->
     order  = Order
       products:  req.session.cart,
       userId:    req.session.user._id,
-      addressId: req.body.addressId,
+      addressId: req.body.address,
       status:    'paid',
       amount:    amount
     

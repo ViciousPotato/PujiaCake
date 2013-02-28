@@ -5,6 +5,7 @@ block extracss
 
 block content
   h4 我的订单
+  hr
   table.table.table-bordered.table-striped
     thead
       tr
@@ -23,4 +24,4 @@ block content
                 li #{product.product.name} #{product.quantity} 个
           td #{order.amount}
           td #{order.status}
-          td     
+          td #{order.remark}

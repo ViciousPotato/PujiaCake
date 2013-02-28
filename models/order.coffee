@@ -6,7 +6,8 @@ orderSchema = new mongoose.Schema {
   userId:    mongoose.Schema.Types.ObjectId,
   addressId: mongoose.Schema.Types.ObjectId,
   status:    String, # 'confirmed' | 'paid' | 'onexpress' 
-  amount:    Number
+  amount:    Number,
+  remark:    String
 }
 
 Order = mongoose.model 'Order', orderSchema
