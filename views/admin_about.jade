@@ -9,6 +9,8 @@ block content
   script(src='/js/ckeditor/ckeditor.js')
   script
     CKEDITOR.replace('about', {
-      language: 'zh-cn'
+      language: 'zh-cn',
+      filebrowserBrowseUrl: '/admin/uploads/browse',
+      filebrowserUploadUrl: '/admin/uploads/upload'
     });
   
