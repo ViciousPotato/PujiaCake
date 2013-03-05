@@ -51,5 +51,6 @@ require('./routes/products')(app)
 require('./routes/comment')(app)
 require('./routes/about')(app)
 require('./routes/chat')(app)
+require('./routes/alipay')(app)
 
 app.listen 80

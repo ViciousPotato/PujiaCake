@@ -8,7 +8,8 @@
         "mongoose":"*",
         "jade":"*",
         "underscore":"*",
-        "debug":"*"
+        "debug":"*",
+	"xml2js":"*"
     },
     "devDependencies": {}
 }

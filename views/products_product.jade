@@ -6,3 +6,8 @@ block content
   hr
   .detail
     !{product.detail}
+    
+  .view
+    a(href='/cart/add/#{product._id}')
+      span.img 添加到购物车
+    
