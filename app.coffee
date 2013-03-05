@@ -52,4 +52,4 @@ require('./routes/comment')(app)
 require('./routes/about')(app)
 require('./routes/chat')(app)
 
-app.listen 3000
+app.listen 80
