@@ -1,26 +1,27 @@
 IndexProduct = require '../../models/index-product'
-
+utils = require '../../lib/utils'
 path = require 'path'
 IndexProduct = require '../../models/index-product'
 
 module.exports = (app) ->
   # Index products
-  app.get '/admin/index-product', (req, res) ->
+  app.get '/admin/index-product', utils.auth, (req, res) ->
     res.render 'admin_index-product.jade'
 
-  app.get '/admin/index-product/delete/:productid', (req, res) ->
+  app.get '/admin/index-product/delete/:productid', utils.auth,  (req, res) ->
     IndexProduct.remove
       _id: req.params.productid
     , (error) ->
       res.redirect '/admin/index-product'
 
+  # This method doesn't require admin privilege
   app.get '/admin/index-product/list', (req, res) ->
     IndexProduct.find {}, (error, products) ->
       if error
         return res.json {error: error}
       res.json(products)
 
-  app.post '/admin/index-product/update', (req, res) ->
+  app.post '/admin/index-product/update', utils.auth, (req, res) ->
     key = req.param 'name'
     val = req.param 'value'
     if key is 'type'
@@ -33,7 +34,7 @@ module.exports = (app) ->
       return res.status 500 if err
       res.json({'status': 'ok'})
 
-  app.post '/admin/index-product', (req, res) ->
+  app.post '/admin/index-product', utils.auth, (req, res) ->
     product = new IndexProduct
       name:        req.param('product_name'),
       description: req.param('product_description'),

@@ -1,9 +1,10 @@
 path    = require 'path'
 Product = require '../../models/product'
+utils = require '../../lib/utils'
 
 module.exports = (app) ->
   # Products
-  app.post '/admin/add_product', (req, res) ->
+  app.post '/admin/add_product', utils.auth, (req, res) ->
     product = new Product
       name:        req.param('product_name')
       description: req.param('product_description')
@@ -19,20 +20,20 @@ module.exports = (app) ->
     product.save (error) ->
       res.redirect '/admin/product'
 
-  app.get '/admin/product', (req, res) ->
+  app.get '/admin/product', utils.auth, (req, res) ->
     res.render 'admin_product.jade'
 
-  app.get '/admin/list_product', (req, res) ->
+  app.get '/admin/list_product', utils.auth,  (req, res) ->
     Product.find (err, products) ->
       res.json(products)
 
-  app.get '/admin/delete_product/:proudctid', (req, res) ->
+  app.get '/admin/delete_product/:proudctid', utils.auth, (req, res) ->
     Product.remove
       _id: req.params.proudctid
     , (error) ->
       res.redirect '/admin/product'
 
-  app.post '/admin/update_product', (req, res) ->
+  app.post '/admin/update_product', utils.auth, (req, res) ->
     setval = {}
     key = req.param("name")
     val = req.param("value")
@@ -49,14 +50,14 @@ module.exports = (app) ->
   
   
   # Product details.
-  app.get '/admin/product/:id/detail', (req, res) ->
+  app.get '/admin/product/:id/detail', utils.auth, (req, res) ->
     Product.findOne
       _id: req.params.id
     , (error, product) ->
       return res.render 'error.jade', eror: error if error
       res.render 'admin_product_detail.jade', product: product
   
-  app.post '/admin/product/:id/detail', (req, res) ->
+  app.post '/admin/product/:id/detail', utils.auth, (req, res) ->
     Product.update
       _id: req.params.id
     , $set: { detail: req.body.detail } 

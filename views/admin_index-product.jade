@@ -114,6 +114,7 @@ block content
             { property: 'name',        label: '商品名称', sortable: true}, 
             { property: 'description', label: '描述',    sortable: true }, 
             { property: 'image',       label: '图片',    sortable: true },
+            { property: 'link',        label: '链接',    sortable: true },
             { property: 'type',        label: "类型",    sortable: true },
             { property: 'delete',      label: '操作',    sortable: true }
           ],
@@ -175,6 +176,13 @@ block content
             type: 'select',
             title: '产品类型',
             source: [{value: 1, text: '大图'}, {value: 2, text: '图配文字'}]
+          });
+        });
+        
+        $(".product-link").each(function(index, element) {
+          $(element).editable({
+            type : "text",
+            title : "输入产品链接"
           });
         });
     });
