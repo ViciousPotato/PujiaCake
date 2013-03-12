@@ -1,7 +1,8 @@
 Chat = require '../../models/chat'
+utils = require '../../lib/utils'
 
 module.exports = (app) ->
-  app.get '/admin/chat', (req, res) ->
+  app.get '/admin/chat', utils.auth, (req, res) ->
     # Init
     Chat.getServiceMessages (error, messages) ->
       return res.render 'error.jade', error: error if error

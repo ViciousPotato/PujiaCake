@@ -4,6 +4,7 @@ ExpressFee = require '../models/express-fee'
 Order      = require '../models/order'
 _          = require 'underscore'
 debug      = require('debug')('routes/cart')
+crypto     = require 'crypto'
 
 module.exports = (app) ->
   # Cart
@@ -13,6 +14,7 @@ module.exports = (app) ->
   
   # Calculate total amount of cart
   amountCart = (cart) ->
+    console.log cart
     amount_reducer = (sum, product) ->
        product.quantity * product.product.memberPrice + sum
     return _.reduce cart, amount_reducer, 0
@@ -22,6 +24,13 @@ module.exports = (app) ->
     _.reduce cart, (sum, item) ->
       sum + item.quantity * item.product.weight
     , 0
+  
+  # Generate unique order number
+  orderNumber = () ->
+    today = new Date()
+    today = "#{today.getFullYear()}#{today.getMonth()+1}#{today.getDate()}"
+    random = parseInt Math.random() * 10000
+    "PJB-#{today}-#{random}"
   
   app.get '/cart', (req, res) ->
     res.render 'cart.jade', cart: req.session.cart
@@ -86,19 +95,34 @@ module.exports = (app) ->
 
   app.post '/cart/confirm-order', (req, res) ->
     amount = amountCart req.session.cart
-        
     order  = Order
+      no:        orderNumber()
       products:  req.session.cart,
       userId:    req.session.user._id,
       addressId: req.body.address,
-      status:    '已支付',
+      status:    '已提交',
       amount:    amount,
       remark:    '等待客服确认'
     
     req.session.cart = []
     
     order.save (error) ->
-      res.redirect '/member/orders'
+      alipayUrl = [
+        "_input_charset=utf-8",
+        "notify_url=http://pujiabing.com/alipay/notify",
+        "out_trade_no=#{order.no}",
+        "partner=2088901029881660",
+        "payment_type=1",
+        "return_url=http://pujiabing.com/alipay/return",
+        "seller_email=13901926392@139.com",
+        "service=create_direct_pay_by_user",
+        "subject=濮家饼交易",
+        "total_fee=#{amount}"
+      ].join '&'
+      md5 = crypto.createHash 'md5'
+      md5.update alipayUrl + 'w0jlmd9r7rxaci558gzkdnjqhqj0vnk6', 'utf-8'
+      alipayUrl = "https://mapi.alipay.com/gateway.do?#{alipayUrl}&sign=#{md5.digest('hex')}&sign_type=MD5"
+      res.redirect alipayUrl
   
   app.get '/cart/express-fee/:province', (req, res) ->
     # Calculate cart express fee

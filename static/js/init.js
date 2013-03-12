@@ -45,18 +45,21 @@ $(document).ready(function(){
     	dataType: 'json',
     	success:  function(data) {
         $.each(data, function(i,item) {
+          // If it's a full image slide
           if (item.type == 'full') {
-              var htmlz = '';
-              var bg = 'url(' + item.image + '); background-position: 0, 0';
+            var htmlz = '<img src="';
           } else {
-              var htmlz = '<h3>' + item.name + '</h3><p class="intro">' +
-                item.description + ' <a class="coral" href="' + item.link +
-                '"> <span style="margin-left: 300px;">&#62;</span></a></p>';
-              var bg = 'url(' + item.image + ')';
+            // If it's a slide with some text on the left
+            var htmlz = '<h3>' + item.name + '</h3><p class="intro">' +
+              item.description + '<a class="coral" href="' + item.link +
+              '"> <span style="margin-left: 300px;">&#62;</span></a></p>';
+            var bg = 'url(' + item.image + ')';
           }
-              $('div.wrapper.content').prepend(
-                  '<div class="hilite-extra" style="background-image: '+
-                  bg+';display:none;">'+htmlz+'</div>');
+          add = '<div class="hilite-extra" style="background-image: ' + bg + 
+            ';display:none;">' + htmlz + '</div>';
+          // alert(add);
+          $('div.wrapper.content.slides_container').prepend(
+            add);
           });
           // rotateFrontHilites(1);
           // Slide

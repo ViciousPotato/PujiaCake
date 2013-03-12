@@ -1,0 +1,30 @@
+!!! 5
+html
+  head
+    title 后台管理
+    link(rel='stylesheet', href='/css/css/bootstrap.css')
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.min.js')
+
+  body
+    style
+      .login-form {
+        margin-top: 200px;
+        width: 500px;
+        padding-top: 30px;
+      }
+    
+    .well.login-form.container
+      form.form-horizontal(method="post", action="/admin/login")
+        .control-group
+          label.control-label(for="name")用户名
+          .controls
+            input#name(type="text", placeholder="输入用户名", name="name")
+        .control-group
+          label.control-label(for="pass")密码
+          .controls
+            input#pass(type="password", placeholder="输入密码", name="pass")
+        .contro-group
+          .controls
+            button.btn(type="submit")登录
+        
