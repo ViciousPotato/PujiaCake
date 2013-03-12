@@ -206,6 +206,13 @@ block content
           });
         });
 
+        $(".product-memberPrice").each(function(index, element) {
+          $(element).editable({
+            type : "text",
+            title : "输入产品会员价格"
+          });
+        });
+
         $(".product-unit").each(function(index, element) {
           $(element).editable({
             type : "text",

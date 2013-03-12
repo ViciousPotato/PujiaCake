@@ -1,4 +1,5 @@
 path = require 'path'
+utils = require '../../lib/utils'
 
 module.exports = (app) ->
   app.get '/admin/uploads/browse', utils.auth, (req, res) ->
