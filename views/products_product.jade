@@ -1,13 +1,34 @@
 extends products
 
 block content
+  style
+    .row-image {
+      width: 200px;
+      float: left;
+    }
+    .row-detail {
+      width: 200px;
+      float: left;
+      margin-top: 25px;
+    }
   .header
     h4 #{product.name}
   hr
+  #product-list
+    .row-image
+      img.product-image(src='#{product.image}', alt='#{product.name}')
+    .row-detail
+      p.origin-price
+        | 原价
+        span ￥#{product.price}
+      p.member-price
+        | 会员价
+        span ￥#{product.memberPrice}
+      .buy
+        p.view(style="position: relative")
+          a(href='/cart/add/#{product._id}')
+            span.img 添加到购物车
+  hr
   .detail
     !{product.detail}
-    
-  .view
-    a(href='/cart/add/#{product._id}')
-      span.img 添加到购物车
     
