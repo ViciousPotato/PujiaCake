@@ -9,7 +9,8 @@
         "jade":"*",
         "underscore":"*",
         "debug":"*",
-	"xml2js":"*"
+	      "xml2js":"*",
+        "nodemailer":"*"
     },
     "devDependencies": {}
 }

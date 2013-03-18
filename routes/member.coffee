@@ -2,8 +2,8 @@ _        = require 'underscore'
 mongoose = require 'mongoose'
 User     = require '../models/user'
 Order    = require '../models/order'
+LostPass = require '../models/lostpass'
 debug    = (require 'debug')('routes/member')
-
 
 generate_random_code = ->
   return (parseInt(Math.random() * 10) for i in [1..4]).join("")
@@ -151,4 +151,13 @@ module.exports = (app) ->
 
   app.get '/member/score', (req, res) ->
     res.render 'member_score.jade'
+    
+  app.get '/member/lostpass', (req, res) ->
+    res.render 'member_lostpass.jade'
+    
+  app.post '/member/lostpass', (req, res) ->
+    code = M
+    lostpass = new LostPass
+      email: req.body.email
+      code: 
   

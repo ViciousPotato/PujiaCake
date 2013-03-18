@@ -1,0 +1,10 @@
+extends member_index
+
+block content
+  h4 找回密码
+  hr
+  form(action="/member/lostpass", method="post")
+    label(for="email") 注册邮箱
+    input#mail(name="email")
+
+    input(type="submit", value="提交")
