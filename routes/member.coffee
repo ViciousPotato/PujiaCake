@@ -4,6 +4,7 @@ User     = require '../models/user'
 Order    = require '../models/order'
 LostPass = require '../models/lostpass'
 debug    = (require 'debug')('routes/member')
+utils    = require '../lib/utils'
 
 generate_random_code = ->
   return (parseInt(Math.random() * 10) for i in [1..4]).join("")
@@ -156,8 +157,20 @@ module.exports = (app) ->
     res.render 'member_lostpass.jade'
     
   app.post '/member/lostpass', (req, res) ->
-    code = M
+    # TODO: add expiration date
     lostpass = new LostPass
       email: req.body.email
-      code: 
+      code:  utils.randomActivationCode()
+    lostpass.save (error) ->
+      return res.render 'error.jade', error: error if error
+      utils.sendPasswordResetMail req.body.email
+      res.render 'member_lostpass.jade', success: true
+
+  app.get '/member/resetpass', (req, res) ->
+    code = req.query.code
+    return res.render 'member_resetpass.jade', code: code
+
+  app.post '/member/resetpass', (req, res) ->
+    ''
+
   
