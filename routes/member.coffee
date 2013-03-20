@@ -34,7 +34,7 @@ module.exports = (app) ->
   # Member functions
   app.get '/member', (req, res) ->
     random_code = generate_random_code()
-    res.render 'member_index.jade', { random_code: random_code }
+    res.render 'member_index.jade', random_code: random_code
 
   app.get '/member/register', (req, res) ->
     res.render 'member_register.jade'
@@ -44,7 +44,12 @@ module.exports = (app) ->
       req.body.birthday_year, 
       req.body.birthday_month-1,
       req.body.birthday_day)
-      
+    
+    if req.body.password isnt req.body.repassword
+      return res.render 'member_register.jade', 
+        errorMsgs: ['两次输入密码不一致'],
+        prevInput: req.body
+    
     user = new User
       email:     req.param('email'), 
       password:  req.param('password'),
@@ -60,7 +65,10 @@ module.exports = (app) ->
         birthday:       birthday
 
     errorMsgs = user.validates()
-    return res.render 'memebr_register.jade', errorMsgs: errorMsgs if errorMsgs.length > 0
+    if errorMsgs.length > 0
+      return res.render 'member_register.jade', 
+        errorMsgs: errorMsgs,
+        prevInput: input
 
     user.save (error) ->
       return res.json 'error': error  if error

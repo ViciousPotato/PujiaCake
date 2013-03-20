@@ -6,13 +6,13 @@ Validator  = (require 'validator').Validator
 Validator.prototype.error = (msg) ->
   @_currentError = msg
   @_errors.push(msg)
-  return false
+  return this
 
 Validator.prototype.getCurrentError = () ->
   @_currentError
 
 Validator.prototype.getErrors = () ->
-  @this._errors
+  @_errors
 
 module.exports.Validator = Validator
 

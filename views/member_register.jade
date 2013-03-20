@@ -5,19 +5,20 @@ block title
 
 block content
   style
-    #register-form div {
+    #register-form form div {
       height: 40px;
     }
     
   #register-form
     h1 注册
-    p.login 已经是会员？
+    p.login 已经是会员？请在左侧
       a(href='/member/login') 登录
     if typeof(errorMsgs) !== 'undefined'
-      p.error
+      .error
+        h5(style="margin-bottom: 5px") 错误信息：
         ul
           each msg in errorMsgs
-            li msg
+            li #{msg}
     form(action='/member/register', method='post')
       h5 基本信息
       hr
@@ -40,11 +41,11 @@ block content
       hr(style="margin: 10px 0 15px 0")
 
       div
-        label 姓名
+        label 姓名*
         input#name(type="text", name="name", placeholder="请输入真实姓名，用于收货")
 
       div
-        label 地址
+        label 地址*
         select#province(name="province", style="")
         span(style="margin: 0 5px 0 5px") 省
         select#city(name="city")
@@ -52,12 +53,16 @@ block content
         input#address(type="text", name="address", placeholder="地址")
 
       div
-        label 联系电话
-        input#phone(name="phone")
+        label 手机*
+        input#mobile(name="mobile", placeholder="手机固定电话必填一个")
+        
+      div
+        label 固定电话*
+        input#phone(name="phone", placeholder="手机固定电话必填一个")
 
       div
-        label 邮政编码
-        input#zip(name="zip")
+        label 邮政编码*
+        input#zip(name="zip", placeholder="收货邮编")
 
       div
         label 送货方式
@@ -77,7 +82,7 @@ block content
           |   女
         
       div
-        label 生日
+        label 生日*
         select#birthday_year(name="birthday_year")
           option 年
           year = 1940

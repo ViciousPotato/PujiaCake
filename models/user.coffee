@@ -9,6 +9,7 @@ addressSchema = new mongoose.Schema
   city:           String,
   address:        String,
   phone:          String,
+  mobile:         String,
   zipCode:        String,
   deliveryMethod: String,
   gender:         String,
@@ -53,7 +54,7 @@ userSchema.methods.deleteAddress = (id, callback) ->
 # Mongoose supplied model validation method is not flexiable enough.
 userSchema.methods.validates = (callback) ->
   validator = new utils.Validator
-  validator.check(@email, "请输入合法的Email").isEmail()
+  validator.check(@email, "请输入合法的Email信息").isEmail()
   validator.check(@password, "密码不能为空").notNull()
   validator.getErrors()
 
