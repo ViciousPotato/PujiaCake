@@ -10,7 +10,8 @@
         "underscore":"*",
         "debug":"*",
 	    "xml2js":"*",
-        "nodemailer":"*"
+        "nodemailer":"*",
+        "validator":"*"
     },
     "devDependencies": {}
 }

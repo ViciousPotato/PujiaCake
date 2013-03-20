@@ -1,6 +1,22 @@
 crypto     = require 'crypto'
 nodemailer = require 'nodemailer'
+Validator  = (require 'validator').Validator
 
+# Customize Validator
+Validator.prototype.error = (msg) ->
+  @_currentError = msg
+  @_errors.push(msg)
+  return false
+
+Validator.prototype.getCurrentError = () ->
+  @_currentError
+
+Validator.prototype.getErrors = () ->
+  @this._errors
+
+module.exports.Validator = Validator
+
+# Exports other functions
 module.exports.auth = (req, res, next) ->
   return res.redirect '/admin/login' if not req.session?.admin?
   return next()

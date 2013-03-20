@@ -13,7 +13,11 @@ block content
     h1 注册
     p.login 已经是会员？
       a(href='/member/login') 登录
-      .
+    if typeof(errorMsgs) !== 'undefined'
+      p.error
+        ul
+          each msg in errorMsgs
+            li msg
     form(action='/member/register', method='post')
       h5 基本信息
       hr

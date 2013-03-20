@@ -1,5 +1,6 @@
-mongoose = require 'mongoose'
-_        = require 'underscore'
+mongoose  = require 'mongoose'
+_         = require 'underscore'
+utils     = require '../lib/utils'
 
 # Address
 addressSchema = new mongoose.Schema {
@@ -50,7 +51,20 @@ userSchema.methods.deleteAddress = (id, callback) ->
     addr._id.toString() isnt id
   @save (error) ->
     callback error
-    
+
+# Mongoose supplied model validation method is not flexiable enough.
+userSchema.methods.validates = (callback) ->
+  validator = new utils.Validator
+  validator.check(@email, "请输入合法的Email").isEmail()
+  validator.check(@password, "密码不能为空").notNull()
+  validator.getErrors()
+
 User = mongoose.model 'User', userSchema
+
+# Validations
+#User.schema.path('email').required 'true'
+#User.schema.path('email').validate (value) ->
+#  validator.check(value, '请输入合法的Email').isEmail()
+
 
 module.exports = User

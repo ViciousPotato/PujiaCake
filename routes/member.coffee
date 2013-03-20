@@ -59,6 +59,9 @@ module.exports = (app) ->
         gender:         req.param('gender'),
         birthday:       birthday
 
+    errorMsgs = user.validates()
+    return res.render 'memebr_register.jade', errorMsgs: errorMsgs if errorMsgs.length > 0
+
     user.save (error) ->
       return res.json 'error': error  if error
       res.render 'member_register_success.jade' 
