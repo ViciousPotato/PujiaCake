@@ -163,8 +163,9 @@ module.exports = (app) ->
       code:  utils.randomActivationCode()
     lostpass.save (error) ->
       return res.render 'error.jade', error: error if error
-      utils.sendPasswordResetMail req.body.email
-      res.render 'member_lostpass.jade', success: true
+      utils.sendPasswordResetMail req.body.email, (error) ->
+        return res.render 'error.jade', error: error if error
+        res.render 'member_lostpass.jade', success: true
 
   app.get '/member/resetpass', (req, res) ->
     code = req.query.code
