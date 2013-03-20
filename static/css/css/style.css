@@ -284,6 +284,7 @@ header nav ul{
 	text-indent: 2em;
 }
 
+/* member_register.jade */
 #login-form div
 {
 	margin: 0 0 10px;
@@ -297,10 +298,18 @@ header nav ul{
 	margin: 0 0 0.7em;
 }
 
-#register-form .login
+.login
 {
 	background: #eaeaea;
 	padding: 10px 12px;
+}
+
+.error {
+  background: #eaeaea;
+  color: red;
+  font-weight: bold;
+  padding: 10px 12px;
+  margin-bottom: 10px;
 }
 
 #register-form label, #login-form label, #address-form label

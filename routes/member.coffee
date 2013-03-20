@@ -2,8 +2,9 @@ _        = require 'underscore'
 mongoose = require 'mongoose'
 User     = require '../models/user'
 Order    = require '../models/order'
+LostPass = require '../models/lostpass'
 debug    = (require 'debug')('routes/member')
-
+utils    = require '../lib/utils'
 
 generate_random_code = ->
   return (parseInt(Math.random() * 10) for i in [1..4]).join("")
@@ -33,7 +34,7 @@ module.exports = (app) ->
   # Member functions
   app.get '/member', (req, res) ->
     random_code = generate_random_code()
-    res.render 'member_index.jade', { random_code: random_code }
+    res.render 'member_index.jade', random_code: random_code
 
   app.get '/member/register', (req, res) ->
     res.render 'member_register.jade'
@@ -43,7 +44,12 @@ module.exports = (app) ->
       req.body.birthday_year, 
       req.body.birthday_month-1,
       req.body.birthday_day)
-      
+    
+    if req.body.password isnt req.body.repassword
+      return res.render 'member_register.jade', 
+        errorMsgs: ['两次输入密码不一致'],
+        prevInput: req.body
+    
     user = new User
       email:     req.param('email'), 
       password:  req.param('password'),
@@ -57,6 +63,12 @@ module.exports = (app) ->
         deliveryMethod: req.param('delivery-method'),
         gender:         req.param('gender'),
         birthday:       birthday
+
+    errorMsgs = user.validates()
+    if errorMsgs.length > 0
+      return res.render 'member_register.jade', 
+        errorMsgs: errorMsgs,
+        prevInput: input
 
     user.save (error) ->
       return res.json 'error': error  if error
@@ -151,4 +163,46 @@ module.exports = (app) ->
 
   app.get '/member/score', (req, res) ->
     res.render 'member_score.jade'
+    
+  app.get '/member/lostpass', (req, res) ->
+    res.render 'member_lostpass.jade'
+    
+  app.post '/member/lostpass', (req, res) ->
+    # TODO: add expiration date
+    lostpass = new LostPass
+      email: req.body.email
+      code:  utils.randomActivationCode()
+    lostpass.save (error) ->
+      return res.render 'error.jade', error: error if error
+      utils.sendPasswordResetMail req.body.email, (error) ->
+        return res.render 'error.jade', error: error if error
+        res.render 'member_lostpass.jade', success: true
+
+  app.get '/member/resetpass', (req, res) ->
+    code = req.query.code
+    LostPass.findOne
+      code: code
+    , (error, lostpass) ->
+      return res.render 'error.jade', error: error if error
+      req.session.lostpass = lostpass
+      return res.render 'member_resetpass.jade', code: code
+
+  app.post '/member/resetpass', (req, res) ->
+    newpass = req.body.password
+    code = req.session.lostpass.code
+    email = req.session.lostpass.email
+    # Change password and remove entry in LostPass
+    User.update
+      email: email
+    , $set: { password: newpass }
+    , (error) ->
+      return res.render 'error.jade', error: error if error
+      LostPass.remove
+        code: code
+        email: email
+      , (error) ->
+        return res.render 'error.jade', error: error if error
+        return res.render 'member_resetpass.jade', success: true
+
+
   
