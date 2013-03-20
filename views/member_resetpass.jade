@@ -3,8 +3,12 @@ extends member_index
 block content
   h4 修改密码
   hr
-    form(action="/member/resetpass", method="post")
-      label(for="password") 设置密码
-      input#mail(name="password")
+    if typeof(success) !== 'undefined'
+      p
+        重设密码成功
+    else
+      form(action="/member/resetpass", method="post")
+        label(for="password") 设置密码
+        input#mail(name="password")
 
-      input(type="submit", value="提交")
+        input(type="submit", value="提交")

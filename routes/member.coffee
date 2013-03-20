@@ -168,9 +168,29 @@ module.exports = (app) ->
 
   app.get '/member/resetpass', (req, res) ->
     code = req.query.code
-    return res.render 'member_resetpass.jade', code: code
+    LostPass.findOne
+      code: code
+    , (error, lostpass) ->
+      return res.render 'error.jade', error: error if error
+      req.session.lostpass = lostpass
+      return res.render 'member_resetpass.jade', code: code
 
   app.post '/member/resetpass', (req, res) ->
-    ''
+    newpass = req.body.password
+    code = req.session.lostpass.code
+    email = req.session.lostpass.email
+    # Change password and remove entry in LostPass
+    User.update
+      email: email
+    , $set: { password: newpass }
+    , (error) ->
+      return res.render 'error.jade', error: error if error
+      LostPass.remove
+        code: code
+        email: email
+      , (error) ->
+        return res.render 'error.jade', error: error if error
+        return res.render 'member_resetpass.jade', success: true
+
 
   
