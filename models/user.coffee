@@ -3,7 +3,7 @@ _         = require 'underscore'
 utils     = require '../lib/utils'
 
 # Address
-addressSchema = new mongoose.Schema {
+addressSchema = new mongoose.Schema
   name:           String,
   province:       String,
   city:           String,
@@ -13,14 +13,12 @@ addressSchema = new mongoose.Schema {
   deliveryMethod: String,
   gender:         String,
   birthday:       Date
-}
 
 # Users
-userSchema = new mongoose.Schema {
+userSchema = new mongoose.Schema
   email:     String, 
   password:  String,
   addresses: [ addressSchema ]
-}
 
 userSchema.statics.listFlatten = (callback) ->
   this.find {}, (error, users) ->

@@ -1,6 +1,6 @@
 mongoose = require 'mongoose'
 
-orderSchema = new mongoose.Schema {
+orderSchema = new mongoose.Schema
   no:        String, # order number
   time:      { type: Date, default: Date.now },
   products:  mongoose.Schema.Types.Mixed,
@@ -8,8 +8,7 @@ orderSchema = new mongoose.Schema {
   addressId: mongoose.Schema.Types.ObjectId,
   status:    String, # 'confirmed' | 'paid' | 'onexpress' 
   amount:    Number, # totoal amount in this order
-  remark:    String # which express etc
-}
+  remark:    String  # records which express etc
 
 orderSchema.statics.markOrderAsPaid = (order_no, callback) ->
   Order.update

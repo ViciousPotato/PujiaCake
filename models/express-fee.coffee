@@ -3,21 +3,19 @@ _        = require 'underscore'
 debug    = require('debug')('models/express-fee')
 
 # Express fees.
-expressFeeSchema = new mongoose.Schema {
+expressFeeSchema = new mongoose.Schema
   province:  String,
-  sfFee: {
+  sfFee:
     basicFee:        { type: Number }, # Yuan
     basicWeight:     { type: Number }, # g
     extraFeeUnit:    { type: Number },
     extraWeightUnit: { type: Number }
-  },
-  othersFee: {
+  ,
+  othersFee:
     basicFee:        { type: Number }, # Yuan
     basicWeight:     { type: Number }, # g
     extraFeeUnit:    { type: Number },
     extraWeightUnit: { type: Number }
-  }
-}
 
 expressFeeSchema.methods.flatten = () ->
   _id:                       this._id,
