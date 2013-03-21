@@ -40,3 +40,6 @@ module.exports.sendPasswordResetMail = (email, code, callback) ->
   smtpTransport.sendMail mailOptions, (error, response) ->
     return callback error if error
     return callback null
+
+module.exports.alipayVerifyNotifier = (req, conf) ->
+  

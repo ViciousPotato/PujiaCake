@@ -9,9 +9,11 @@
         "jade":"*",
         "underscore":"*",
         "debug":"*",
-	    "xml2js":"*",
+	      "xml2js":"*",
         "nodemailer":"*",
-        "validator":"*"
+        "validator":"*",
+        "mocha":"*",
+        "should":"*"
     },
     "devDependencies": {}
 }

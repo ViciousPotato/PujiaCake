@@ -16,4 +16,4 @@ module.exports = (app) ->
     return res.redirect '/order/pay_failed' if is_success isnt 'T'
     # Mark order_no as paid, and notify the agent.
     Order.markOrderAsPaid order_no, (error, order) ->
-      res.redirect '/memeber/orders'
+      res.redirect '/member/orders'
