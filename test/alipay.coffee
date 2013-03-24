@@ -34,8 +34,8 @@ describe 'Alipay', ->
         sign: '2199b93e88d9aefc697d08a7120ef1d9'
         
     conf = config.alipay
-    utils.alipayVerifyNotifier(req, conf).should.be true
+    utils.alipayVerifyNotifier(req.body, conf).should.eql true
     
   it 'should be able to recognize fake identify', ->
-    utils.alipayVerifyNotifier({}, {}).should.not.be true
+    utils.alipayVerifyNotifier({}, {}).should.not.eql true
         

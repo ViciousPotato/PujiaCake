@@ -1,6 +1,7 @@
 crypto     = require 'crypto'
 nodemailer = require 'nodemailer'
 Validator  = (require 'validator').Validator
+_          = require 'underscore'
 
 # Customize Validator
 Validator.prototype.error = (msg) ->
@@ -42,4 +43,24 @@ module.exports.sendPasswordResetMail = (email, code, callback) ->
     return callback null
 
 module.exports.alipayVerifyNotifier = (req, conf) ->
+  # req is a hash, not req in express
+  joinDic = module.exports.joinDic
+  dic = _.omit req, ['sign', 'sign_type']
+  str = "#{joinDic dic}#{conf.key}"
+
+  md5 = crypto.createHash 'md5'
+  md5.update str, conf.input_charset
+  hex = md5.digest 'hex'
+
+  return req.sign == hex
+
+module.exports.joinDic = (dic) ->
+  # with order
+  # {'b': 1, 'a': 2}
+  # ->
+  # a=2&b=1
+  orderedKeys = _.keys(dic).sort()
+  orderedKeyVals = _.map orderedKeys, (k) ->
+    "#{k}=#{dic[k]}"
+  orderedKeyVals.join '&'
   
