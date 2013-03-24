@@ -90,7 +90,7 @@ module.exports = (app) ->
       return res.render 'member_login_failed.jade' if not user
       req.session.user = user
       debug 'user logged in and user is: ', user
-      res.render 'member_login_success.jade', user: user # TODO: or should we redirect?
+      res.redirect '/member'
 
   app.get '/member/orders', (req, res) ->
     Order.find
