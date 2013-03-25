@@ -25,7 +25,7 @@ block content
     }
     
   - each address in user.addresses
-    h4 #{address.name}
+    h4(id="#{address._id}") #{address.name}
     hr
     ul.address
       li 
@@ -41,8 +41,12 @@ block content
         span.address-item-name  手机号
         span.address-item-value #{address.phone}
       li
-        a(href="/member/address/#{address._id}/edit") 修改
-
+        span.address-item-name  送货方式
+        span.address-item-value #{address.deliveryMethod == 'sf' ? '顺丰' : '普通快递'}
+      li(style="margin-top: 3px")
+        a(href="/member/address/#{address._id}/edit", style="margin-right: 5px") 修改
+        a(href="/member/address/#{address._id}/delete", onclick="javascript: return confirm('真的要删除吗?');") 删除
+        
   h4 添加新地址
   hr
   .add-address-form

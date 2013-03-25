@@ -18,7 +18,7 @@ module.exports = (app) ->
       city:           req.body.city
       address:        req.body.address
       phone:          req.body.phone
-      zipCode:        req.body.zipCode
+      zipCode:        req.body.zip
       deliveryMethod: req.body.deliveryMethod    
     return address
   
@@ -130,11 +130,12 @@ module.exports = (app) ->
       _id: req.session.user._id
     , (error, user) ->
       address = extractAddr req
-      
       user.addresses.push address
-      user.save (error) ->
+      user.save (error, user) ->
         return res.render 'error.jade', error: error if error
-        res.redirect '/member/address' 
+        # Update user
+        req.session.user = user
+        res.redirect "/member/address\##{_.last(user.addresses)._id}" 
   
   # Update address
   app.put '/member/address', (req, res) ->
