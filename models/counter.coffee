@@ -3,7 +3,7 @@ mongoose = require 'mongoose'
 counterSchema = new mongoose.Schema
   name: String
   seq:
-    type: Integer
+    type: Number
     default: 0
 
 counterSchema.methods.nextOrderSeq = (callback) ->

@@ -30,8 +30,8 @@ module.exports = (app) ->
   orderNumber = (count) ->
     today = new Date()
     today = "#{today.getFullYear()}#{today.getMonth()+1}#{today.getDate()}"
-    random = parseInt Math.random() * 10000
-    "PJB-#{today}-#{random}"
+    count = ('0000'+(count+1)).slice -5 # padding
+    "PJB-#{today}-#{count}"
   
   app.get '/cart', (req, res) ->
     res.render 'cart.jade', cart: req.session.cart
@@ -97,10 +97,10 @@ module.exports = (app) ->
   app.post '/cart/confirm-order', (req, res) ->
     amount = amountCart req.session.cart
     today = new Date
-    yesterday = new Date
-      today.getFullYear(), today.getMonth()+1, today.getDate()
+    yesterday = new Date(
+      today.getFullYear(), today.getMonth(), today.getDate())
     Order.count
-      time: { $gte: yesterday, $lte: today}
+      time: { $gte: yesterday }
     , (error, count) ->
       order  = Order
         no:        orderNumber(count)
