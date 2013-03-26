@@ -2,6 +2,7 @@ mongoose   = require 'mongoose'
 Product    = require '../models/product'
 ExpressFee = require '../models/express-fee'
 Order      = require '../models/order'
+Counter    = require '../models/counter'
 _          = require 'underscore'
 debug      = require('debug')('routes/cart')
 crypto     = require 'crypto'
@@ -26,7 +27,7 @@ module.exports = (app) ->
     , 0
   
   # Generate unique order number
-  orderNumber = () ->
+  orderNumber = (count) ->
     today = new Date()
     today = "#{today.getFullYear()}#{today.getMonth()+1}#{today.getDate()}"
     random = parseInt Math.random() * 10000
@@ -95,34 +96,40 @@ module.exports = (app) ->
 
   app.post '/cart/confirm-order', (req, res) ->
     amount = amountCart req.session.cart
-    order  = Order
-      no:        orderNumber()
-      products:  req.session.cart,
-      userId:    req.session.user._id,
-      addressId: req.body.address,
-      status:    '已提交',
-      amount:    amount,
-      remark:    '等待客服确认'
+    today = new Date
+    yesterday = new Date
+      today.getFullYear(), today.getMonth()+1, today.getDate()
+    Order.count
+      time: { $gte: yesterday, $lte: today}
+    , (error, count) ->
+      order  = Order
+        no:        orderNumber(count)
+        products:  req.session.cart,
+        userId:    req.session.user._id,
+        addressId: req.body.address,
+        status:    '已提交',
+        amount:    amount,
+        remark:    '等待客服确认'
     
-    req.session.cart = []
+      req.session.cart = []
     
-    order.save (error) ->
-      alipayUrl = [
-        "_input_charset=utf-8",
-        "notify_url=http://pujiabing.com/alipay/notify",
-        "out_trade_no=#{order.no}",
-        "partner=2088901029881660",
-        "payment_type=1",
-        "return_url=http://pujiabing.com/alipay/return",
-        "seller_email=13901926392@139.com",
-        "service=create_direct_pay_by_user",
-        "subject=濮家饼交易",
-        "total_fee=#{amount}"
-      ].join '&'
-      md5 = crypto.createHash 'md5'
-      md5.update alipayUrl + 'w0jlmd9r7rxaci558gzkdnjqhqj0vnk6', 'utf-8'
-      alipayUrl = "https://mapi.alipay.com/gateway.do?#{alipayUrl}&sign=#{md5.digest('hex')}&sign_type=MD5"
-      res.redirect alipayUrl
+      order.save (error) ->
+        alipayUrl = [
+          "_input_charset=utf-8",
+          "notify_url=http://pujiabing.com/alipay/notify",
+          "out_trade_no=#{order.no}",
+          "partner=2088901029881660",
+          "payment_type=1",
+          "return_url=http://pujiabing.com/alipay/return",
+          "seller_email=13901926392@139.com",
+          "service=create_direct_pay_by_user",
+          "subject=濮家饼交易",
+          "total_fee=#{amount}"
+        ].join '&'
+        md5 = crypto.createHash 'md5'
+        md5.update alipayUrl + 'w0jlmd9r7rxaci558gzkdnjqhqj0vnk6', 'utf-8'
+        alipayUrl = "https://mapi.alipay.com/gateway.do?#{alipayUrl}&sign=#{md5.digest('hex')}&sign_type=MD5"
+        res.redirect alipayUrl
   
   app.get '/cart/express-fee/:province', (req, res) ->
     # Calculate cart express fee
