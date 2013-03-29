@@ -79,20 +79,26 @@ module.exports = (app) ->
     cart = req.session.cart
     # Calculate express fees for all user addresses.
     provinces = _.map req.session.user.addresses, (address) -> 
-      address.province
+      address.province or ''
+
+    provinces = [] if not provinces
+
+    console.log 'provinces=', provinces
     
-    ExpressFee.find province: { $in: provinces }, (error, fees) ->
-      return res.render 'error.jade', { error: error } if error
-      weight = weightCart cart
-      calcFees = 
-        _.map fees, (fee) ->
-          province: fee.province
-          sfFee:    fee.calculateSFFee(weight)
-          otherFee: fee.calculateOthersFee(weight)
-      res.render 'cart_checkout.jade',
-        amount: amountCart(cart), 
-        fees:   calcFees,
-        weight: weight
+    ExpressFee.find
+      province: { $in: provinces },
+      (error, fees) ->
+        return res.render 'error.jade', error: error if error
+        weight = weightCart cart
+        calcFees = 
+          _.map fees, (fee) ->
+            province: fee.province
+            sfFee:    fee.calculateSFFee(weight)
+            otherFee: fee.calculateOthersFee(weight)
+        res.render 'cart_checkout.jade',
+          amount: amountCart(cart), 
+          fees:   calcFees,
+          weight: weight
 
   app.post '/cart/confirm-order', (req, res) ->
     amount = amountCart req.session.cart
