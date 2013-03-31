@@ -14,10 +14,11 @@ block content
         th 订单金额
         th 订单状态
         th 订单详情
+        th 操作
     tbody
       - each order in orders
         tr
-          td #{order._id}
+          td #{order.no}
           td 
             ul
               -each product in order.products
@@ -25,3 +26,6 @@ block content
           td #{order.amount}
           td #{order.status}
           td #{order.remark}
+          td
+            a(href="javascript:confirm('真的要删除么')") 删除
+            a(href="/member/orders/#{order._id}", style="margin-left: 5px") 订单详情

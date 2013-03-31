@@ -97,6 +97,13 @@ module.exports = (app) ->
       userId: req.session.user._id
     , (error, orders) ->
       res.render 'member_orders.jade', orders: orders
+  
+  app.get '/member/orders/:id', (req, res) ->
+    Order.findOne
+      _id: req.params.id
+    , (error, order) ->
+      return res.render 'error.jade', error: error if error
+      res.render 'member_order.jade', order: order
 
   app.get '/member/profile', (req, res) ->
     res.render 'member_profile.jade'
