@@ -15,3 +15,29 @@ sign=xxx
 https://mapi.alipay.com/gateway.do?_input_charset=utf-8&notify_url=http://pujiabing.com/alipay/notify&out_trade_no=PUJIA2013030312345&partner=2088901029881660&payment_type=1&return_url=http://pujiabing.com/alipay/return&seller_email=13901926392@139.com&service=create_direct_pay_by_user&subject=Trading&total_fee=0.1&sign=1e537445ac4414aae7879df415c011c4&sign_type=MD5
 
 http://pujiabing.com/return?buyer_email=13816426955&buyer_id=2088502901507555&exterface=create_direct_pay_by_user&is_success=T&notify_id=RqPnCoPT3K9%252Fvwbh3I73%252FeD6xorO8jb3TsGbS4OHhSt3jxBLGtQWI9Rjs5jmP9YhBAED&notify_time=2013-03-06+00%3A48%3A39&notify_type=trade_status_sync&out_trade_no=PUJIA2013030312345&payment_type=1&seller_email=13901926392%40139.com&seller_id=2088901029881660&subject=Trading&total_fee=0.10&trade_no=2013030621879555&trade_status=TRADE_SUCCESS&sign=9e15ded2eb97e4de91e40b3fb1fe1023&sign_type=MD5
+
+
+post notify
+ body: 
+   { discount: '0.00',
+     payment_type: '1',
+     subject: '濮家饼交易',
+     trade_no: '2013032053422055',
+     buyer_email: '13816426955',
+     gmt_create: '2013-03-20 23:43:12',
+     notify_type: 'trade_status_sync',
+     quantity: '1',
+     out_trade_no: 'PJB-2013320-3507',
+     seller_id: '2088901029881660',
+     notify_time: '2013-03-20 23:43:20',
+     trade_status: 'TRADE_SUCCESS',
+     is_total_fee_adjust: 'N',
+     total_fee: '0.10',
+     gmt_payment: '2013-03-20 23:43:20',
+     seller_email: '13901926392@139.com',
+     price: '0.10',
+     buyer_id: '2088502901507555',
+     notify_id: 'bae2aa36fba0033fab12946a4f89b90105',
+     use_coupon: 'N',
+     sign_type: 'MD5',
+     sign: '2199b93e88d9aefc697d08a7120ef1d9' },

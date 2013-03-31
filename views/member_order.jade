@@ -1,0 +1,18 @@
+extends member_index
+
+block content
+  h4 订单详情
+  hr
+  p
+    订单编号 #{order.no}
+  p
+    订单日期: #{order.time}
+  p
+    订单物品
+    ul
+      each product in order.products
+        li
+          #{product.product}
+          
+  p
+      

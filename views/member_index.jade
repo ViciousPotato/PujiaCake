@@ -21,6 +21,8 @@ block sidebar
           a(href="/member/address") 我的地址
         li
           a(href="/member/orders") 我的订单
+      p(style="margin-right: 25px;")
+        a(href="/member/logout")注销
   else
     style
       #login-form {
@@ -66,15 +68,16 @@ block sidebar
       div
       input.loginsubmit(type='submit', value='登录')
       div.loginextra
-        p 忘记密码？
-          a(href='/member/lostpass')点此
+        p 
+          a(href='/member/lostpass') 忘记密码？
+          a(href='/member/lostpass') 点击
           找回
       div.otherlogin
 
     hr
     #register-notice
       p 还不是会员？
-        a(href='/member/register')注册
+        a(href='/member/register')点击注册
 
 
 block content

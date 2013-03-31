@@ -10,8 +10,8 @@ module.exports = (app) ->
     res.render 'member_address_edit.jade', address: address
   
   app.post '/member/address/:id', (req, res) ->
-    # We can't use req.session.user because it's a simple dictionary.
-    # We have to use User methods to get object with methods.
+    # We can't use req.session.user for user because it's simple a dict.
+    # We have to use User methods to get user object with methods.
     User.findOne
       _id: req.session.user._id
       , (error, user) ->
@@ -28,4 +28,18 @@ module.exports = (app) ->
           return res.render 'error.jade', error: error if error
           # Update user in session
           req.session.user = user
-          return res.redirect "/member/address/#{req.params.id}/edit"
+          return res.redirect "/member/address\##{_.last(user.addresses)._id}"
+          
+  # Delete address
+  app.get '/member/address/:id/delete', (req, res) ->
+    address = _.filter req.session.user.addresses, (address) ->
+      address._id is req.params.id
+    address = _.first address
+    User.findOne
+      _id: req.session.user._id
+    , (error, user) ->
+      user.addresses.id(address._id).remove()
+      user.save (error, user) ->
+        req.session.user = user
+        return res.redirect '/member/address'
+  
