@@ -60,6 +60,16 @@ block content
       margin-top: 5px;
       margin-bottom: 5px;
     }
+
+    .checkout-item-content div {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .address-detail div {
+      margin-top: 5px;
+    }
+  
   form(action='/cart/confirm-order', method='post')
     .checkout-item
       .checkout-item-title
@@ -67,12 +77,16 @@ block content
       .checkout-item-content
         - each address in user.addresses
           .checkout-name
-            input.radio.address-radio(type="radio", name="address", value="#{address._id}")
+            input.radio.address-radio(
+              type="radio", 
+              name="address", 
+              value="#{address._id}",
+              id="#{address.province}")
             | #{address.name}
-          .checkout-detail
-            p #{address.province}, #{address.city}, #{address.address}，邮编:#{address.zipCode}
-            p 收货人#{address.name}
-            p 联系电话#{address.phone}
+          .checkout-detail.address-detail
+            div #{address.province}, #{address.city}, #{address.address}，邮编:#{address.zipCode}
+            div 收货人#{address.name}
+            div 联系电话 #{address.phone}
     
         a(href="/member/address") 送货信息管理
 
@@ -91,25 +105,27 @@ block content
       .checkout-item-title
         h5 费用清单
       .checkout-item-content
-        p 
+        div(style="padding-left: 0;") 
           | 商品费用 
           span.price ￥#{amount}
-        p 
+        div(style="padding-left: 0;")
           | 快递费用
           span#express-fee.price
-        p 总重#{weight/1000}kg
+        div(style="padding-left: 0")
+          | 总重
+          span.price #{weight/1000}kg
   
-    .checkout-item
+    .checkout-item(style="padding-top: 10px; padding-bottom: 10px;")
       .checkout-item-title
         h5 支付方式
       .checkout-item-content
-        p(style="margin: 30px") 支付宝
+        img(src="http://img3.douban.com/ark/pics/logo-alipay.png?v=2969123089")
 
-      input(type='submit', value='提交订单')
+    input.submit-button(type='submit', value='提交订单')
     
   script
     function updateExpressFee() {
-      var province = $('.address-radio[checked]').val();
+      var province = $('.address-radio[checked]').attr('id');
       var expressFee = $.grep(fees, function(f) {
         if (f.province == province) return true;
         return false;

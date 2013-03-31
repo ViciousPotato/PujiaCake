@@ -22,6 +22,7 @@ module.exports = (app) ->
   
   # Calculate total weight of cart
   weightCart = (cart) ->
+    debug 'Calculating weight for cart ', cart
     _.reduce cart, (sum, item) ->
       sum + item.quantity * item.product.weight
     , 0
@@ -56,7 +57,7 @@ module.exports = (app) ->
           id:       productid,
           product:  product
         
-      res.render 'cart.jade', { cart: req.session.cart }
+      res.render 'cart.jade', cart: req.session.cart
 
   # Reduce product quantity.
   app.get '/cart/remove/:productid', (req, res) ->

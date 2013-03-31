@@ -47,7 +47,8 @@ $(document).ready(function(){
         $.each(data, function(i,item) {
           // If it's a full image slide
           if (item.type == 'full') {
-            var htmlz = '<img src="';
+            var bg = 'url(' + item.image + '); background-position: 0, 0';
+            var htmlz = '';
           } else {
             // If it's a slide with some text on the left
             var htmlz = '<h3>' + item.name + '</h3><p class="intro">' +
