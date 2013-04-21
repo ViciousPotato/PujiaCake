@@ -163,7 +163,7 @@ ul.pages li{float:left;font-size:.9em;height:19px;list-style:none;margin:0 0 0 5
 #product-list{list-style:none;overflow:hidden;margin:0;}#product-list a{border:none;}
 #product-list li{float:left;height:300px;padding:0 25px 0 0;position:relative;margin:0 0 5px 0;width:177px;}#product-list li a:hover p{color:#54301a;}
 #product-list p.view{border-top:1px solid #e6e5e4;bottom:0;padding:10px 0 5px 0;position:absolute;text-align:left;width:187px;}#product-list p.view span{background:url(../../images/buttons.png) top left no-repeat;display:inline-block;height:24px;width:78px;}#product-list p.view span:hover{background-position:-78px 0;}
-#product-list h4{height:20px;font-size:1.2em;margin-top:2px;}
+#product-list h4{font-size:1.2em;margin-top:2px;}
 #extras{overflow:hidden;}#extras ol{margin:0;}#extras ol li{background:url(../../images/icons.png) 0 -70px no-repeat;border-bottom:1px solid #e6e5e4;color:#FFF;list-style:none;padding:8px 0 8px 7px;overflow:hidden;width:320px;}#extras ol li.last{border:none;}
 #extras ol li span{color:#54301a;display:block;float:right;width:300px;}
 #extras .cola{float:left;width:330px;}
