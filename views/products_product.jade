@@ -24,6 +24,9 @@ block content
       p.member-price
         | 会员价
         span ￥#{product.memberPrice}
+      p.unit
+        | 单位
+        span #{product.weight}g/#{product.unit}
       .buy
         p.view(style="position: relative")
           a(href='/cart/add/#{product._id}')

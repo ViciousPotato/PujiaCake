@@ -161,7 +161,7 @@ nav .b p{margin:8px 0;line-height:1.2;}
 ul.pages{height:19px;margin:0;position:absolute;right:0;top:30px;}ul.pages.bottom{bottom:40px;top:auto;}
 ul.pages li{float:left;font-size:.9em;height:19px;list-style:none;margin:0 0 0 5px;text-align:center;width:19px;}ul.pages li a{background:url(../../images/icons.png) -104px -22px no-repeat;color:#FFF;display:block;}ul.pages li a.active,ul.pages li a:hover{background-position:-104px 0;}
 #product-list{list-style:none;overflow:hidden;margin:0;}#product-list a{border:none;}
-#product-list li{float:left;height:300px;padding:0 25px 0 0;position:relative;margin:0 0 5px 0;width:177px;}#product-list li a:hover p{color:#54301a;}
+#product-list li{float:left;height:325px;padding:0 25px 0 0;position:relative;margin:0 0 5px 0;width:177px;}#product-list li a:hover p{color:#54301a;}
 #product-list p.view{border-top:1px solid #e6e5e4;bottom:0;padding:10px 0 5px 0;position:absolute;text-align:left;width:187px;}#product-list p.view span{background:url(../../images/buttons.png) top left no-repeat;display:inline-block;height:24px;width:78px;}#product-list p.view span:hover{background-position:-78px 0;}
 #product-list h4{font-size:1.2em;margin-top:2px;}
 #extras{overflow:hidden;}#extras ol{margin:0;}#extras ol li{background:url(../../images/icons.png) 0 -70px no-repeat;border-bottom:1px solid #e6e5e4;color:#FFF;list-style:none;padding:8px 0 8px 7px;overflow:hidden;width:320px;}#extras ol li.last{border:none;}
@@ -354,7 +354,11 @@ p.origin-price span {
 	margin-left: 10px;
 }
 
-p.origin-price, p.member-price {
+p.unit span {
+  margin-left: 10px;
+}
+
+p.origin-price, p.member-price, p.unit {
 	margin-top : 2px;
 	margin-bottom: 2px;
 }

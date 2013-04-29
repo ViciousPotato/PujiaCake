@@ -24,6 +24,9 @@ block content
           p.member-price
             | 会员价
             span ￥#{product.memberPrice}
+          p.unit
+            | 单位
+            span #{product.weight}g/#{product.unit}
           p.view
             a(href='/cart/add/#{product._id}')
               span.img 添加到购物车

@@ -57,7 +57,7 @@ $(document).ready(function(){
             var bg = 'url(' + item.image + ')';
           }
           add = '<div class="hilite-extra" style="background-image: ' + bg + 
-            ';display:none;">' + htmlz + '</div>';
+            ';display:none;"><a href="' + item.link + '" style="display: block; width: 950px; height: 350px;">' + htmlz + '</a></div>';
           // alert(add);
           $('div.wrapper.content.slides_container').prepend(
             add);
@@ -84,7 +84,7 @@ $(document).ready(function(){
           var ul = $('#scrollers ul');
           $.each(data, function(i, item) {
             var style = 'background-image: url(' + item.image + ')'; 
-            ul.append('<li style="' + style + '"><a href="' + item.link + '"></a></li>');
+            ul.append('<li style="' + style + '"><a href="' + item.link + '" style="display: block; width: 100%; height: 100%;"></a></li>');
           });
         	$('ul li:first-child').addClass('first');
         	$('ul li:last-child, ol li:last-child, .breadcrumbs:last, tr:last-child').addClass('last');
