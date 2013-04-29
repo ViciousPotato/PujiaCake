@@ -8,6 +8,25 @@ var provinces = [
   "青海省", "陕西省", "广西壮族自治区", "西藏自治区", 
   "宁夏回族自治区", "其它"
 ];
+
+var provinceFees = [
+  {
+    province: province,
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500        
+    }
+  },
+];
+
 provinces.forEach(function(province) {
     db.expressfees.insert({
         province: province,
