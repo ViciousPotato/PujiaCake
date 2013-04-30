@@ -150,6 +150,7 @@ block content
             { property: 'onGroupon',   label: '团购中',         sortable: true },
             { property: 'unit',        label: '规格',           sortable: true },
             { property: 'weight',      label: '每规格重量（克）', sortable: true },
+            { property: 'image',       label:'图片',            sortable: true },
             { property: 'detail',      label: '修改详细描述',    sortable: true },
             { property: 'delete',      label: '操作',           sortable: false },
           ],
@@ -191,6 +192,13 @@ block content
             title : "输入产品名称"
           });
         });
+
+      $(".product-image").each(function(index, element) {
+        $(element).editable({
+          type : "text",
+          title : "修改产品图片"
+        });
+      });
 
         $(".product-description").each(function(index, element) {
           $(element).editable({

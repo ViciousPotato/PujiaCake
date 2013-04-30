@@ -13,7 +13,9 @@ block content
     }
   .header
     h4 #{product.name}
-  hr
+    p.breadcrumbs
+      a(href='/products') 返回产品列表
+
   #product-list
     .row-image
       img.product-image(src='#{product.image}', alt='#{product.name}')
