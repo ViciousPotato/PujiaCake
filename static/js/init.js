@@ -32,7 +32,8 @@ $(document).ready(function(){
 	$('#sidenav li a.active').parent('li').prev().children('a').css({'background':'none'});
 	
 	var ollicount=1;
-	$('#main ol li').each(function() { $(this).prepend(ollicount); ollicount++; });
+  // Temporarily disable this feature.
+	// $('#main ol li').each(function() { $(this).prepend(ollicount); ollicount++; });
 
 	adjustFooter();
 
