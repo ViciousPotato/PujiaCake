@@ -102,8 +102,9 @@ block content
         p
           | 本次购买可获得积分
           span.member-price #{sumprice-memberSumPrice}
-      p 
-        a(href="/cart/checkout") 去结算
+      - if (user)
+        p 
+          a(href="/cart/checkout") 去结算
       p
         a(href="/products") 继续购物
     - else

@@ -11,7 +11,7 @@ var provinces = [
 
 var provinceFees = [
   {
-    province: province,
+    province: "上海市",
     sfFee: {
         basicFee:        5.0,
         basicWeight:     500,
@@ -19,102 +19,479 @@ var provinceFees = [
         extraWeightUnit: 500
     },
     othersFee: {
+        basicFee:        4.0,
+        basicWeight:     1000,
+        extraFeeUnit:    1.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "江苏省",
+    sfFee: {
         basicFee:        5.0,
         basicWeight:     500,
         extraFeeUnit:    2.0,
-        extraWeightUnit: 500        
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        4.0,
+        basicWeight:     1000,
+        extraFeeUnit:    1.0,
+        extraWeightUnit: 1000        
     }
   },
+  {
+    province: "浙江省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        4.0,
+        basicWeight:     1000,
+        extraFeeUnit:    1.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "安徽省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        4.0,
+        basicWeight:     1000,
+        extraFeeUnit:    1.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "新疆维吾尔自治区",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        13.0,
+        basicWeight:     1000,
+        extraFeeUnit:    9.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "西藏自治区",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        13.0,
+        basicWeight:     1000,
+        extraFeeUnit:    9.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "青海省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        13.0,
+        basicWeight:     1000,
+        extraFeeUnit:    9.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "甘肃省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        13.0,
+        basicWeight:     1000,
+        extraFeeUnit:    9.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "云南省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        13.0,
+        basicWeight:     1000,
+        extraFeeUnit:    9.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "贵州省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        13.0,
+        basicWeight:     1000,
+        extraFeeUnit:    9.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "北京市",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        6.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "广东省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        6.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "天津市",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        6.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "河北省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        6.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "山东省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        6.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "河南省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        6.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "重庆市",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "山西省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "台湾省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        100.0,
+        basicWeight:     1000,
+        extraFeeUnit:    100.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "辽宁省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "吉林省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "黑龙江省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "福建省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "江西省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "湖北省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "湖南省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "四川省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "海南省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "陕西省",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "广西壮族自治区",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "宁夏回族自治区",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  },
+  {
+    province: "其它",
+    sfFee: {
+        basicFee:        5.0,
+        basicWeight:     500,
+        extraFeeUnit:    2.0,
+        extraWeightUnit: 500
+    },
+    othersFee: {
+        basicFee:        7.0,
+        basicWeight:     1000,
+        extraFeeUnit:    5.0,
+        extraWeightUnit: 1000        
+    }
+  }
 ];
 
-provinces.forEach(function(province) {
-    db.expressfees.insert({
-        province: province,
-        sfFee: {
-            basicFee:        5.0,
-            basicWeight:     500,
-            extraFeeUnit:    2.0,
-            extraWeightUnit: 500
-        },
-        othersFee: {
-            basicFee:        5.0,
-            basicWeight:     500,
-            extraFeeUnit:    2.0,
-            extraWeightUnit: 500        
-        }
-    });    
+provinceFees.forEach(function(provinceFee) {
+    db.expressfees.insert(provinceFee);
 });
-
-/*
-db.products.remove()
-db.products.insert(
-	{
-		name : '圆边巧克力蛋糕', description : '圆边的蛋糕', 
-		price : 200, memberPrice : 150,
-		onDiscount : true, onGroupon : false, 
-		image : '/images/Round-sponge-chocolate-smarties-cake-175.jpg',
-		kind : 'cakes',
-		unit: '250g'
-	}
-);
-db.products.insert(
-	{
-		name : '花心蛋糕', description : '测试数据', 
-		price : 100, memberPrice : 80,
-		onDiscount : true, onGroupon : true, 
-		image : '/images/Square-Sponge-Floral-Cake-171.jpg',
-		kind : 'cakes',
-		unit: '250g'
-	}
-);
-db.products.insert(
-	{
-		name : '坚果蛋糕', description : '坚果蛋糕，纯天然材料', 
-		price : 12.5, memberPrice : 10,
-		onDiscount : true, onGroupon : true, 
-		image : '/images/Square-Sponge-Fruit-Nuts-Cake-172.jpg',
-		kind : 'cakes',
-		unit: '250g'
-	}
-);
-db.products.insert(
-	{
-		name : '褔桃', description : '褔桃，老人儿童皆适宜', 
-		price : 11, memberPrice : 8,
-		onDiscount : false, onGroupon : false, 
-		image : '/images/Square-Sponge-Fruit-Nuts-Cake-172.jpg',
-		kind : 'cakes',
-		unit: '250g'
-	}
-);
-
-
-db.users.remove();
-db.users.insert(
-	{
-		email: '123@126.com',
-		password: '123',
-		addresses: [{
-			name: 'Martin',
-			address: '上海市浦东新区张江高科',
-			phone: '138164267865',
-			zipCode: '201203',
-			deliveryMethod: 'sf'
-		}]
-	}
-);
-
-db.users.insert(
-	{
-		email : 'hurry@hotmail.com',
-		password : '123',
-		addresses: [{
-			name : '李毅',
-			address : '安徽省蚌埠市',
-			phone : '1672312313211',
-			zipCode : '201203',
-			deliveryMethod: 'express'
-		}]
-	}
-);
-*/

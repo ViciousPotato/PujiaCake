@@ -41,4 +41,14 @@ module.exports = (app) ->
       image: '/uploads/' + path.basename req.files.scroller_image.path
     scroller.save (error) ->
       res.redirect '/admin/scroller'
+
+  app.post '/admin/scroller/update', utils.auth, (req,res) ->
+    setval = {}
+    key = req.param("name")
+    val = req.param("value")
+    setval[key] = val
+    
+    Scroller.update {_id : req.param('pk')}, {$set : setval}, (error) ->
+      return render 'error.jade', error: error if error
+      return res.send('ok')
   

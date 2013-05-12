@@ -81,10 +81,19 @@ block sidebar
 
 
 block content
+  style
+    p { text-indent: 2em; }
+    .boldtitle { font-weight: bold; text-indent: none; }
+  
   div(style="height: 400px;")
-    h3 为什么要成为会员
-    p 当您成功购买商品后，系统会根据您购买的金额与商品属性，自动分配积分到您的账户中。对于获得积分的顾客，
-    | 可以使用积分进行兑换商品、抵扣价格、升级会员等，具体获得与使用办法，参考“帮助”下《积分获得与使用》。
-    h3 会员特权
-    p 商品打折服务
-    p 最新的产品通告
+    h3 成为会员
+    p 当您成功购买商品后，系统会根据您购买的金额与商品属性，自动分配积分到您的账户中。
+    p 对于获得积分的顾客，可以使用积分进行兑换商品、抵扣价格、升级会员等。
+    p 具体获得与使用办法，参考
+      a(href="/guide") “购物指南”
+      | 下
+      b 《积分获得与使用》。
+    h3(style="margin-top: 20px; margin-bottom: 10px;") 会员特权
+    ul
+      li 商品打折服务
+      li 最新的产品通告

@@ -126,7 +126,7 @@ body#home header .wrapper{}
 #scrollers a.next{background-position:-903px 0;left:903px;width:46px;}
 #scrollers ul{background:url(../../images/scroller.png) -45px 0 no-repeat;height:170px;list-style:none;margin:0 0 0 45px;padding:8px 0 0 0;overflow:hidden;width:858px;}
 #scrollers div{height:135px;}
-#scrollers li{float:left;height:135px;overflow:hidden;text-align:center;width:143px;}/*#scrollers li a{background:url(../../images/scroller-items.jpg) 0 -135px no-repeat;display:block;font-size:1.3em;height:100%;padding:105px 0 0 0;}*/#scrollers li a.celebration:hover{background-position:0 0;}
+#scrollers li{float:left;height:135px;overflow:hidden;text-align:center;width:135px;background-repeat: none;}/*#scrollers li a{background:url(../../images/scroller-items.jpg) 0 -135px no-repeat;display:block;font-size:1.3em;height:100%;padding:105px 0 0 0;}*/#scrollers li a.celebration:hover{background-position:0 0;}
 #scrollers li a.childrens{background-position:-144px -135px;}#scrollers li a.childrens:hover{background-position:-144px 0;}
 #scrollers li a.dessert{background-position:-576px -135px;}#scrollers li a.dessert:hover{background-position:-576px 0;}
 #scrollers li a.savouries{background-position:-432px -135px;}#scrollers li a.savouries:hover{background-position:-432px 0;}
