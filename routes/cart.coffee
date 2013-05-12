@@ -96,13 +96,29 @@ module.exports = (app) ->
             province: fee.province
             sfFee:    fee.calculateSFFee(weight)
             otherFee: fee.calculateOthersFee(weight)
+        
+        console.log 'req.session.fees=', req.session.fees
+        req.session.fees = calcFees
+        req.session.amount = amountCart(cart)
+
         res.render 'cart_checkout.jade',
           amount: amountCart(cart), 
           fees:   calcFees,
           weight: weight
 
   app.post '/cart/confirm-order', (req, res) ->
-    amount = amountCart req.session.cart
+    amount = req.session.amount
+    expressFees = req.session['fees'][0]
+    # Add up express fees
+    express = req.body.express
+
+    console.log 'express is:', express, 'expressFees:', expressFees, 'amount:', amount
+    
+    if express is 'others'
+      amount = amount + expressFees.otherFee
+    else
+      amount = amount + expressFees.sfFee
+
     today = new Date
     yesterday = new Date(
       today.getFullYear(), today.getMonth(), today.getDate())
