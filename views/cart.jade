@@ -79,21 +79,21 @@ block content
                   a.add-button(href="/cart/add/#{item.product._id}") +
                 td 
                   - if (user)
-                    span.origin-price ￥#{currentPrice}
-                    span.member-price ￥#{currentMemberPrice}
+                    span.origin-price ￥#{utils.fixedPrice(currentPrice)}
+                    span.member-price ￥#{utils.fixedPrice(currentMemberPrice)}
                   - else
-                    | #{currentPrice}
+                    | #{utils.fixedPrice(currentPrice)}
                 td
                   a(href='/cart/delete/#{item.id}') 删除
               - itemno++
       p 
         | 总计 
         - if (user)
-          span.origin-price ￥#{sumprice}
-          span.member-price ￥#{memberSumPrice}
+          span.origin-price ￥#{utils.fixedPrice(sumprice)}
+          span.member-price ￥#{utils.fixedPrice(memberSumPrice)}
         - else
           span.sumprice
-            ￥#{sumprice}
+            ￥#{utils.fixedPrice(sumprice)}
       - if (user)
         p
           | 本次购买共节约

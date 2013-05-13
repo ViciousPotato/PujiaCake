@@ -63,4 +63,7 @@ module.exports.joinDic = (dic) ->
   orderedKeyVals = _.map orderedKeys, (k) ->
     "#{k}=#{dic[k]}"
   orderedKeyVals.join '&'
+
+module.exports.fixedPrice = (price) ->
+  Math.round(price * 100) / 100
   

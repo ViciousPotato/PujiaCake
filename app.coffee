@@ -5,6 +5,8 @@ _        = require 'underscore'
 mongoose = require 'mongoose'
 path     = require 'path'
 
+utils    = require './lib/utils'
+
 mongoose.connect 'localhost', 'test'
 
 app = express()
@@ -30,6 +32,7 @@ app.use (req, res, next) ->
   # Use in views
   app.locals.user = req.session.user
   app.locals.pretty = true
+  app.locals.utils = utils
   next()
 
 # Index

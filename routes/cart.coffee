@@ -6,6 +6,7 @@ Counter    = require '../models/counter'
 _          = require 'underscore'
 debug      = require('debug')('routes/cart')
 crypto     = require 'crypto'
+utils      = require '../lib/utils'
 
 module.exports = (app) ->
   # Cart
@@ -18,7 +19,7 @@ module.exports = (app) ->
     console.log cart
     amount_reducer = (sum, product) ->
        product.quantity * product.product.memberPrice + sum
-    return _.reduce cart, amount_reducer, 0
+    utils.fixedPrice(_.reduce cart, amount_reducer, 0)
   
   # Calculate total weight of cart
   weightCart = (cart) ->
