@@ -87,7 +87,8 @@ block content
                                   "快递：" + address.deliveryMethod;
                 val = description;
               } else if (prop == 'print') {
-                val = "<a href='/admin/sheet/" + row['_id'] + "' download='" + row['_id'] + ".png'>出货单</a>";
+                val = "<p><a href='/admin/sheet/" + row['_id'] + "' download='" + row['_id'] + ".png'>出货单</a></p>";
+                val += "<p><a href='/admin/express-sheet/" + row['_id'] + "' download='" + row['_id'] + ".png'>快递单</a></p>";
               }
               return '<a href="#" class="order-' + prop + '" data-pk="' + row._id + 
                      '" data-url="/admin/update_order" data-name="' + prop + '">' + 

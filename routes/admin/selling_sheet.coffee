@@ -5,6 +5,34 @@ utils = require '../../lib/utils'
 Order = require '../../models/order'
 
 module.exports = (app) ->
+  app.get '/admin/sheets', utils.auth, (req, res) ->
+    res.render 'admin_sheets.jade'
+
+  app.get '/admin/express-sheet/:orderid', (req, res) ->
+    Order.getOrderFullInfo req.params.orderid, (error, order) ->
+      return res.render 'error.jade', error: error if error
+
+      res.set 'Content-Type', 'image/png'
+      sheet_template = 'static/images/sheet_sf.png'
+      font = 'static/fonts/simsun.ttc'
+      
+      # SF sheet size is: 22cm x 14cm
+      # sheet_sf.png size is 440x280 px
+      address = "#{order.address.province}, #{order.address.city}, #{order.address.address}"
+      phone = order.address.phone
+      
+      sheet = gm(sheet_template)
+        .font(font)
+        .pointSize(11)
+        .drawText(80*2, 84*2, "#{order.address.name}")
+        .drawText(25*2, 91*2, address)
+
+      _.each phone, (c, idx) ->
+        sheet.drawText(45*2+idx*5*2, 105*2, c)
+        
+      sheet.stream 'png', (err, stdout, stderr) ->
+        stdout.pipe res
+          
   app.get '/admin/sheet/:orderid', utils.auth, (req, res) ->
     Order.getOrderFullInfo req.params.orderid, (error, order) ->
       return res.render 'error.jade', error: error if error
