@@ -97,9 +97,9 @@ module.exports = (app) ->
             province: fee.province
             sfFee:    fee.calculateSFFee(weight)
             otherFee: fee.calculateOthersFee(weight)
-        
-        console.log 'req.session.fees=', req.session.fees
+
         req.session.fees = calcFees
+        console.log 'req.session.fees=', req.session.fees
         req.session.amount = amountCart(cart)
 
         res.render 'cart_checkout.jade',

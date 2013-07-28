@@ -1,4 +1,7 @@
+_        = require 'underscore'
 mongoose = require 'mongoose'
+
+User     = require './user'
 
 orderSchema = new mongoose.Schema
   no:        String, # order number
@@ -15,8 +18,22 @@ orderSchema.statics.markOrderAsPaid = (order_no, callback) ->
     no: order_no
   , $set: {status: 'paid'} 
   , (error, order) ->
-    callback error, null if error
+    return callback error, null if error
     callback null, order
+
+# TODO: refactor routes/admin/order.coffee to share the same common function
+orderSchema.statics.getOrderFullInfo = (order_no, callback) ->
+  Order.findOne
+    no: order_no
+  , (error, order) ->
+    return callback error, null if error
+    User.findOne
+      _id: order.userId
+    , (error, user) ->
+      return callback error, null if error
+
+      address = user.addresses.id order.addressId
+      callback null, _.extend order, address: address
     
 Order = mongoose.model 'Order', orderSchema
 module.exports = Order

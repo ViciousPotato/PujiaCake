@@ -66,4 +66,17 @@ module.exports.joinDic = (dic) ->
 
 module.exports.fixedPrice = (price) ->
   Math.round(price * 100) / 100
+
+module.exports.translateKind = (kind) ->
+  table =
+    'candies': '糖果'
+    'cakes': '糕点'
+    'chocalates': '巧克力'
+
+  return table[kind]
+
+module.exports.translateDate = (date) ->
+  #[year, month, day] = date.split('T')[0].split('-')
+  "#{date.getFullYear()}年#{date.getMonth()+1}月#{date.getDate()}日"
+
   

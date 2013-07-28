@@ -57,7 +57,8 @@ block content
             { property : 'amount',   label : '订单金额', sortable : true },
             { property : 'time',     label : '时间',    sortable : true },
             { property : 'address',  label : '收货信息', sortable : true },
-            { property : 'remark',   label : '备注',     sortable: true }
+            { property : 'remark',   label : '备注',     sortable: true },
+            { property : 'print',    label : '打印',     sortable: false }
           ],
           data : data,
           delay : 200
@@ -78,13 +79,15 @@ block content
                 description += "</ul>";
                 val = description;
               } else if (prop == 'address') {
-                var address = row[prop];
+                var address = row[prop] || {};
                 var description = "收件人：" + address.name + "<br />" +
                                   "邮编：" + address.zipCode + "<br />" +
                                   "电话：" + address.phone + "<br />" +
                                   "地址：" + address.province + address.city + address.address + "<br />" +
                                   "快递：" + address.deliveryMethod;
                 val = description;
+              } else if (prop == 'print') {
+                val = "<a href='/admin/sheet/" + row['_id'] + "' download='" + row['_id'] + ".png'>出货单</a>";
               }
               return '<a href="#" class="order-' + prop + '" data-pk="' + row._id + 
                      '" data-url="/admin/update_order" data-name="' + prop + '">' + 

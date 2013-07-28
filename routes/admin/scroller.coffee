@@ -1,6 +1,6 @@
 path     = require 'path'
 Scroller = require '../../models/scroller'
-utils = require '../../lib/utils'
+utils    = require '../../lib/utils'
 
 module.exports = (app) ->
   # Scroller

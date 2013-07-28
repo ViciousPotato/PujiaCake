@@ -20,7 +20,7 @@ module.exports = (app) ->
           collect.push
             products: order.products
             status:   order.status
-            _id:      order._id
+            _id:      order.no
             amount:   order.amount
             address:  address
             time:     order.time
