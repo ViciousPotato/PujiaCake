@@ -3,7 +3,7 @@ Activity = require '../../models/activity'
 utils = require '../../lib/utils'
 
 module.exports = (app) ->
-  app.get '/admin/', utils.auth, (req, res) ->
+  app.get /^\/admin\/?$/, utils.auth, (req, res) ->
     Activity.find {}, (error, activities) ->
       res.render 'admin_index.jade', activities: activities
   
