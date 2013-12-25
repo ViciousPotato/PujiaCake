@@ -72,6 +72,14 @@ block content
                   placeholder="请输入产品简介，详细信息待添加后完成")
 
             .control-group
+              label.control-label(for='product_buyLink') 购买链接
+              .controls
+                input(type='text', 
+                  name='product_buyLink', id='product_buyLink',
+                  required, data-validation-required-message='请输入购买链接',
+                  placeholder="http://laidalin.tmall.com/shop/view_shop.htm?user_number_id=1730425670")
+
+            .control-group
               label.control-label(for='product_price') 产品价格
               .controls
                 input(type='number', 
@@ -142,17 +150,18 @@ block content
     $.get('/admin/list_product', function(data) {
         var dataSource = new StaticDataSource({
           columns : [
-            { property: 'name',        label: '商品名称',       sortable: true}, 
-            { property: 'description', label: '描述',           sortable: true }, 
-            { property: 'price',       label: '价格',           sortable: true },
-            { property: "memberPrice", label: "会员价",         sortable: true },
-            { property: 'onDiscount',  label: '打折中',         sortable: true },
-            { property: 'onGroupon',   label: '团购中',         sortable: true },
-            { property: 'unit',        label: '规格',           sortable: true },
-            { property: 'weight',      label: '每规格重量（克）', sortable: true },
-            { property: 'image',       label:'图片',            sortable: true },
-            { property: 'detail',      label: '修改详细描述',    sortable: true },
-            { property: 'delete',      label: '操作',           sortable: false },
+            { property: 'name',        label: '商品名称',         sortable: true  }, 
+            { property: 'description', label: '描述',             sortable: true  },
+            { property: 'buyLink',     label: '购买链接',         sortable: true  },
+            { property: 'price',       label: '价格',             sortable: true  },
+            { property: "memberPrice", label: "会员价",           sortable: true  },
+            { property: 'onDiscount',  label: '打折中',           sortable: true  },
+            { property: 'onGroupon',   label: '团购中',           sortable: true  },
+            { property: 'unit',        label: '规格',             sortable: true  },
+            { property: 'weight',      label: '每规格重量（克）', sortable: true  },
+            { property: 'image',       label:'图片',              sortable: true  },
+            { property: 'detail',      label: '修改详细描述',     sortable: true  },
+            { property: 'delete',      label: '操作',             sortable: false },
           ],
           data : data,
           delay : 200
@@ -248,6 +257,13 @@ block content
           $(element).editable({
             type: 'number',
             title: '产品每规格重量'
+          });
+        });
+
+        $('.product-buyLink').each(function(index, element) {
+          $(element).editable({
+            type: 'text',
+            title: '产品购买链接'
           });
         });
     });

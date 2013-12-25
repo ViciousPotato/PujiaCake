@@ -13,6 +13,7 @@ productSchema = new mongoose.Schema
   unit:        String,
   weight:      { type: Number, default: 0 }, # weight in g
   detail:      String
+  buyLink:     String
 
 Product = mongoose.model 'Product', productSchema
 module.exports = Product

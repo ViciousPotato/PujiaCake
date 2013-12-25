@@ -31,7 +31,7 @@ block content
         span #{product.weight}g/#{product.unit}
       .buy
         p.view(style="position: relative")
-          a(href='/cart/add/#{product._id}')
+          a(href='#{product.buyLink}')
             span.img 添加到购物车
   hr
   .detail

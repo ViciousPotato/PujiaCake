@@ -16,6 +16,7 @@ module.exports = (app) ->
       onGroupon:   if req.param('product_on_groupon') then true else false
       image:       '/uploads/' + path.basename req.files.product_image.path
       weight:      req.param('product_weight')
+      buyLink:     req.param('product_buyLink')
 
     product.save (error) ->
       res.redirect '/admin/product'
